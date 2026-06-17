@@ -40,6 +40,10 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-poppins: var(--font-poppins);
+  --color-brand: var(--color-brand);
+  --color-brand-dim: var(--color-brand-dim);
+  --color-brand-glow: var(--color-brand-glow);
+  --color-brand-glow-strong: var(--color-brand-glow-strong);
 }
 
 /* ─── Reset & Base ─────────────────────────────────────────────── */
@@ -68,6 +72,15 @@ body {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-brand-dim); }
+
+/* Hide scrollbar utility */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
 /* ─── Focus ring ────────────────────────────────────────────────── */
 :focus-visible {

@@ -9,10 +9,12 @@ import BuildYourStackCTA from "./BuildYourStackCTA";
 import NavLogo from "./NavLogo";
 import MobileMenu from "./MobileMenu";
 
+import { useCartCount } from "@/store/useCartStore";
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(3);
+  const cartCount = useCartCount();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);

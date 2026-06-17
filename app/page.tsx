@@ -1,13 +1,11 @@
-import HeroSection from "@/component/hero/HeroSection";
-import CraftedLayerSection from "@/component/story/CraftedLayerSection";
-import PhilosophySection from "@/component/philosophy/PhilosophySection";
+import Hero from "@/component/hero/Hero";
+import MenuSection from "@/component/menu/MenuSection";
 
 export default function Page() {
   return (
     <main>
-      <HeroSection />
-      <CraftedLayerSection />
-      <PhilosophySection />
+      <Hero />
+      <MenuSection />
     </main>
   );
 }
