@@ -1,11 +1,13 @@
-const page = () => {
-  return (
-    <div>
-      <h1 className="font-poppins text-5xl text-rose-600">
-        Hello world Stackd
-      </h1>
-    </div>
-  );
-};
+import HeroSection from "@/component/hero/HeroSection";
+import CraftedLayerSection from "@/component/story/CraftedLayerSection";
+import PhilosophySection from "@/component/philosophy/PhilosophySection";
 
-export default page;
+export default function Page() {
+  return (
+    <main>
+      <HeroSection />
+      <CraftedLayerSection />
+      <PhilosophySection />
+    </main>
+  );
+}
