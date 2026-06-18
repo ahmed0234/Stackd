@@ -29,11 +29,11 @@ const STACKS: Record<string, StackData> = {
   og: {
     id: "og",
     name: "OG Stack",
-    sloganPre: "Every Bite Hits ",
+    sloganPre: "Every Layer Hits ",
     sloganHighlight: "Different.",
     sloganPost: "",
     subtitle:
-      "Our signature double smash burger. Crispy lacy edges, juicy centers, melted cheddar, and secret stack sauce on toasted artisan brioche.",
+      "Our signature masterwork. Dual custom-blend smashed patties, caramelized edges, melted cheddar, and secret Stack Sauce on toasted artisan brioche.",
     burgerImage: "/Stacks/Og stack.png",
     sideImage: "/Fries/Classic loaded.png",
     color: "#F5C400",
@@ -44,11 +44,11 @@ const STACKS: Record<string, StackData> = {
   fire: {
     id: "fire",
     name: "Fire Stack",
-    sloganPre: "Stacked High. Grilled ",
-    sloganHighlight: "Hot.",
+    sloganPre: "Ignite Your Ultimate ",
+    sloganHighlight: "Craving.",
     sloganPost: "",
     subtitle:
-      "For the heat seekers. Double smash beef patties, melted pepper jack cheese, charred jalapeños, and our legendary house-made spicy fire sauce.",
+      "Crafted for culinary thrill-seekers. Dual custom-blend smashed patties, melted pepper jack, fire-charred jalapeños, and our legendary signature fire nectar.",
     burgerImage: "/Stacks/Fire stack.png",
     sideImage: "/Fries/Fire loaded.png",
     color: "#EF4444",
@@ -59,11 +59,11 @@ const STACKS: Record<string, StackData> = {
   melt: {
     id: "melt",
     name: "Melt Stack",
-    sloganPre: "Drowned in Cheesy ",
-    sloganHighlight: "Indulgence.",
+    sloganPre: "Drowned in Liquid ",
+    sloganHighlight: "Luxury.",
     sloganPost: "",
     subtitle:
-      "Pure liquid gold. Double hand-pressed patties smothered in hot melted cheddar cheese sauce, grilled sweet onions, and special stack spread.",
+      "A decadent gold standard. Dual hand-pressed patties blanketed in premium hot melted cheddar cheese sauce, sweet caramelized onions, and signature Stack Spread.",
     burgerImage: "/Stacks/Melt stack.png",
     sideImage: "/Fries/Full stackd fries.png",
     color: "#F97316",
@@ -74,11 +74,11 @@ const STACKS: Record<string, StackData> = {
   smoke: {
     id: "smoke",
     name: "Smoke Stack",
-    sloganPre: "Burgers Worth Breaking ",
-    sloganHighlight: "Diets For.",
+    sloganPre: "Pure. Bold. ",
+    sloganHighlight: "Uncompromising.",
     sloganPost: "",
     subtitle:
-      "Smoky, crispy, and savory. Double patties stacked with smoked bacon, crispy golden onion rings, cheddar, and sweet hickory BBQ sauce.",
+      "The peak of smoky luxury. Dual flame-seared patties stacked with thick hardwood smoked bacon, crispy golden onion rings, sharp cheddar, and rich sweet hickory BBQ glaze.",
     burgerImage: "/Stacks/Smoke stack.png",
     sideImage: "/Fries/Smoke loaded.png",
     color: "#D97706",
@@ -162,6 +162,14 @@ export default function Hero() {
     btnMouseY.set(0);
     setBtnHovered(false);
   }, [btnMouseX, btnMouseY]);
+
+  const handleStartOrder = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const element = document.getElementById("menu");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
 
   return (
     <section
@@ -264,7 +272,7 @@ export default function Hero() {
                 style={{ backgroundColor: activeData.color }}
               />
               <span className="text-[11px] font-semibold tracking-wider uppercase text-white/60 font-poppins">
-                Stacked High. Grilled Right.
+                Where Cravings Get STACKD
               </span>
             </motion.div>
 
@@ -320,7 +328,8 @@ export default function Hero() {
               {/* Primary CTA (Magnetic, Shimmering) */}
               <motion.a
                 ref={primaryButtonRef}
-                href="/build"
+                href="#menu"
+                onClick={handleStartOrder}
                 onMouseEnter={() => setBtnHovered(true)}
                 onMouseMove={handleBtnMouseMove}
                 onMouseLeave={handleBtnMouseLeave}
@@ -368,10 +377,10 @@ export default function Hero() {
 
               {/* Secondary CTA */}
               <motion.a
-                href="/menu"
+                href="/build"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="relative inline-flex items-center justify-center gap-2 px-8 py-4 w-full sm:w-auto rounded-2xl font-poppins font-bold text-sm uppercase tracking-wide text-white border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] backdrop-blur-md transition-all duration-300 overflow-hidden group"
+                className="relative inline-flex items-center justify-center gap-2.5 px-8 py-4 w-full sm:w-auto rounded-2xl font-poppins font-bold text-sm uppercase tracking-wide text-white border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] backdrop-blur-md transition-all duration-300 overflow-hidden group"
               >
                 {/* Subtle border trail effect */}
                 <span
@@ -385,22 +394,18 @@ export default function Hero() {
                     maskComposite: "exclude",
                   }}
                 />
-                <span>Explore Menu</span>
                 <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 16 16"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
                   fill="none"
-                  className="opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                  className="opacity-60 group-hover:opacity-100 transition-all duration-300 group-hover:translate-y-[-2px]"
                 >
-                  <path
-                    d="M4 12L12 4M12 4H6M12 4V10"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                  <path d="M12 2L2 7l10 5 10-5-10-5z" fill="currentColor" opacity="0.9" />
+                  <path d="M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M2 17l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
+                <span>Build Your Own Stack</span>
               </motion.a>
             </motion.div>
 
@@ -411,41 +416,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.45 }}
               className="mt-12 w-full pt-8 border-t border-white/[0.06] flex flex-wrap gap-y-6 gap-x-8 items-center justify-center lg:justify-start"
             >
-              {/* Trust Signal 1: Avatars */}
-              <div className="flex items-center gap-3 group cursor-default">
-                <div className="flex -space-x-2.5">
-                  {["A", "S", "M", "T"].map((char, idx) => (
-                    <motion.div
-                      key={idx}
-                      whileHover={{ y: -4, scale: 1.05 }}
-                      className="w-8 h-8 rounded-full border-2 border-dark-primary flex items-center justify-center text-[10px] font-black text-white"
-                      style={{
-                        background:
-                          idx === 0
-                            ? "#F5C400"
-                            : idx === 1
-                              ? "#EF4444"
-                              : idx === 2
-                                ? "#F97316"
-                                : "#222222",
-                        zIndex: 4 - idx,
-                      }}
-                    >
-                      {char}
-                    </motion.div>
-                  ))}
-                </div>
-                <div className="text-left font-sans">
-                  <div className="text-xs font-bold text-white leading-tight group-hover:text-brand transition-colors duration-300">
-                    10k+ Happy Stackers
-                  </div>
-                  <div className="text-[10px] text-white/50">
-                    Served fresh daily
-                  </div>
-                </div>
-              </div>
-
-              {/* Trust Signal 2: Ingredients */}
+              {/* Trust Signal 1: Crafted Layer By Layer */}
               <div className="flex items-center gap-2.5 group cursor-default">
                 <div className="w-8 h-8 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-white/70 group-hover:text-brand group-hover:border-brand/30 transition-all duration-300">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -467,15 +438,15 @@ export default function Hero() {
                 </div>
                 <div className="text-left font-sans">
                   <div className="text-xs font-bold text-white leading-tight">
-                    100% Angus Beef
+                    Crafted Layer By Layer
                   </div>
                   <div className="text-[10px] text-white/50">
-                    Hand-pressed, never frozen
+                    Signature STACKD Recipe
                   </div>
                 </div>
               </div>
 
-              {/* Trust Signal 3: Service */}
+              {/* Trust Signal 2: Service */}
               <div className="flex items-center gap-2.5 group cursor-default">
                 <div className="w-8 h-8 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-white/70 group-hover:text-brand group-hover:border-brand/30 transition-all duration-300">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">

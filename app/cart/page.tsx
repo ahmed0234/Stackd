@@ -154,7 +154,52 @@ export default function CartPage() {
                               Size: {item.size}
                             </span>
                           )}
-                          <p className="text-xs text-white/40 font-sans mt-2">
+
+                          {/* Custom Stack Ingredients Details */}
+                          {item.customization && (
+                            <div className="mt-3 bg-white/[0.01] border border-white/[0.03] p-3 rounded-xl flex flex-col gap-2.5 text-[11px] text-white/50 font-sans text-left">
+                              <div>
+                                <strong className="text-white/70 font-poppins text-[9px] uppercase tracking-wider block mb-0.5">Artisan Bun</strong>
+                                <span>{item.customization.bun}</span>
+                              </div>
+                              <div>
+                                <strong className="text-white/70 font-poppins text-[9px] uppercase tracking-wider block mb-0.5">Protein Filling</strong>
+                                <span>{item.customization.protein}</span>
+                              </div>
+                              {item.customization.cheese && (
+                                <div>
+                                  <strong className="text-white/70 font-poppins text-[9px] uppercase tracking-wider block mb-0.5">Melty Cheese</strong>
+                                  <span>{item.customization.cheese}</span>
+                                </div>
+                              )}
+                              {item.customization.veggies.length > 0 && (
+                                <div>
+                                  <strong className="text-white/70 font-poppins text-[9px] uppercase tracking-wider block mb-1">Fresh Veggies</strong>
+                                  <div className="flex flex-wrap gap-1">
+                                    {item.customization.veggies.map((veg) => (
+                                      <span key={veg} className="bg-white/5 px-2 py-0.5 rounded text-[9px] uppercase text-white/60 font-bold border border-white/5">
+                                        {veg}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                              {item.customization.sauces.length > 0 && (
+                                <div>
+                                  <strong className="text-white/70 font-poppins text-[9px] uppercase tracking-wider block mb-1">Signature Sauces</strong>
+                                  <div className="flex flex-wrap gap-1">
+                                    {item.customization.sauces.map((sauce) => (
+                                      <span key={sauce} className="bg-brand/10 px-2 py-0.5 rounded text-[9px] uppercase text-brand font-bold border border-brand/5">
+                                        {sauce}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          <p className="text-xs text-white/40 font-sans mt-3">
                             Unit Price: Rs {item.price.toLocaleString()}
                           </p>
                         </div>

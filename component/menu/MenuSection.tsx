@@ -9,6 +9,7 @@ import Link from "next/link";
 export interface SizeOption {
   label: string;
   price: number;
+  image?: string;
 }
 
 export interface Product {
@@ -31,7 +32,7 @@ export const PRODUCTS: Product[] = [
     category: "stacks",
     image: "/Stacks/Og stack.png",
     description: "Double smashed Angus beef, cheddar cheese, crispy pickles, secret stack sauce, toasted brioche bun.",
-    price: 1299,
+    price: 449,
     tags: ["Popular"],
     accentColor: "#F5C400",
   },
@@ -41,7 +42,7 @@ export const PRODUCTS: Product[] = [
     category: "stacks",
     image: "/Stacks/Fire stack.png",
     description: "Double smash beef, melted pepper jack, grilled jalapeños, spicy hot house fire sauce.",
-    price: 1399,
+    price: 499,
     tags: ["Spicy"],
     accentColor: "#EF4444",
   },
@@ -51,7 +52,7 @@ export const PRODUCTS: Product[] = [
     category: "stacks",
     image: "/Stacks/Melt stack.png",
     description: "Double hand-pressed patties smothered in hot cheddar sauce, grilled caramelized onions.",
-    price: 1349,
+    price: 549,
     tags: ["Cheese Bomb"],
     accentColor: "#F97316",
   },
@@ -61,7 +62,7 @@ export const PRODUCTS: Product[] = [
     category: "stacks",
     image: "/Stacks/Smoke stack.png",
     description: "Double patties, crispy smoked bacon, golden thick-cut onion rings, hickory BBQ sauce.",
-    price: 1449,
+    price: 499,
     tags: ["Popular"],
     accentColor: "#D97706",
   },
@@ -71,7 +72,7 @@ export const PRODUCTS: Product[] = [
     category: "stacks",
     image: "/Stacks/Make your own.png",
     description: "Your stack, your rules. Choose number of patties, fresh toppings, cheeses, and custom signature sauces.",
-    price: 1199,
+    price: 650,
     tags: ["Customizable"],
     accentColor: "#A855F7",
   },
@@ -83,7 +84,7 @@ export const PRODUCTS: Product[] = [
     category: "wraps",
     image: "/Wraps/Classic wrap.png",
     description: "Crispy hand-breaded chicken tenders, shredded crisp lettuce, cheddar, and classic mayo in a toasted flour tortilla.",
-    price: 999,
+    price: 420,
     accentColor: "#22C55E",
   },
   {
@@ -92,7 +93,7 @@ export const PRODUCTS: Product[] = [
     category: "wraps",
     image: "/Wraps/Loaded wrap.png",
     description: "Double smash beef, crispy loaded fries inside, melted cheddar, ranch sauce in a warm toasted wrap.",
-    price: 1099,
+    price: 520,
     tags: ["Must Try"],
     accentColor: "#3B82F6",
   },
@@ -102,7 +103,7 @@ export const PRODUCTS: Product[] = [
     category: "wraps",
     image: "/Wraps/Spicy wraps.png",
     description: "Spicy chicken tenders, charred jalapeño slices, house fire sauce, pepper jack cheese.",
-    price: 1049,
+    price: 450,
     tags: ["Spicy"],
     accentColor: "#EF4444",
   },
@@ -114,7 +115,7 @@ export const PRODUCTS: Product[] = [
     category: "fries",
     image: "/Fries/Classic loaded.png",
     description: "Golden skin-on fries topped with cheese sauce, crispy smoked bacon bits, and signature stack sauce.",
-    price: 699,
+    price: 299,
     tags: ["Bestseller"],
     accentColor: "#F5C400",
   },
@@ -124,7 +125,7 @@ export const PRODUCTS: Product[] = [
     category: "fries",
     image: "/Fries/Fire loaded.png",
     description: "Golden fries dusted in hot spices, hot cheese sauce, fresh jalapeños, fire sauce drizzle.",
-    price: 749,
+    price: 349,
     tags: ["Spicy"],
     accentColor: "#EF4444",
   },
@@ -134,7 +135,7 @@ export const PRODUCTS: Product[] = [
     category: "fries",
     image: "/Fries/Full stackd fries.png",
     description: "A loaded meal of crispy fries, chopped smash beef patties, melted cheese, pickles, stack sauce.",
-    price: 899,
+    price: 449,
     tags: ["Meal Size"],
     accentColor: "#F97316",
   },
@@ -144,7 +145,7 @@ export const PRODUCTS: Product[] = [
     category: "fries",
     image: "/Fries/Smoke loaded.png",
     description: "Crispy fries loaded with slow-cooked pulled pork, smoked bacon, cheddar, BBQ drizzle.",
-    price: 799,
+    price: 349,
     accentColor: "#D97706",
   },
 
@@ -153,80 +154,65 @@ export const PRODUCTS: Product[] = [
     id: "pepsi",
     name: "Pepsi",
     category: "drinks",
-    image: "/Drinks/Pepsi.png",
+    image: "/Drinks/Pepsi/500ml.png",
     description: "Chilled classic Pepsi, the perfect accompaniment to your heavy stack.",
-    price: 199,
+    price: 120,
     accentColor: "#004B87",
     sizes: [
-      { label: "500ml", price: 120 },
-      { label: "1L", price: 180 },
-      { label: "1.5L", price: 220 },
-      { label: "2.25L", price: 280 },
-      { label: "2.5L", price: 310 }
+      { label: "500ml", price: 120, image: "/Drinks/Pepsi/500ml.png" },
+      { label: "1.5L", price: 180, image: "/Drinks/Pepsi/1.5.png" }
     ],
   },
   {
     id: "7up",
     name: "7UP",
     category: "drinks",
-    image: "/Drinks/7up.png",
+    image: "/Drinks/7up/500.png",
     description: "Crisp, clean, refreshing lemon-lime carbonated soda.",
-    price: 199,
+    price: 120,
     accentColor: "#009639",
     sizes: [
-      { label: "500ml", price: 120 },
-      { label: "1L", price: 180 },
-      { label: "1.5L", price: 220 },
-      { label: "2.25L", price: 280 },
-      { label: "2.5L", price: 310 }
-    ],
-  },
-  {
-    id: "mirinda",
-    name: "Mirinda",
-    category: "drinks",
-    image: "/Drinks/Mirinda.png",
-    description: "Bright and bubbly orange soda full of sweet citrus flavor.",
-    price: 199,
-    accentColor: "#F47A20",
-    sizes: [
-      { label: "500ml", price: 120 },
-      { label: "1L", price: 180 },
-      { label: "1.5L", price: 220 },
-      { label: "2.25L", price: 280 },
-      { label: "2.5L", price: 310 }
+      { label: "500ml", price: 120, image: "/Drinks/7up/500.png" },
+      { label: "1.5L", price: 180, image: "/Drinks/7up/1.5.png" }
     ],
   },
   {
     id: "mountain-dew",
     name: "Mountain Dew",
     category: "drinks",
-    image: "/Drinks/MountainDew.png",
+    image: "/Drinks/Dew/500.png",
     description: "Energizing citrus blast to keep your stack building sessions alive.",
-    price: 199,
+    price: 120,
     accentColor: "#00A859",
     sizes: [
-      { label: "500ml", price: 120 },
-      { label: "1L", price: 180 },
-      { label: "1.5L", price: 220 },
-      { label: "2.25L", price: 280 },
-      { label: "2.5L", price: 310 }
+      { label: "500ml", price: 120, image: "/Drinks/Dew/500.png" },
+      { label: "1.5L", price: 180, image: "/Drinks/Dew/1.5.png" }
+    ],
+  },
+  {
+    id: "sprite",
+    name: "Sprite",
+    category: "drinks",
+    image: "/Drinks/Sprite/500.png",
+    description: "Crisp, clean, refreshing lemon-lime carbonated soda with a splash of bubble.",
+    price: 120,
+    accentColor: "#00B2E2",
+    sizes: [
+      { label: "500ml", price: 120, image: "/Drinks/Sprite/500.png" },
+      { label: "1.5L", price: 180, image: "/Drinks/Sprite/1.5.png" }
     ],
   },
   {
     id: "mineral-water",
     name: "Mineral Water",
     category: "drinks",
-    image: "/Drinks/MineralWater.png",
+    image: "/Drinks/Water/500.png",
     description: "Pure, clean, refreshing spring water to wash down your stacks.",
-    price: 149,
+    price: 90,
     accentColor: "#00B2E2",
     sizes: [
-      { label: "500ml", price: 60 },
-      { label: "1L", price: 90 },
-      { label: "1.5L", price: 120 },
-      { label: "2.25L", price: 160 },
-      { label: "2.5L", price: 180 }
+      { label: "500ml", price: 90, image: "/Drinks/Water/500.png" },
+      { label: "1.5L", price: 150, image: "/Drinks/Water/1.5.png" }
     ],
   },
 ];
@@ -481,6 +467,11 @@ export default function MenuSection() {
                               <h4 className="font-poppins font-bold text-xs text-white leading-tight line-clamp-1">
                                 {displayName}
                               </h4>
+                              {item.customization && (
+                                <p className="text-[8px] text-brand font-sans mt-0.5 line-clamp-1">
+                                  {item.customization.bun} | {item.customization.protein}
+                                </p>
+                              )}
                               <p className="text-[9px] text-white/40 font-sans mt-0.5">
                                 Rs {item.price.toLocaleString()} &times; {item.quantity}
                               </p>
@@ -612,6 +603,10 @@ function ProductCard({ product, cart, onAdd, onRemove, variants }: ProductCardPr
     ? (product.sizes.find((s) => s.label === activeSize)?.price ?? product.price)
     : product.price;
 
+  const currentImage = activeSize && product.sizes
+    ? (product.sizes.find((s) => s.label === activeSize)?.image ?? product.image)
+    : product.image;
+
   return (
     <motion.div
       variants={variants}
@@ -656,7 +651,7 @@ function ProductCard({ product, cart, onAdd, onRemove, variants }: ProductCardPr
           className="relative w-[85%] h-[85%]"
         >
           <Image
-            src={product.image}
+            src={currentImage}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"

@@ -12,6 +12,13 @@ export interface CartItem {
   size?: string;
   quantity: number;
   accentColor: string;
+  customization?: {
+    bun: string;
+    protein: string;
+    veggies: string[];
+    cheese: string | null;
+    sauces: string[];
+  };
 }
 
 interface CartState {
@@ -20,6 +27,7 @@ interface CartState {
   removeItem: (id: string, size?: string) => void;
   removeItemCompletely: (key: string) => void;
   clearCart: () => void;
+  addCustomItem: (item: CartItem) => void;
 }
 
 export const useCartStore = create<CartState>()(
@@ -43,16 +51,22 @@ export const useCartStore = create<CartState>()(
           if (!product) return state;
 
           let price = product.price;
+          let image = product.image;
           if (size && product.sizes) {
             const sizeOpt = product.sizes.find((s) => s.label === size);
-            if (sizeOpt) price = sizeOpt.price;
+            if (sizeOpt) {
+              price = sizeOpt.price;
+              if (sizeOpt.image) {
+                image = sizeOpt.image;
+              }
+            }
           }
 
           const newItem: CartItem = {
             id,
             key,
             name: product.name,
-            image: product.image,
+            image,
             price,
             size,
             quantity: 1,
@@ -95,6 +109,28 @@ export const useCartStore = create<CartState>()(
         });
       },
       clearCart: () => set({ items: {} }),
+      addCustomItem: (customItem) => {
+        set((state) => {
+          const existing = state.items[customItem.key];
+          if (existing) {
+            return {
+              items: {
+                ...state.items,
+                [customItem.key]: {
+                  ...existing,
+                  quantity: existing.quantity + customItem.quantity,
+                },
+              },
+            };
+          }
+          return {
+            items: {
+              ...state.items,
+              [customItem.key]: customItem,
+            },
+          };
+        });
+      },
     }),
     {
       name: "stackd-cart-storage",

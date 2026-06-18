@@ -86,6 +86,18 @@ export default function CheckoutPage() {
     items.forEach((item) => {
       const variantSuffix = item.size ? ` (${item.size})` : "";
       msg += `${item.quantity}x ${item.name}${variantSuffix}\n`;
+      if (item.customization) {
+        msg += `   • Bun: ${item.customization.bun}\n`;
+        msg += `   • Protein: ${item.customization.protein}\n`;
+        msg += `   • Cheese: ${item.customization.cheese || "None"}\n`;
+        if (item.customization.veggies.length > 0) {
+          msg += `   • Veggies: ${item.customization.veggies.join(", ")}\n`;
+        }
+        if (item.customization.sauces.length > 0) {
+          msg += `   • Sauces: ${item.customization.sauces.join(", ")}\n`;
+        }
+        msg += `\n`;
+      }
     });
     
     msg += `\n${border}\n\nTOTAL\n\n₨ ${totalPrice.toLocaleString()}\n\n${border}\n\nPlease confirm my order.\n${border}`;
@@ -334,7 +346,15 @@ export default function CheckoutPage() {
                         <h4 className="font-poppins font-bold text-xs text-white leading-tight line-clamp-1">
                           {displayName}
                         </h4>
-                        <p className="text-[10px] text-brand font-sans mt-0.5">
+                        {item.customization && (
+                          <div className="text-[9px] text-white/45 font-sans mt-1 space-y-0.5">
+                            <div>Bun: {item.customization.bun} | Protein: {item.customization.protein}</div>
+                            {item.customization.cheese && <div>Cheese: {item.customization.cheese}</div>}
+                            {item.customization.veggies.length > 0 && <div className="line-clamp-1">Veggies: {item.customization.veggies.join(", ")}</div>}
+                            {item.customization.sauces.length > 0 && <div className="line-clamp-1">Sauces: {item.customization.sauces.join(", ")}</div>}
+                          </div>
+                        )}
+                        <p className="text-[10px] text-brand font-sans mt-1">
                           Rs {item.price.toLocaleString()}
                         </p>
                       </div>
