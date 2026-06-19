@@ -6,14 +6,15 @@ import { BunOption, ProteinOption, VeggieOption, CheeseOption, SauceOption } fro
 
 interface ReviewStepProps {
   bun: BunOption | null;
-  protein: ProteinOption | null;
+  selectedProteins: ProteinOption[];
   veggies: VeggieOption[];
   cheese: CheeseOption | null;
   sauces: SauceOption[];
+  selectedToast: "Toasted" | "Not Toasted" | null;
   price: number;
 }
 
-export default function ReviewStep({ bun, protein, veggies, cheese, sauces, price }: ReviewStepProps) {
+export default function ReviewStep({ bun, selectedProteins, veggies, cheese, sauces, selectedToast, price }: ReviewStepProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
@@ -52,20 +53,38 @@ export default function ReviewStep({ bun, protein, veggies, cheese, sauces, pric
         {/* Protein Summary */}
         <div className="flex items-start gap-4 py-2 border-b border-white/[0.02] last:border-0">
           <div className="w-12 h-12 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-center text-white/50 text-base font-black relative overflow-hidden select-none">
-            {protein ? (
-              <Image src={protein.image} alt="" fill style={{ objectFit: "contain" }} className="p-1.5" />
+            {selectedProteins.length > 0 ? (
+              <Image
+                src={selectedProteins[0].image}
+                alt=""
+                fill
+                style={{ objectFit: "contain" }}
+                className="p-1.5"
+              />
             ) : (
               "🍖"
             )}
           </div>
-          <div>
+          <div className="flex-grow">
             <span className="text-[10px] font-poppins font-bold uppercase text-white/30 tracking-widest block mb-0.5">
-              PROTEIN FILLING
+              PROTEIN FILLINGS
             </span>
-            <span className="font-poppins font-bold text-white uppercase text-xs">
-              {protein?.name || "No Protein Selected"}
-            </span>
-            <p className="text-[10px] text-white/45 mt-0.5">{protein?.description}</p>
+            {selectedProteins.length > 0 ? (
+              <div className="space-y-3 mt-1">
+                {selectedProteins.map((protein) => (
+                  <div key={protein.id} className="flex flex-col border-b border-white/[0.02] last:border-0 pb-2 last:pb-0">
+                    <span className="font-poppins font-bold text-white uppercase text-xs">
+                      {protein.name}
+                    </span>
+                    <p className="text-[10px] text-white/45 mt-0.5 leading-relaxed">{protein.description}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <span className="font-poppins font-bold text-white/45 uppercase text-xs">
+                No Protein Selected
+              </span>
+            )}
           </div>
         </div>
 
@@ -87,6 +106,26 @@ export default function ReviewStep({ bun, protein, veggies, cheese, sauces, pric
             </span>
             <p className="text-[10px] text-white/45 mt-0.5">
               {cheese ? cheese.description : "Light and crisp without cheese toppings."}
+            </p>
+          </div>
+        </div>
+
+        {/* Toast Summary */}
+        <div className="flex items-start gap-4 py-2 border-b border-white/[0.02] last:border-0">
+          <div className="w-12 h-12 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-center text-white/50 text-base font-black relative overflow-hidden select-none">
+            {selectedToast === "Toasted" ? "🔥" : "✨"}
+          </div>
+          <div>
+            <span className="text-[10px] font-poppins font-bold uppercase text-white/30 tracking-widest block mb-0.5">
+              TOAST PREFERENCE
+            </span>
+            <span className="font-poppins font-bold text-white uppercase text-xs">
+              {selectedToast === "Toasted" ? "🔥 Toasted" : selectedToast === "Not Toasted" ? "✨ Not Toasted" : "Not Selected"}
+            </span>
+            <p className="text-[10px] text-white/45 mt-0.5">
+              {selectedToast === "Toasted"
+                ? "Crispy, warm, and lightly toasted for extra texture."
+                : "Soft, fresh, and served exactly as prepared."}
             </p>
           </div>
         </div>

@@ -8,17 +8,18 @@ import { useCartStore } from "@/store/useCartStore";
 // Configurator Components
 import { BunOption, ProteinOption, VeggieOption, CheeseOption, SauceOption } from "@/component/build/ingredients";
 import BuildSummaryCard from "@/component/build/BuildSummaryCard";
-import { BunSelector, ProteinSelector, VeggieSelector, CheeseSelector, SauceSelector } from "@/component/build/StepSelectors";
+import { BunSelector, ProteinSelector, VeggieSelector, CheeseSelector, SauceSelector, ToastSelector } from "@/component/build/StepSelectors";
 import ReviewStep from "@/component/build/ReviewStep";
 import UpsellDrawer from "@/component/build/UpsellDrawer";
 
 const STEPS = [
-  { num: 1, title: "Artisan Bun", desc: "Select base" },
+  { num: 1, title: "Bread", desc: "Select base" },
   { num: 2, title: "Protein Filling", desc: "Choose patty" },
   { num: 3, title: "Fresh Veggies", desc: "Add crunch" },
   { num: 4, title: "Melty Cheese", desc: "Select cheese" },
   { num: 5, title: "Signature Sauces", desc: "Flavor kick" },
-  { num: 6, title: "Final Review", desc: "Review stack" },
+  { num: 6, title: "Toast Preference", desc: "Choose toast" },
+  { num: 7, title: "Final Review", desc: "Review stack" },
 ];
 
 const FIXED_PRICE = 650; // Rs. 650 PKR
@@ -29,10 +30,11 @@ export default function BuildPage() {
 
   // Selected Ingredients State
   const [selectedBun, setSelectedBun] = useState<BunOption | null>(null);
-  const [selectedProtein, setSelectedProtein] = useState<ProteinOption | null>(null);
+  const [selectedProteins, setSelectedProteins] = useState<ProteinOption[]>([]);
   const [selectedVeggies, setSelectedVeggies] = useState<VeggieOption[]>([]);
   const [selectedCheese, setSelectedCheese] = useState<CheeseOption | null>(null);
   const [selectedSauces, setSelectedSauces] = useState<SauceOption[]>([]);
+  const [selectedToast, setSelectedToast] = useState<"Toasted" | "Not Toasted" | null>(null);
 
   // Cart & Drawer States
   const addCustomItem = useCartStore((state) => state.addCustomItem);
@@ -56,9 +58,10 @@ export default function BuildPage() {
 
   // Next / Prev Navigation
   const handleNext = () => {
-    // Validation: step 1 requires bun, step 2 requires protein
+    // Validation: step 1 requires bun, step 2 requires protein, step 6 requires toast
     if (currentStep === 1 && !selectedBun) return;
-    if (currentStep === 2 && !selectedProtein) return;
+    if (currentStep === 2 && selectedProteins.length === 0) return;
+    if (currentStep === 6 && !selectedToast) return;
 
     if (currentStep < STEPS.length) {
       setCurrentStep((prev) => prev + 1);
@@ -69,6 +72,14 @@ export default function BuildPage() {
     if (currentStep > 1) {
       setCurrentStep((prev) => prev - 1);
     }
+  };
+
+  const handleProteinToggle = (protein: ProteinOption) => {
+    setSelectedProteins((prev) =>
+      prev.some((p) => p.id === protein.id)
+        ? prev.filter((p) => p.id !== protein.id)
+        : [...prev, protein]
+    );
   };
 
   // Ingredient Toggles
@@ -90,12 +101,15 @@ export default function BuildPage() {
 
   // Add Custom Stack to Zustand Cart
   const handleCompleteStack = () => {
-    if (!selectedBun || !selectedProtein) return;
+    if (!selectedBun || selectedProteins.length === 0 || !selectedToast) return;
 
     // Calculate unique naming & keys to prevent collisions
     const customCount = Object.values(cartItems).filter((item) => item.id === "byo-stack").length + 1;
     const sizeName = `Custom Stack #${customCount}`;
     const timestampKey = `byo-stack::${Date.now()}`; // Unique timestamp for key separation
+
+    // Formatted protein string: e.g., "Smashed Beef Strips, Flame Grilled Chicken"
+    const proteinName = selectedProteins.map((p) => p.name).join(", ");
 
     const customCartItem = {
       id: "byo-stack",
@@ -108,10 +122,11 @@ export default function BuildPage() {
       accentColor: "#A855F7", // config purple theme accent
       customization: {
         bun: selectedBun.name,
-        protein: selectedProtein.name,
+        protein: proteinName,
         veggies: selectedVeggies.map((v) => v.name),
         cheese: selectedCheese ? selectedCheese.name : null,
         sauces: selectedSauces.map((s) => s.name),
+        toast: selectedToast,
       },
     };
 
@@ -125,7 +140,8 @@ export default function BuildPage() {
   // Form step validation
   const isNextDisabled = () => {
     if (currentStep === 1 && !selectedBun) return true;
-    if (currentStep === 2 && !selectedProtein) return true;
+    if (currentStep === 2 && selectedProteins.length === 0) return true;
+    if (currentStep === 6 && !selectedToast) return true;
     return false;
   };
 
@@ -165,7 +181,7 @@ export default function BuildPage() {
               Build Your Own <span className="text-brand">STACKD</span>
             </h1>
             <p className="text-white/60 text-sm sm:text-base font-sans max-w-2xl leading-relaxed">
-              Craft your perfect stack layer by layer. Choose your artisan bun base, premium grilled proteins, fresh crunchy toppings, and signature drizzles to build an experience uniquely yours.
+              Craft your perfect stack layer by layer. Choose your bread base, premium grilled proteins, fresh crunchy toppings, and signature drizzles to build an experience uniquely yours.
             </p>
           </div>
 
@@ -213,7 +229,8 @@ export default function BuildPage() {
                     onClick={() => {
                       // Quick validation leap
                       if (step.num > 1 && !selectedBun) return;
-                      if (step.num > 2 && !selectedProtein) return;
+                      if (step.num > 2 && selectedProteins.length === 0) return;
+                      if (step.num > 6 && !selectedToast) return;
                       setCurrentStep(step.num);
                     }}
                     className={`flex flex-col items-start text-left cursor-pointer group ${
@@ -297,7 +314,7 @@ export default function BuildPage() {
                     <BunSelector selectedBun={selectedBun} onSelect={setSelectedBun} />
                   )}
                   {currentStep === 2 && (
-                    <ProteinSelector selectedProtein={selectedProtein} onSelect={setSelectedProtein} />
+                    <ProteinSelector selectedProteins={selectedProteins} onToggle={handleProteinToggle} />
                   )}
                   {currentStep === 3 && (
                     <VeggieSelector selectedVeggies={selectedVeggies} onToggle={handleVeggieToggle} />
@@ -309,12 +326,16 @@ export default function BuildPage() {
                     <SauceSelector selectedSauces={selectedSauces} onToggle={handleSauceToggle} />
                   )}
                   {currentStep === 6 && (
+                    <ToastSelector selectedToast={selectedToast} onSelect={setSelectedToast} />
+                  )}
+                  {currentStep === 7 && (
                     <ReviewStep
                       bun={selectedBun}
-                      protein={selectedProtein}
+                      selectedProteins={selectedProteins}
                       veggies={selectedVeggies}
                       cheese={selectedCheese}
                       sauces={selectedSauces}
+                      selectedToast={selectedToast}
                       price={FIXED_PRICE}
                     />
                   )}
@@ -361,10 +382,11 @@ export default function BuildPage() {
           <div className="hidden lg:block lg:col-span-5 lg:sticky lg:top-28">
             <BuildSummaryCard
               selectedBun={selectedBun}
-              selectedProtein={selectedProtein}
+              selectedProteins={selectedProteins}
               selectedVeggies={selectedVeggies}
               selectedCheese={selectedCheese}
               selectedSauces={selectedSauces}
+              selectedToast={selectedToast}
               currentStep={currentStep}
               fixedPrice={FIXED_PRICE}
             />
@@ -377,10 +399,11 @@ export default function BuildPage() {
         {/* Collapsible Mobile summary drawer */}
         <BuildSummaryCard
           selectedBun={selectedBun}
-          selectedProtein={selectedProtein}
+          selectedProteins={selectedProteins}
           selectedVeggies={selectedVeggies}
           selectedCheese={selectedCheese}
           selectedSauces={selectedSauces}
+          selectedToast={selectedToast}
           currentStep={currentStep}
           fixedPrice={FIXED_PRICE}
         />
@@ -426,10 +449,11 @@ export default function BuildPage() {
         onClose={() => setIsUpsellOpen(false)}
         customization={{
           bun: selectedBun?.name || "",
-          protein: selectedProtein?.name || "",
+          protein: selectedProteins.map((p) => p.name).join(", "),
           veggies: selectedVeggies.map((v) => v.name),
           cheese: selectedCheese ? selectedCheese.name : null,
           sauces: selectedSauces.map((s) => s.name),
+          toast: selectedToast,
         }}
         price={FIXED_PRICE}
       />

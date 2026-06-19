@@ -166,6 +166,12 @@ export default function CartPage() {
                                 <strong className="text-white/70 font-poppins text-[9px] uppercase tracking-wider block mb-0.5">Protein Filling</strong>
                                 <span>{item.customization.protein}</span>
                               </div>
+                              {item.customization.toast && (
+                                <div>
+                                  <strong className="text-white/70 font-poppins text-[9px] uppercase tracking-wider block mb-0.5">Toast Preference</strong>
+                                  <span>{item.customization.toast === "Toasted" ? "🔥 Toasted" : "✨ Not Toasted"}</span>
+                                </div>
+                              )}
                               {item.customization.cheese && (
                                 <div>
                                   <strong className="text-white/70 font-poppins text-[9px] uppercase tracking-wider block mb-0.5">Melty Cheese</strong>

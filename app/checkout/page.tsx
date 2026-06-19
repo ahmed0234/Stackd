@@ -89,6 +89,9 @@ export default function CheckoutPage() {
       if (item.customization) {
         msg += `   • Bun: ${item.customization.bun}\n`;
         msg += `   • Protein: ${item.customization.protein}\n`;
+        if (item.customization.toast) {
+          msg += `   • Toast: ${item.customization.toast}\n`;
+        }
         msg += `   • Cheese: ${item.customization.cheese || "None"}\n`;
         if (item.customization.veggies.length > 0) {
           msg += `   • Veggies: ${item.customization.veggies.join(", ")}\n`;
@@ -348,7 +351,7 @@ export default function CheckoutPage() {
                         </h4>
                         {item.customization && (
                           <div className="text-[9px] text-white/45 font-sans mt-1 space-y-0.5">
-                            <div>Bun: {item.customization.bun} | Protein: {item.customization.protein}</div>
+                            <div>Bun: {item.customization.bun} | Protein: {item.customization.protein}{item.customization.toast ? ` | Toast: ${item.customization.toast}` : ""}</div>
                             {item.customization.cheese && <div>Cheese: {item.customization.cheese}</div>}
                             {item.customization.veggies.length > 0 && <div className="line-clamp-1">Veggies: {item.customization.veggies.join(", ")}</div>}
                             {item.customization.sauces.length > 0 && <div className="line-clamp-1">Sauces: {item.customization.sauces.join(", ")}</div>}

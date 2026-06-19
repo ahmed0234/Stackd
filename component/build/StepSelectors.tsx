@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import {
   BUNS,
@@ -105,15 +105,15 @@ export function BunSelector({ selectedBun, onSelect }: BunSelectorProps) {
    Step 2: Protein Selector
    ─────────────────────────────────────────────────────────────────────────── */
 interface ProteinSelectorProps {
-  selectedProtein: ProteinOption | null;
-  onSelect: (protein: ProteinOption) => void;
+  selectedProteins: ProteinOption[];
+  onToggle: (protein: ProteinOption) => void;
 }
 
-export function ProteinSelector({ selectedProtein, onSelect }: ProteinSelectorProps) {
+export function ProteinSelector({ selectedProteins, onToggle }: ProteinSelectorProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
       {PROTEINS.map((protein) => {
-        const isSelected = selectedProtein?.id === protein.id;
+        const isSelected = selectedProteins.some((p) => p.id === protein.id);
 
         return (
           <motion.div
@@ -123,13 +123,22 @@ export function ProteinSelector({ selectedProtein, onSelect }: ProteinSelectorPr
             animate="animate"
             whileHover="hover"
             whileTap="tap"
-            onClick={() => onSelect(protein)}
+            onClick={() => onToggle(protein)}
             className={`cursor-pointer p-4 rounded-2xl border bg-white/[0.01] backdrop-blur-md flex gap-4 items-center text-left transition-all duration-300 relative overflow-hidden group select-none ${
               isSelected
                 ? "border-brand shadow-[0_0_24px_rgba(245,196,0,0.15)] bg-brand/[0.02]"
                 : "border-white/[0.06] hover:border-white/20 hover:bg-white/[0.03]"
             }`}
           >
+            {/* Checkbox badge */}
+            <div className={`absolute top-3 right-3 w-4.5 h-4.5 rounded-md border flex items-center justify-center transition-all duration-300 ${
+              isSelected 
+                ? "bg-brand border-brand text-[#0a0a0a]" 
+                : "border-white/20 bg-white/[0.02]"
+            }`}>
+              {isSelected && <span className="text-[10px] font-black leading-none">✓</span>}
+            </div>
+
             {/* Visual Container */}
             <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 flex items-center justify-center bg-white/[0.02] border border-white/[0.05] rounded-xl overflow-hidden shadow-inner group-hover:bg-white/[0.04] transition-colors">
               <div className="relative w-[92%] h-[92%] filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.25)] group-hover:scale-108 transition-transform duration-300">
@@ -144,10 +153,9 @@ export function ProteinSelector({ selectedProtein, onSelect }: ProteinSelectorPr
             </div>
 
             {/* Typography Details */}
-            <div className="flex-grow min-w-0">
+            <div className="flex-grow min-w-0 pr-6">
               <h3 className="font-poppins font-black text-sm uppercase text-white tracking-wide leading-tight flex items-center gap-2">
                 {protein.name}
-                {isSelected && <span className="text-brand text-xs">✓</span>}
               </h3>
               <p className="text-[11px] text-white/50 leading-relaxed font-sans mt-2 line-clamp-2">
                 {protein.description}
@@ -383,6 +391,133 @@ export function SauceSelector({ selectedSauces, onToggle }: SauceSelectorProps) 
           </motion.div>
         );
       })}
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Step 6: Toast Preference Selector (NEW)
+   ─────────────────────────────────────────────────────────────────────────── */
+interface ToastSelectorProps {
+  selectedToast: "Toasted" | "Not Toasted" | null;
+  onSelect: (toast: "Toasted" | "Not Toasted") => void;
+}
+
+export function ToastSelector({ selectedToast, onSelect }: ToastSelectorProps) {
+  return (
+    <div className="flex flex-col items-center w-full max-w-2xl mx-auto py-4 select-none">
+      {/* Centered Heading */}
+      <h3 className="font-poppins font-black text-2xl sm:text-3xl text-white uppercase text-center mb-2 tracking-wide">
+        How Would You Like Your Stack?
+      </h3>
+      <p className="text-white/50 text-xs sm:text-sm text-center mb-8 font-sans max-w-md leading-relaxed">
+        Choose your final customization finish. Warm toasted crunch or soft fresh preparation.
+      </p>
+
+      {/* Option Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full mt-2">
+        {/* 1. Toasted Option */}
+        <motion.div
+          variants={cardVariants}
+          initial="initial"
+          animate="animate"
+          whileHover="hover"
+          whileTap="tap"
+          onClick={() => onSelect("Toasted")}
+          className={`cursor-pointer p-6 sm:p-8 rounded-3xl border bg-white/[0.01] backdrop-blur-xl flex flex-col items-center text-center transition-all duration-300 relative overflow-hidden group min-h-[220px] justify-center ${
+            selectedToast === "Toasted"
+              ? "border-brand shadow-[0_0_32px_rgba(245,196,0,0.2)] bg-brand/[0.03]"
+              : "border-white/[0.06] hover:border-white/20 hover:bg-white/[0.03]"
+          }`}
+        >
+          {/* Animated Glow Accent */}
+          {selectedToast === "Toasted" && (
+            <motion.div
+              layoutId="toastGlow"
+              className="absolute inset-0 bg-brand/[0.01] pointer-events-none"
+            />
+          )}
+
+          {/* Icon visual using SVG for premium micro-animation */}
+          <div className="relative w-16 h-16 flex items-center justify-center mb-5 bg-white/[0.02] border border-white/[0.05] rounded-2xl group-hover:scale-105 transition-transform duration-300">
+            {/* Animated Fire Flame SVG */}
+            <motion.svg
+              animate={selectedToast === "Toasted" ? { y: [0, -3, 0], scale: [1, 1.05, 1] } : {}}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke={selectedToast === "Toasted" ? "#F5C400" : "rgba(255,255,255,0.4)"}
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="transition-colors duration-300"
+            >
+              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+            </motion.svg>
+          </div>
+
+          <h4 className="font-poppins font-black text-lg uppercase text-white tracking-wide flex items-center gap-2 mb-2">
+            🔥 Toasted
+            {selectedToast === "Toasted" && <span className="text-brand text-sm">✓</span>}
+          </h4>
+          <p className="text-xs text-white/50 leading-relaxed font-sans max-w-[220px]">
+            Crispy, warm, and lightly toasted for extra texture and flavor.
+          </p>
+        </motion.div>
+
+        {/* 2. Not Toasted Option */}
+        <motion.div
+          variants={cardVariants}
+          initial="initial"
+          animate="animate"
+          whileHover="hover"
+          whileTap="tap"
+          onClick={() => onSelect("Not Toasted")}
+          className={`cursor-pointer p-6 sm:p-8 rounded-3xl border bg-white/[0.01] backdrop-blur-xl flex flex-col items-center text-center transition-all duration-300 relative overflow-hidden group min-h-[220px] justify-center ${
+            selectedToast === "Not Toasted"
+              ? "border-brand shadow-[0_0_32px_rgba(245,196,0,0.2)] bg-brand/[0.03]"
+              : "border-white/[0.06] hover:border-white/20 hover:bg-white/[0.03]"
+          }`}
+        >
+          {/* Animated Glow Accent */}
+          {selectedToast === "Not Toasted" && (
+            <motion.div
+              layoutId="toastGlow"
+              className="absolute inset-0 bg-brand/[0.01] pointer-events-none"
+            />
+          )}
+
+          {/* Icon visual using SVG for premium micro-animation */}
+          <div className="relative w-16 h-16 flex items-center justify-center mb-5 bg-white/[0.02] border border-white/[0.05] rounded-2xl group-hover:scale-105 transition-transform duration-300">
+            {/* Animated Twinkling Sparkles SVG */}
+            <motion.svg
+              animate={selectedToast === "Not Toasted" ? { rotate: [0, 15, 0], scale: [1, 1.08, 1] } : {}}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke={selectedToast === "Not Toasted" ? "#F5C400" : "rgba(255,255,255,0.4)"}
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="transition-colors duration-300"
+            >
+              <path d="M12 3v3m0 12v3M3 12h3m12 0h3m-2.22-6.78l-2.12 2.12m-9.9 9.9l-2.12 2.12m14.14 0l-2.12-2.12M6.34 6.34l-2.12-2.12" />
+            </motion.svg>
+          </div>
+
+          <h4 className="font-poppins font-black text-lg uppercase text-white tracking-wide flex items-center gap-2 mb-2">
+            ✨ Not Toasted
+            {selectedToast === "Not Toasted" && <span className="text-brand text-sm">✓</span>}
+          </h4>
+          <p className="text-xs text-white/50 leading-relaxed font-sans max-w-[220px]">
+            Soft, fresh, and served exactly as prepared.
+          </p>
+        </motion.div>
+      </div>
     </div>
   );
 }

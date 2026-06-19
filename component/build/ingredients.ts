@@ -40,7 +40,7 @@ export interface SauceOption {
 export const BUNS: BunOption[] = [
   {
     id: "bun-full-white",
-    name: "12 Inch White  Bun",
+    name: "12 Inch White  Bread",
     size: "Full",
     type: "White",
     image: "/BuildYourStack/Buns/1ft/WHITE.png",
@@ -48,7 +48,7 @@ export const BUNS: BunOption[] = [
   },
   {
     id: "bun-full-brown",
-    name: "12 Inch Whole Brown Bun",
+    name: "12 Inch Whole Brown Bread",
     size: "Full",
     type: "Brown",
     image: "/BuildYourStack/Buns/1ft/BROWN.png",
@@ -56,7 +56,7 @@ export const BUNS: BunOption[] = [
   },
   {
     id: "bun-half-white",
-    name: "6 Inch White Bun",
+    name: "6 Inch White Bread",
     size: "Half",
     type: "White",
     image: "/BuildYourStack/Buns/6inch/wHITE.png",
@@ -64,7 +64,7 @@ export const BUNS: BunOption[] = [
   },
   {
     id: "bun-half-brown",
-    name: "6 Inch Whole Brown Bun",
+    name: "6 Inch Whole Brown Bread",
     size: "Half",
     type: "Brown",
     image: "/BuildYourStack/Buns/6inch/BROWN.png",

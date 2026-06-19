@@ -6,20 +6,22 @@ import { BunOption, ProteinOption, VeggieOption, CheeseOption, SauceOption } fro
 
 interface BuildSummaryCardProps {
   selectedBun: BunOption | null;
-  selectedProtein: ProteinOption | null;
+  selectedProteins: ProteinOption[];
   selectedVeggies: VeggieOption[];
   selectedCheese: CheeseOption | null;
   selectedSauces: SauceOption[];
+  selectedToast: "Toasted" | "Not Toasted" | null;
   currentStep: number;
   fixedPrice: number;
 }
 
 export default function BuildSummaryCard({
   selectedBun,
-  selectedProtein,
+  selectedProteins,
   selectedVeggies,
   selectedCheese,
   selectedSauces,
+  selectedToast,
   currentStep,
   fixedPrice,
 }: BuildSummaryCardProps) {
@@ -28,11 +30,12 @@ export default function BuildSummaryCard({
   // Spacing and Spacers Progress calculation
   const calculateProgress = () => {
     let progress = 0;
-    if (selectedBun) progress += 20;
-    if (selectedProtein) progress += 20;
-    if (currentStep > 3 || selectedVeggies.length > 0) progress += 20;
-    if (currentStep > 4 || selectedCheese !== null) progress += 20;
-    if (currentStep > 5 || selectedSauces.length > 0) progress += 20;
+    if (selectedBun) progress += 16;
+    if (selectedProteins.length > 0) progress += 16;
+    if (currentStep > 3 || selectedVeggies.length > 0) progress += 16;
+    if (currentStep > 4 || selectedCheese !== null) progress += 16;
+    if (currentStep > 5 || selectedSauces.length > 0) progress += 16;
+    if (currentStep > 6 || selectedToast !== null) progress += 20;
     return Math.min(progress, 100);
   };
 
@@ -41,7 +44,7 @@ export default function BuildSummaryCard({
   // Dynamic Layer count
   const layerCount =
     (selectedBun ? 2 : 0) +
-    (selectedProtein ? 1 : 0) +
+    selectedProteins.length +
     (selectedCheese ? 1 : 0) +
     selectedVeggies.length +
     selectedSauces.length;
@@ -69,13 +72,13 @@ export default function BuildSummaryCard({
           <span className={selectedBun ? "text-brand" : "text-white/20"}>
             {selectedBun ? "✓" : "○"}
           </span>
-          <span className={selectedBun ? "text-white/80" : "text-white/30"}>Artisan Bun</span>
+          <span className={selectedBun ? "text-white/80" : "text-white/30"}>Bread</span>
         </div>
         <div className="flex items-center gap-2 text-[11px] font-sans">
-          <span className={selectedProtein ? "text-brand" : "text-white/20"}>
-            {selectedProtein ? "✓" : "○"}
+          <span className={selectedProteins.length > 0 ? "text-brand" : "text-white/20"}>
+            {selectedProteins.length > 0 ? "✓" : "○"}
           </span>
-          <span className={selectedProtein ? "text-white/80" : "text-white/30"}>Protein Filling</span>
+          <span className={selectedProteins.length > 0 ? "text-white/80" : "text-white/30"}>Protein Filling</span>
         </div>
         <div className="flex items-center gap-2 text-[11px] font-sans">
           <span className={(currentStep > 3 || selectedVeggies.length > 0) ? "text-brand" : "text-white/20"}>
@@ -95,6 +98,12 @@ export default function BuildSummaryCard({
           </span>
           <span className={(currentStep > 5 || selectedSauces.length > 0) ? "text-white/80" : "text-white/30"}>Signature Sauces</span>
         </div>
+        <div className="flex items-center gap-2 text-[11px] font-sans">
+          <span className={(currentStep > 6 || selectedToast !== null) ? "text-brand" : "text-white/20"}>
+            {(currentStep > 6 || selectedToast !== null) ? "✓" : "○"}
+          </span>
+          <span className={(currentStep > 6 || selectedToast !== null) ? "text-white/80" : "text-white/30"}>Toast Preference</span>
+        </div>
       </div>
     </div>
   );
@@ -107,14 +116,20 @@ export default function BuildSummaryCard({
       <div className="max-h-40 overflow-y-auto space-y-1.5 text-xs font-sans pr-1 scrollbar-none">
         {selectedBun && (
           <div className="flex justify-between border-b border-white/[0.02] pb-1.5">
-            <span className="text-white/40">Artisan Bun</span>
+            <span className="text-white/40">Bread</span>
             <span className="text-white font-medium">{selectedBun.name}</span>
           </div>
         )}
-        {selectedProtein && (
-          <div className="flex justify-between border-b border-white/[0.02] pb-1.5">
+        {selectedProteins.length > 0 && (
+          <div className="flex flex-col gap-1 border-b border-white/[0.02] pb-1.5">
             <span className="text-white/40">Protein</span>
-            <span className="text-white font-medium">{selectedProtein.name}</span>
+            <div className="flex flex-wrap gap-1 mt-0.5">
+              {selectedProteins.map((p) => (
+                <span key={p.id} className="bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-[10px] text-white font-medium">
+                  {p.name}
+                </span>
+              ))}
+            </div>
           </div>
         )}
         {selectedCheese && (
@@ -147,8 +162,14 @@ export default function BuildSummaryCard({
             </div>
           </div>
         )}
+        {selectedToast && (
+          <div className="flex justify-between border-b border-white/[0.02] pb-1.5">
+            <span className="text-white/40">Toast</span>
+            <span className="text-brand font-medium">{selectedToast === "Toasted" ? "🔥 Toasted" : "✨ Not Toasted"}</span>
+          </div>
+        )}
 
-        {!selectedBun && !selectedProtein && (
+        {!selectedBun && selectedProteins.length === 0 && !selectedToast && (
           <p className="text-white/30 text-[11px] leading-relaxed italic">
             Select layers to begin building your stack summary...
           </p>
@@ -172,9 +193,9 @@ export default function BuildSummaryCard({
             🍞 Artisan Base
           </span>
         )}
-        {selectedProtein && (
+        {selectedProteins.length > 0 && (
           <span className="px-2 py-0.5 rounded-md text-[9px] font-poppins font-black uppercase tracking-wider bg-white/5 border border-white/10 text-white/60">
-            🔥 Seared Protein
+            🔥 Seared Protein: {selectedProteins.length}
           </span>
         )}
         {selectedCheese && (

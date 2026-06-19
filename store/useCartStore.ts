@@ -18,6 +18,7 @@ export interface CartItem {
     veggies: string[];
     cheese: string | null;
     sauces: string[];
+    toast?: string | null;
   };
 }
 

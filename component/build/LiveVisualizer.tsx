@@ -64,7 +64,7 @@ const IngredientLayer = ({
 
 interface LiveVisualizerProps {
   selectedBun: BunOption | null;
-  selectedProtein: ProteinOption | null;
+  selectedProteins: ProteinOption[];
   selectedVeggies: VeggieOption[];
   selectedCheese: CheeseOption | null;
   selectedSauces: SauceOption[];
@@ -72,7 +72,7 @@ interface LiveVisualizerProps {
 
 export default function LiveVisualizer({
   selectedBun,
-  selectedProtein,
+  selectedProteins,
   selectedVeggies,
   selectedCheese,
   selectedSauces,
@@ -84,10 +84,10 @@ export default function LiveVisualizer({
 
     offsets["bottom-bun"] = currentY;
 
-    if (selectedProtein) {
+    selectedProteins.forEach((protein) => {
       currentY -= 45;
-      offsets["protein"] = currentY;
-    }
+      offsets[`protein-${protein.id}`] = currentY;
+    });
 
     if (selectedCheese) {
       currentY -= 25;
@@ -142,7 +142,7 @@ export default function LiveVisualizer({
               Start Your Masterpiece
             </h3>
             <p className="text-xs text-white/40 leading-relaxed font-sans">
-              Choose a fresh artisan bun in Step 1 to lay the foundation of your custom STACK.
+              Choose a fresh bread in Step 1 to lay the foundation of your custom STACK.
             </p>
           </motion.div>
         ) : (
@@ -192,16 +192,17 @@ export default function LiveVisualizer({
               </motion.div>
             </motion.div>
 
-            {/* 2. Protein Layer */}
-            {selectedProtein && (
+            {/* 2. Protein Layers */}
+            {selectedProteins.map((protein, index) => (
               <IngredientLayer
-                id={`protein-${selectedProtein.id}`}
-                src={selectedProtein.image}
-                alt={selectedProtein.name}
-                offsetY={offsets["protein"] || 0}
-                zIndex={20}
+                id={`protein-${protein.id}`}
+                key={`protein-${protein.id}`}
+                src={protein.image}
+                alt={protein.name}
+                offsetY={offsets[`protein-${protein.id}`] || 0}
+                zIndex={20 + index}
               />
-            )}
+            ))}
 
             {/* 3. Cheese Layer */}
             {selectedCheese && (
@@ -282,7 +283,7 @@ export default function LiveVisualizer({
             </motion.div>
 
             {/* In-visualization protein status hint */}
-            {!selectedProtein && (
+            {selectedProteins.length === 0 && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: [0.3, 0.7, 0.3] }}
