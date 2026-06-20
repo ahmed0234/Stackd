@@ -205,6 +205,33 @@ export default function CartPage() {
                             </div>
                           )}
 
+                          {item.dealConfiguration && (
+                            <div className="mt-3 bg-white/[0.01] border border-white/[0.03] p-3 rounded-xl flex flex-col gap-2.5 text-[11px] text-white/50 font-sans text-left">
+                              <div>
+                                <strong className="text-white/70 font-poppins text-[9px] uppercase tracking-wider block mb-1">Chosen Stacks</strong>
+                                <div className="flex flex-col gap-1">
+                                  {item.dealConfiguration.stacks.map((stack, idx) => (
+                                    <span key={idx} className="text-white font-medium">
+                                      🍔 Stack #{idx + 1}: {stack}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                              {item.dealConfiguration.drinks.length > 0 && (
+                                <div>
+                                  <strong className="text-white/70 font-poppins text-[9px] uppercase tracking-wider block mb-1">Chosen Drinks</strong>
+                                  <div className="flex flex-col gap-1">
+                                    {item.dealConfiguration.drinks.map((drink, idx) => (
+                                      <span key={idx} className="text-brand font-bold">
+                                        🥤 Drink #{idx + 1}: {drink.name} ({drink.size})
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
                           <p className="text-xs text-white/40 font-sans mt-3">
                             Unit Price: Rs {item.price.toLocaleString()}
                           </p>
@@ -226,7 +253,7 @@ export default function CartPage() {
                           <div className="flex items-center gap-3">
                             <div className="flex items-center gap-3 bg-white/[0.04] border border-white/[0.08] p-1 rounded-full h-9">
                               <button
-                                onClick={() => removeItem(item.id, item.size)}
+                                onClick={() => removeItem(item.key)}
                                 className="w-7 h-7 rounded-full flex items-center justify-center bg-white/[0.04] hover:bg-white/[0.08] text-white/80 hover:text-white transition-colors cursor-pointer"
                               >
                                 <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round">
@@ -237,7 +264,7 @@ export default function CartPage() {
                                 {item.quantity}
                               </span>
                               <button
-                                onClick={() => addItem(item.id, item.size)}
+                                onClick={() => addItem(item.key)}
                                 className="w-7 h-7 rounded-full flex items-center justify-center bg-brand text-[#0a0a0a] hover:bg-brand/90 transition-colors cursor-pointer"
                               >
                                 <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round">

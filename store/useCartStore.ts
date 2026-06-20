@@ -20,6 +20,10 @@ export interface CartItem {
     sauces: string[];
     toast?: string | null;
   };
+  dealConfiguration?: {
+    stacks: string[];
+    drinks: { name: string; size: string }[];
+  };
 }
 
 interface CartState {
@@ -36,8 +40,9 @@ export const useCartStore = create<CartState>()(
     (set) => ({
       items: {},
       addItem: (id, size) => {
-        const key = size ? `${id}::${size}` : id;
         set((state) => {
+          // If the first argument is an existing key in the cart, use it directly
+          const key = (size === undefined && state.items[id]) ? id : (size ? `${id}::${size}` : id);
           const existing = state.items[key];
           if (existing) {
             return {
@@ -83,8 +88,9 @@ export const useCartStore = create<CartState>()(
         });
       },
       removeItem: (id, size) => {
-        const key = size ? `${id}::${size}` : id;
         set((state) => {
+          // If the first argument is an existing key in the cart, use it directly
+          const key = (size === undefined && state.items[id]) ? id : (size ? `${id}::${size}` : id);
           const existing = state.items[key];
           if (!existing) return state;
 

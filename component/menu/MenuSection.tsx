@@ -15,13 +15,14 @@ export interface SizeOption {
 export interface Product {
   id: string;
   name: string;
-  category: "stacks" | "wraps" | "fries" | "drinks";
+  category: "stacks" | "wraps" | "fries" | "drinks" | "deals";
   image: string;
   description: string;
   price: number;
   tags?: string[];
   accentColor: string;
   sizes?: SizeOption[];
+  includes?: string[];
 }
 
 export const PRODUCTS: Product[] = [
@@ -31,7 +32,8 @@ export const PRODUCTS: Product[] = [
     name: "OG Stack",
     category: "stacks",
     image: "/Stacks/Og stack.png",
-    description: "Double smashed Angus beef, cheddar cheese, crispy pickles, secret stack sauce, toasted brioche bun.",
+    description:
+      "Double smashed Angus beef, cheddar cheese, crispy pickles, secret stack sauce, toasted brioche bun.",
     price: 449,
     tags: ["Popular"],
     accentColor: "#F5C400",
@@ -41,7 +43,8 @@ export const PRODUCTS: Product[] = [
     name: "Fire Stack",
     category: "stacks",
     image: "/Stacks/Fire stack.png",
-    description: "Double smash beef, melted pepper jack, grilled jalapeños, spicy hot house fire sauce.",
+    description:
+      "Double smash beef, melted pepper jack, grilled jalapeños, spicy hot house fire sauce.",
     price: 499,
     tags: ["Spicy"],
     accentColor: "#EF4444",
@@ -51,7 +54,8 @@ export const PRODUCTS: Product[] = [
     name: "Melt Stack",
     category: "stacks",
     image: "/Stacks/Melt stack.png",
-    description: "Double hand-pressed patties smothered in hot cheddar sauce, grilled caramelized onions.",
+    description:
+      "Double hand-pressed patties smothered in hot cheddar sauce, grilled caramelized onions.",
     price: 549,
     tags: ["Cheese Bomb"],
     accentColor: "#F97316",
@@ -61,7 +65,8 @@ export const PRODUCTS: Product[] = [
     name: "Smoke Stack",
     category: "stacks",
     image: "/Stacks/Smoke stack.png",
-    description: "Double patties, crispy smoked bacon, golden thick-cut onion rings, hickory BBQ sauce.",
+    description:
+      "Double patties, crispy smoked bacon, golden thick-cut onion rings, hickory BBQ sauce.",
     price: 499,
     tags: ["Popular"],
     accentColor: "#D97706",
@@ -71,7 +76,8 @@ export const PRODUCTS: Product[] = [
     name: "Build Your Own Stack",
     category: "stacks",
     image: "/Stacks/Make your own.png",
-    description: "Your stack, your rules. Choose number of patties, fresh toppings, cheeses, and custom signature sauces.",
+    description:
+      "Your stack, your rules. Choose number of patties, fresh toppings, cheeses, and custom signature sauces.",
     price: 650,
     tags: ["Customizable"],
     accentColor: "#A855F7",
@@ -83,7 +89,8 @@ export const PRODUCTS: Product[] = [
     name: "Classic Stack Wrap",
     category: "wraps",
     image: "/Wraps/Classic wrap.png",
-    description: "Crispy hand-breaded chicken tenders, shredded crisp lettuce, cheddar, and classic mayo in a toasted flour tortilla.",
+    description:
+      "Crispy hand-breaded chicken tenders, shredded crisp lettuce, cheddar, and classic mayo in a toasted flour tortilla.",
     price: 420,
     accentColor: "#22C55E",
   },
@@ -92,7 +99,8 @@ export const PRODUCTS: Product[] = [
     name: "Loaded Crunch Wrap",
     category: "wraps",
     image: "/Wraps/Loaded wrap.png",
-    description: "Double smash beef, crispy loaded fries inside, melted cheddar, ranch sauce in a warm toasted wrap.",
+    description:
+      "Double smash beef, crispy loaded fries inside, melted cheddar, ranch sauce in a warm toasted wrap.",
     price: 520,
     tags: ["Must Try"],
     accentColor: "#3B82F6",
@@ -102,7 +110,8 @@ export const PRODUCTS: Product[] = [
     name: "Spicy Tender Wrap",
     category: "wraps",
     image: "/Wraps/Spicy wraps.png",
-    description: "Spicy chicken tenders, charred jalapeño slices, house fire sauce, pepper jack cheese.",
+    description:
+      "Spicy chicken tenders, charred jalapeño slices, house fire sauce, pepper jack cheese.",
     price: 450,
     tags: ["Spicy"],
     accentColor: "#EF4444",
@@ -114,7 +123,8 @@ export const PRODUCTS: Product[] = [
     name: "Classic Loaded Fries",
     category: "fries",
     image: "/Fries/Classic loaded.png",
-    description: "Golden skin-on fries topped with cheese sauce, crispy smoked bacon bits, and signature stack sauce.",
+    description:
+      "Golden skin-on fries topped with cheese sauce, crispy smoked bacon bits, and signature stack sauce.",
     price: 299,
     tags: ["Bestseller"],
     accentColor: "#F5C400",
@@ -124,7 +134,8 @@ export const PRODUCTS: Product[] = [
     name: "Fire Loaded Fries",
     category: "fries",
     image: "/Fries/Fire loaded.png",
-    description: "Golden fries dusted in hot spices, hot cheese sauce, fresh jalapeños, fire sauce drizzle.",
+    description:
+      "Golden fries dusted in hot spices, hot cheese sauce, fresh jalapeños, fire sauce drizzle.",
     price: 349,
     tags: ["Spicy"],
     accentColor: "#EF4444",
@@ -134,7 +145,8 @@ export const PRODUCTS: Product[] = [
     name: "Full Stackd Fries",
     category: "fries",
     image: "/Fries/Full stackd fries.png",
-    description: "A loaded meal of crispy fries, chopped smash beef patties, melted cheese, pickles, stack sauce.",
+    description:
+      "A loaded meal of crispy fries, chopped smash beef patties, melted cheese, pickles, stack sauce.",
     price: 449,
     tags: ["Meal Size"],
     accentColor: "#F97316",
@@ -144,7 +156,8 @@ export const PRODUCTS: Product[] = [
     name: "Smoke Loaded Fries",
     category: "fries",
     image: "/Fries/Smoke loaded.png",
-    description: "Crispy fries loaded with slow-cooked pulled pork, smoked bacon, cheddar, BBQ drizzle.",
+    description:
+      "Crispy fries loaded with slow-cooked pulled pork, smoked bacon, cheddar, BBQ drizzle.",
     price: 349,
     accentColor: "#D97706",
   },
@@ -155,12 +168,13 @@ export const PRODUCTS: Product[] = [
     name: "Pepsi",
     category: "drinks",
     image: "/Drinks/Pepsi/500ml.png",
-    description: "Chilled classic Pepsi, the perfect accompaniment to your heavy stack.",
+    description:
+      "Chilled classic Pepsi, the perfect accompaniment to your heavy stack.",
     price: 120,
     accentColor: "#004B87",
     sizes: [
       { label: "500ml", price: 120, image: "/Drinks/Pepsi/500ml.png" },
-      { label: "1.5L", price: 180, image: "/Drinks/Pepsi/1.5.png" }
+      { label: "1.5L", price: 180, image: "/Drinks/Pepsi/1.5.png" },
     ],
   },
   {
@@ -173,7 +187,7 @@ export const PRODUCTS: Product[] = [
     accentColor: "#009639",
     sizes: [
       { label: "500ml", price: 120, image: "/Drinks/7up/500.png" },
-      { label: "1.5L", price: 180, image: "/Drinks/7up/1.5.png" }
+      { label: "1.5L", price: 180, image: "/Drinks/7up/1.5.png" },
     ],
   },
   {
@@ -181,12 +195,13 @@ export const PRODUCTS: Product[] = [
     name: "Mountain Dew",
     category: "drinks",
     image: "/Drinks/Dew/500.png",
-    description: "Energizing citrus blast to keep your stack building sessions alive.",
+    description:
+      "Energizing citrus blast to keep your stack building sessions alive.",
     price: 120,
     accentColor: "#00A859",
     sizes: [
       { label: "500ml", price: 120, image: "/Drinks/Dew/500.png" },
-      { label: "1.5L", price: 180, image: "/Drinks/Dew/1.5.png" }
+      { label: "1.5L", price: 180, image: "/Drinks/Dew/1.5.png" },
     ],
   },
   {
@@ -194,12 +209,13 @@ export const PRODUCTS: Product[] = [
     name: "Sprite",
     category: "drinks",
     image: "/Drinks/Sprite/500.png",
-    description: "Crisp, clean, refreshing lemon-lime carbonated soda with a splash of bubble.",
+    description:
+      "Crisp, clean, refreshing lemon-lime carbonated soda with a splash of bubble.",
     price: 120,
     accentColor: "#00B2E2",
     sizes: [
       { label: "500ml", price: 120, image: "/Drinks/Sprite/500.png" },
-      { label: "1.5L", price: 180, image: "/Drinks/Sprite/1.5.png" }
+      { label: "1.5L", price: 180, image: "/Drinks/Sprite/1.5.png" },
     ],
   },
   {
@@ -207,12 +223,79 @@ export const PRODUCTS: Product[] = [
     name: "Mineral Water",
     category: "drinks",
     image: "/Drinks/Water/500.png",
-    description: "Pure, clean, refreshing spring water to wash down your stacks.",
+    description:
+      "Pure, clean, refreshing spring water to wash down your stacks.",
     price: 90,
     accentColor: "#00B2E2",
     sizes: [
       { label: "500ml", price: 90, image: "/Drinks/Water/500.png" },
-      { label: "1.5L", price: 150, image: "/Drinks/Water/1.5.png" }
+      { label: "1.5L", price: 150, image: "/Drinks/Water/1.5.png" },
+    ],
+  },
+  // Category: Deals
+  {
+    id: "combo-deal",
+    name: "Combo Deal",
+    category: "deals",
+    image: "/Deals/ComboDeal.jpeg",
+    description:
+      "Our signature OG Stack burger paired with crispy loaded fries and a refreshing 500ml drink.",
+    price: 699,
+    tags: ["Bestseller", "Save Rs 69"],
+    accentColor: "#F5C400",
+    includes: [
+      "1x OG Stack (Any Flavour)",
+      "1x Regular Fries",
+      "1x 500ml Drink",
+    ],
+  },
+  {
+    id: "full-stackd-share-box",
+    name: "Full Stackd Share Box",
+    category: "deals",
+    image: "/Deals/FulStackdShareBox.jpeg",
+    description:
+      "Double the fun. Two double smash beef burgers, two portions of loaded fries, and a 1.5L drink.",
+    price: 2399,
+    tags: ["Big Value", "Save Rs 77"],
+    accentColor: "#F97316",
+    includes: [
+      "4x Any Signature Stack",
+      "2x Large Loaded Fries",
+      "4x 500ml Drink",
+      "Extra Sauces",
+    ],
+  },
+  {
+    id: "sharing-box",
+    name: "Duo Sharing Box",
+    category: "deals",
+    image: "/Deals/SharingBox.jpeg",
+    description:
+      "Perfect for two. One classic burger, one loaded wrap, one portion of classic fries, and two drinks.",
+    price: 1499,
+    tags: ["Popular", "Save Rs 141"],
+    accentColor: "#22C55E",
+    includes: [
+      "2x Any Signature Stack",
+      "1x Large Loaded Fries",
+      "2x 500ml Drinks",
+    ],
+  },
+  {
+    id: "stackd-experience",
+    name: "Stackd Experience",
+    category: "deals",
+    image: "/Deals/StackdExperience.jpeg",
+    description:
+      "Get the full experience. A Fire Stack burger, a classic wrap, smoke loaded fries, and two drinks.",
+    price: 849,
+    tags: ["Limited Time", "Save Rs 161"],
+    accentColor: "#EF4444",
+    includes: [
+      "1x Any Signature Stack",
+      "1x Full Stackd Fries",
+      "1x 500ml Drink",
     ],
   },
 ];
@@ -225,11 +308,15 @@ const CATEGORIES = [
 ] as const;
 
 export default function MenuSection() {
-  const [activeCategory, setActiveCategory] = useState<"stacks" | "wraps" | "fries" | "drinks">("stacks");
+  const [activeCategory, setActiveCategory] = useState<
+    "stacks" | "wraps" | "fries" | "drinks"
+  >("stacks");
   const items = useCartStore((state) => state.items);
   const addItem = useCartStore((state) => state.addItem);
   const removeItem = useCartStore((state) => state.removeItem);
-  const removeItemCompletely = useCartStore((state) => state.removeItemCompletely);
+  const removeItemCompletely = useCartStore(
+    (state) => state.removeItemCompletely,
+  );
   const clearCart = useCartStore((state) => state.clearCart);
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -244,8 +331,14 @@ export default function MenuSection() {
   }, [activeCategory]);
 
   const cartSummary = useMemo(() => {
-    const totalCount = Object.values(items).reduce((sum, item) => sum + item.quantity, 0);
-    const totalPrice = Object.values(items).reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const totalCount = Object.values(items).reduce(
+      (sum, item) => sum + item.quantity,
+      0,
+    );
+    const totalPrice = Object.values(items).reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0,
+    );
     return { totalCount, totalPrice };
   }, [items]);
 
@@ -262,35 +355,35 @@ export default function MenuSection() {
 
   const cardVariants = {
     hidden: { opacity: 0, y: 35, scale: 0.95 },
-    show: { 
-      opacity: 1, 
-      y: 0, 
-      scale: 1, 
-      transition: { type: "spring", stiffness: 120, damping: 16 } 
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 120, damping: 16 },
     },
     exit: { opacity: 0, y: -20, scale: 0.95, transition: { duration: 0.25 } },
   };
 
   return (
-    <section 
+    <section
       id="menu"
       className="relative w-full py-24 bg-dark-primary overflow-hidden"
       style={{
-        background: "linear-gradient(180deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%)",
+        background:
+          "linear-gradient(180deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%)",
       }}
     >
       {/* Background Glow Ring */}
-      <div 
+      <div
         className="absolute w-[500px] h-[500px] rounded-full blur-[100px] opacity-10 pointer-events-none left-[-10%] top-[30%] z-0"
         style={{ background: "var(--color-brand)" }}
       />
-      <div 
+      <div
         className="absolute w-[500px] h-[500px] rounded-full blur-[100px] opacity-10 pointer-events-none right-[-10%] bottom-[10%] z-0"
         style={{ background: "#EF4444" }}
       />
 
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 z-10">
-        
         {/* Section Header */}
         <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-16">
           <motion.div
@@ -302,7 +395,7 @@ export default function MenuSection() {
           >
             Appetite Architect
           </motion.div>
-          
+
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -320,7 +413,8 @@ export default function MenuSection() {
             transition={{ duration: 0.5, delay: 0.15 }}
             className="text-white/60 mt-4 text-base sm:text-lg font-sans leading-relaxed"
           >
-            Hand pressed Stacks, loaded fries, and signature drinks. Tap a category below and add item to your order stack.
+            Hand pressed Stacks, loaded fries, and signature drinks. Tap a
+            category below and add item to your order stack.
           </motion.p>
         </div>
 
@@ -329,7 +423,7 @@ export default function MenuSection() {
           <div className="relative w-full max-w-xl flex items-center justify-center">
             {/* Right edge fade gradient on mobile */}
             <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[var(--color-dark-primary)] via-[var(--color-dark-primary)]/70 to-transparent pointer-events-none z-20 sm:hidden rounded-r-2xl" />
-            
+
             <div className="relative flex items-center p-2 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-xl max-w-full overflow-x-auto scrollbar-none">
               <div className="flex items-center gap-1.5 sm:gap-2.5 flex-nowrap pr-8 sm:pr-0">
                 {CATEGORIES.map((cat) => {
@@ -342,7 +436,9 @@ export default function MenuSection() {
                       onClick={() => setActiveCategory(cat.id)}
                       className="relative px-5 py-3 rounded-xl flex items-center gap-2 text-xs font-poppins font-extrabold uppercase tracking-widest transition-all duration-300 select-none cursor-pointer flex-shrink-0"
                       style={{
-                        color: isActive ? "#0a0a0a" : "rgba(255, 255, 255, 0.55)",
+                        color: isActive
+                          ? "#0a0a0a"
+                          : "rgba(255, 255, 255, 0.55)",
                       }}
                     >
                       {/* Active Backdrop Slider */}
@@ -350,7 +446,11 @@ export default function MenuSection() {
                         <motion.div
                           layoutId="activeCategoryTab"
                           className="absolute inset-0 rounded-xl bg-brand z-0 shadow-[0_4px_16px_rgba(245,196,0,0.3)]"
-                          transition={{ type: "spring", stiffness: 350, damping: 26 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 350,
+                            damping: 26,
+                          }}
                         />
                       )}
 
@@ -364,13 +464,17 @@ export default function MenuSection() {
               </div>
             </div>
           </div>
-          
+
           {/* Mobile Swipe Hint */}
           <div className="flex sm:hidden justify-center items-center gap-1.5 mt-3 text-[10px] font-bold text-brand/50 uppercase tracking-widest select-none pointer-events-none">
             <span>Swipe to explore menu</span>
             <motion.span
               animate={{ x: [0, 4, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             >
               &rarr;
             </motion.span>
@@ -398,7 +502,6 @@ export default function MenuSection() {
             ))}
           </AnimatePresence>
         </motion.div>
-
       </div>
 
       {/* Floating Order Bar & Cart Drawer */}
@@ -433,7 +536,7 @@ export default function MenuSection() {
                       Clear All
                     </button>
                   </div>
-                  
+
                   {/* Cart Items List */}
                   <div className="max-h-56 overflow-y-auto pr-1 flex flex-col scrollbar-none">
                     <AnimatePresence mode="popLayout">
@@ -448,7 +551,11 @@ export default function MenuSection() {
                             initial={{ opacity: 0, height: 0, y: 15 }}
                             animate={{ opacity: 1, height: "auto", y: 0 }}
                             exit={{ opacity: 0, height: 0, y: -15 }}
-                            transition={{ type: "spring", stiffness: 260, damping: 24 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 260,
+                              damping: 24,
+                            }}
                             className="flex items-center gap-3 py-2 border-b border-white/[0.02] last:border-0 overflow-hidden"
                           >
                             {/* Thumbnail */}
@@ -469,18 +576,32 @@ export default function MenuSection() {
                               </h4>
                               {item.customization && (
                                 <p className="text-[8px] text-brand font-sans mt-0.5 line-clamp-1">
-                                  {item.customization.bun} | {item.customization.protein}
+                                  {item.customization.bun} |{" "}
+                                  {item.customization.protein}
                                 </p>
                               )}
+                              {item.dealConfiguration && (
+                                <div className="text-[8.5px] text-brand font-sans mt-0.5 leading-tight text-left">
+                                  <div className="line-clamp-1">
+                                    🍔 Stacks: {item.dealConfiguration.stacks.join(", ")}
+                                  </div>
+                                  {item.dealConfiguration.drinks.length > 0 && (
+                                    <div className="line-clamp-1">
+                                      🥤 Drinks: {item.dealConfiguration.drinks.map(d => `${d.name} (${d.size})`).join(", ")}
+                                    </div>
+                                  )}
+                                </div>
+                              )}
                               <p className="text-[9px] text-white/40 font-sans mt-0.5">
-                                Rs {item.price.toLocaleString()} &times; {item.quantity}
+                                Rs {item.price.toLocaleString()} &times;{" "}
+                                {item.quantity}
                               </p>
                             </div>
 
                             {/* Inline quantity controller */}
                             <div className="flex items-center gap-2 bg-white/[0.03] border border-white/[0.06] p-0.5 rounded-full h-7">
                               <button
-                                onClick={() => removeItem(item.id, item.size)}
+                                onClick={() => removeItem(item.key)}
                                 className="w-5.5 h-5.5 rounded-full flex items-center justify-center bg-white/[0.04] hover:bg-white/[0.08] text-white/80 hover:text-white transition-colors cursor-pointer"
                               >
                                 <MinusIcon width={6} height={6} />
@@ -489,7 +610,7 @@ export default function MenuSection() {
                                 {item.quantity}
                               </span>
                               <button
-                                onClick={() => addItem(item.id, item.size)}
+                                onClick={() => addItem(item.key)}
                                 className="w-5.5 h-5.5 rounded-full flex items-center justify-center bg-brand text-[#0a0a0a] hover:bg-brand/90 transition-colors cursor-pointer"
                               >
                                 <PlusIcon width={6} height={6} />
@@ -516,7 +637,7 @@ export default function MenuSection() {
             {/* Footer Order Summary Control */}
             <div className="px-5 py-4 flex items-center justify-between">
               {/* Left Info: Clickable Toggle Drawer */}
-              <div 
+              <div
                 onClick={() => setIsExpanded((prev) => !prev)}
                 className="flex items-center gap-3 cursor-pointer select-none group px-3 py-2 -ml-3 rounded-2xl hover:bg-white/[0.04] active:bg-white/[0.08] transition-all duration-300"
               >
@@ -524,7 +645,7 @@ export default function MenuSection() {
                   {cartSummary.totalCount}
                 </div>
                 <div className="text-left font-sans">
-                  <div 
+                  <div
                     className="text-[10px] font-bold text-white/70 group-hover:text-brand uppercase tracking-widest leading-none flex items-center gap-2 transition-colors duration-300"
                     style={{
                       textShadow: "group-hover:0 0 8px rgba(245, 196, 0, 0.4)",
@@ -537,14 +658,26 @@ export default function MenuSection() {
                     </span>
                     <span>Your Stack</span>
                     <motion.span
-                      animate={isExpanded ? { rotate: 180, y: 0 } : { 
-                        rotate: 0,
-                        y: [0, -3, 0]
-                      }}
-                      transition={isExpanded ? { duration: 0.25 } : {
-                        y: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
-                        rotate: { duration: 0.25 }
-                      }}
+                      animate={
+                        isExpanded
+                          ? { rotate: 180, y: 0 }
+                          : {
+                              rotate: 0,
+                              y: [0, -3, 0],
+                            }
+                      }
+                      transition={
+                        isExpanded
+                          ? { duration: 0.25 }
+                          : {
+                              y: {
+                                duration: 1.5,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                              },
+                              rotate: { duration: 0.25 },
+                            }
+                      }
                       className="inline-flex items-center text-brand"
                     >
                       <ChevronUpIcon width={10} height={10} />
@@ -567,7 +700,6 @@ export default function MenuSection() {
           </motion.div>
         )}
       </AnimatePresence>
-
     </section>
   );
 }
@@ -583,9 +715,17 @@ interface ProductCardProps {
   variants: any;
 }
 
-function ProductCard({ product, cart, onAdd, onRemove, variants }: ProductCardProps) {
+function ProductCard({
+  product,
+  cart,
+  onAdd,
+  onRemove,
+  variants,
+}: ProductCardProps) {
   const [hovered, setHovered] = useState(false);
-  const [activeSize, setActiveSize] = useState<string | undefined>(() => product.sizes?.[0]?.label);
+  const [activeSize, setActiveSize] = useState<string | undefined>(
+    () => product.sizes?.[0]?.label,
+  );
 
   // Sync activeSize when product changes to avoid state leaks
   useEffect(() => {
@@ -596,16 +736,22 @@ function ProductCard({ product, cart, onAdd, onRemove, variants }: ProductCardPr
     }
   }, [product.id, product.sizes]);
 
-  const currentSizeKey = activeSize ? `${product.id}::${activeSize}` : product.id;
+  const currentSizeKey = activeSize
+    ? `${product.id}::${activeSize}`
+    : product.id;
   const quantity = cart[currentSizeKey]?.quantity || 0;
 
-  const currentPrice = activeSize && product.sizes
-    ? (product.sizes.find((s) => s.label === activeSize)?.price ?? product.price)
-    : product.price;
+  const currentPrice =
+    activeSize && product.sizes
+      ? (product.sizes.find((s) => s.label === activeSize)?.price ??
+        product.price)
+      : product.price;
 
-  const currentImage = activeSize && product.sizes
-    ? (product.sizes.find((s) => s.label === activeSize)?.image ?? product.image)
-    : product.image;
+  const currentImage =
+    activeSize && product.sizes
+      ? (product.sizes.find((s) => s.label === activeSize)?.image ??
+        product.image)
+      : product.image;
 
   return (
     <motion.div
@@ -617,23 +763,27 @@ function ProductCard({ product, cart, onAdd, onRemove, variants }: ProductCardPr
       className="relative flex flex-col h-full rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-brand/20 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-card"
     >
       {/* Decorative Glow Blob */}
-      <div 
+      <div
         className="absolute w-24 h-24 rounded-full blur-[24px] pointer-events-none top-4 right-4 opacity-5 transition-opacity duration-300"
-        style={{ 
+        style={{
           backgroundColor: product.accentColor,
-          opacity: hovered ? 0.18 : 0.05
+          opacity: hovered ? 0.18 : 0.05,
         }}
       />
 
       {/* Floating Tag (e.g. Popular, Spicy, etc.) */}
       {product.tags?.map((tag) => (
-        <div 
+        <div
           key={tag}
           className="absolute top-4 left-4 px-2.5 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider font-poppins z-20"
           style={{
-            backgroundColor: tag === "Spicy" ? "#EF4444" : "rgba(255,255,255,0.08)",
-            border: tag === "Spicy" ? "1px solid rgba(239, 68, 68, 0.3)" : "1px solid rgba(255,255,255,0.1)",
-            color: "#FFFFFF"
+            backgroundColor:
+              tag === "Spicy" ? "#EF4444" : "rgba(255,255,255,0.08)",
+            border:
+              tag === "Spicy"
+                ? "1px solid rgba(239, 68, 68, 0.3)"
+                : "1px solid rgba(255,255,255,0.1)",
+            color: "#FFFFFF",
           }}
         >
           {tag}
@@ -643,7 +793,7 @@ function ProductCard({ product, cart, onAdd, onRemove, variants }: ProductCardPr
       {/* Food Visual Frame */}
       <div className="relative w-full h-48 mt-4 flex items-center justify-center z-10 overflow-hidden select-none">
         <motion.div
-          animate={{ 
+          animate={{
             scale: hovered ? 1.06 : 1,
             rotate: hovered ? 2 : 0,
           }}
@@ -666,7 +816,7 @@ function ProductCard({ product, cart, onAdd, onRemove, variants }: ProductCardPr
         <h3 className="font-poppins font-black text-lg text-white leading-tight uppercase tracking-wide">
           {product.name}
         </h3>
-        
+
         <p className="text-xs text-white/50 leading-relaxed font-sans mt-2 line-clamp-2 min-h-[32px] flex-grow">
           {product.description}
         </p>
@@ -685,8 +835,8 @@ function ProductCard({ product, cart, onAdd, onRemove, variants }: ProductCardPr
                     key={size.label}
                     onClick={() => setActiveSize(size.label)}
                     className={`relative px-2.5 py-1.5 rounded-lg text-[10px] font-poppins font-black uppercase tracking-wider flex-grow text-center transition-all duration-300 cursor-pointer select-none ${
-                      isSelected 
-                        ? "text-[#0a0a0a]" 
+                      isSelected
+                        ? "text-[#0a0a0a]"
                         : "text-white/60 hover:text-white hover:bg-white/[0.03]"
                     }`}
                   >
@@ -694,7 +844,11 @@ function ProductCard({ product, cart, onAdd, onRemove, variants }: ProductCardPr
                       <motion.div
                         layoutId={`activeSize-${product.id}`}
                         className="absolute inset-0 rounded-lg bg-brand shadow-[0_2px_8px_rgba(245,196,0,0.2)]"
-                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 25,
+                        }}
                       />
                     )}
                     <span className="relative z-10">{size.label}</span>
@@ -727,7 +881,16 @@ function ProductCard({ product, cart, onAdd, onRemove, variants }: ProductCardPr
                 className="px-5 py-2.5 rounded-full flex items-center gap-1.5 text-[10px] font-poppins font-black uppercase text-[#0a0a0a] bg-brand shadow-[0_4px_12px_rgba(245,196,0,0.25)] hover:shadow-[0_4px_20px_rgba(245,196,0,0.4)] transition-all duration-300 cursor-pointer select-none"
               >
                 <span>Build</span>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="10"
+                  height="10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </motion.a>
@@ -784,7 +947,16 @@ function ProductCard({ product, cart, onAdd, onRemove, variants }: ProductCardPr
    ─────────────────────────────────────────────────────────────────────────── */
 function BurgerIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M3 11c0-2.2 2-4 4.5-4h9c2.5 0 4.5 1.8 4.5 4v1H3v-1z" />
       <path d="M21 16H3c-1.1 0-2 .9-2 2s.9 2 2 2h18c1.1 0 2-.9 2-2s-.9-2-2-2z" />
       <path d="M4 14h16" />
@@ -794,8 +966,24 @@ function BurgerIcon() {
 
 function WrapIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="5" y="5" width="14" height="14" rx="4" transform="rotate(45 12 12)" />
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect
+        x="5"
+        y="5"
+        width="14"
+        height="14"
+        rx="4"
+        transform="rotate(45 12 12)"
+      />
       <path d="M9 9l6 6" />
     </svg>
   );
@@ -803,7 +991,16 @@ function WrapIcon() {
 
 function FriesIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M5 10V21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10" />
       <path d="M3 10h18" />
       <path d="M8 10V3" />
@@ -815,7 +1012,16 @@ function FriesIcon() {
 
 function DrinksIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M17 8h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2" />
       <path d="M5 8h12v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8z" />
       <line x1="9" y1="2" x2="9" y2="8" />
@@ -823,26 +1029,68 @@ function DrinksIcon() {
   );
 }
 
-function PlusIcon({ width = 12, height = 12, ...props }: React.SVGProps<SVGSVGElement>) {
+function PlusIcon({
+  width = 12,
+  height = 12,
+  ...props
+}: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
       <line x1="12" y1="5" x2="12" y2="19" />
       <line x1="5" y1="12" x2="19" y2="12" />
     </svg>
   );
 }
 
-function MinusIcon({ width = 12, height = 12, ...props }: React.SVGProps<SVGSVGElement>) {
+function MinusIcon({
+  width = 12,
+  height = 12,
+  ...props
+}: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
       <line x1="5" y1="12" x2="19" y2="12" />
     </svg>
   );
 }
 
-function TrashIcon({ width = 14, height = 14, ...props }: React.SVGProps<SVGSVGElement>) {
+function TrashIcon({
+  width = 14,
+  height = 14,
+  ...props
+}: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
       <polyline points="3 6 5 6 21 6" />
       <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
       <line x1="10" y1="11" x2="10" y2="17" />
@@ -851,9 +1099,23 @@ function TrashIcon({ width = 14, height = 14, ...props }: React.SVGProps<SVGSVGE
   );
 }
 
-function ChevronUpIcon({ width = 12, height = 12, ...props }: React.SVGProps<SVGSVGElement>) {
+function ChevronUpIcon({
+  width = 12,
+  height = 12,
+  ...props
+}: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
       <polyline points="18 15 12 9 6 15" />
     </svg>
   );

@@ -101,6 +101,17 @@ export default function CheckoutPage() {
         }
         msg += `\n`;
       }
+      if (item.dealConfiguration) {
+        item.dealConfiguration.stacks.forEach((stack, idx) => {
+          msg += `   • Stack #${idx + 1}: ${stack}\n`;
+        });
+        if (item.dealConfiguration.drinks.length > 0) {
+          item.dealConfiguration.drinks.forEach((drink, idx) => {
+            msg += `   • Drink #${idx + 1}: ${drink.name} (${drink.size})\n`;
+          });
+        }
+        msg += `\n`;
+      }
     });
     
     msg += `\n${border}\n\nTOTAL\n\n₨ ${totalPrice.toLocaleString()}\n\n${border}\n\nPlease confirm my order.\n${border}`;
@@ -355,6 +366,16 @@ export default function CheckoutPage() {
                             {item.customization.cheese && <div>Cheese: {item.customization.cheese}</div>}
                             {item.customization.veggies.length > 0 && <div className="line-clamp-1">Veggies: {item.customization.veggies.join(", ")}</div>}
                             {item.customization.sauces.length > 0 && <div className="line-clamp-1">Sauces: {item.customization.sauces.join(", ")}</div>}
+                          </div>
+                        )}
+                        {item.dealConfiguration && (
+                          <div className="text-[9px] text-white/45 font-sans mt-1 space-y-0.5">
+                            {item.dealConfiguration.stacks.map((stack, idx) => (
+                              <div key={idx}>🍔 Stack #{idx + 1}: {stack}</div>
+                            ))}
+                            {item.dealConfiguration.drinks.map((drink, idx) => (
+                              <div key={idx} className="text-brand font-medium">🥤 Drink #{idx + 1}: {drink.name} ({drink.size})</div>
+                            ))}
                           </div>
                         )}
                         <p className="text-[10px] text-brand font-sans mt-1">

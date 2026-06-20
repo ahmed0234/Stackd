@@ -1,0 +1,16 @@
+{
+  "files.exclude": {
+    ".gitignore": true,
+    "bun.lock": true,
+    "AGENTS.md": true,
+    "CLAUDE.md": true,
+    "eslint.config.mjs": true,
+    "next-env.d.ts": true,
+    "postcss.config.mjs": true,
+    "README.md": true,
+    "tsconfig.json": true,
+    "node_modules": true,
+    ".vscode": true,
+    ".next": true
+  }
+}
