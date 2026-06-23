@@ -226,12 +226,12 @@ export default function MealDeals() {
 /* ─────────────────────────────────────────────────────────────────────────────
    Deal Card Component
    ─────────────────────────────────────────────────────────────────────────── */
-interface DealCardProps {
+export interface DealCardProps {
   product: Product;
   onConfigure: () => void;
 }
 
-function DealCard({ product, onConfigure }: DealCardProps) {
+export function DealCard({ product, onConfigure }: DealCardProps) {
   const [hovered, setHovered] = useState(false);
 
   // Extract savings (e.g., "Save Rs 69") and display tag (e.g., "Bestseller")
@@ -393,12 +393,13 @@ function DealCard({ product, onConfigure }: DealCardProps) {
 /* ─────────────────────────────────────────────────────────────────────────────
    Premium Deal Configurator Experience (Modal / Bottom Sheet)
    ─────────────────────────────────────────────────────────────────────────── */
-interface MealDealConfiguratorProps {
+export interface MealDealConfiguratorProps {
   activeDeal: Product;
   onClose: () => void;
+  onSuccess?: () => void;
 }
 
-function MealDealConfigurator({ activeDeal, onClose }: MealDealConfiguratorProps) {
+export function MealDealConfigurator({ activeDeal, onClose, onSuccess }: MealDealConfiguratorProps) {
   const addCustomItem = useCartStore((state) => state.addCustomItem);
 
   const req = useMemo(() => {
@@ -475,11 +476,15 @@ function MealDealConfigurator({ activeDeal, onClose }: MealDealConfiguratorProps
     };
 
     addCustomItem(newItem);
-    onClose();
+    if (onSuccess) {
+      onSuccess();
+    } else {
+      onClose();
+    }
   };
 
   return (
-    <div className="fixed inset-0 w-full h-full z-50 flex items-center justify-center p-0 sm:p-4 md:p-6 overflow-hidden">
+    <div className="fixed inset-0 w-full h-full z-[1200] flex items-center justify-center p-0 sm:p-4 md:p-6 overflow-hidden">
       {/* Dark backdrop blur */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -738,28 +743,61 @@ function MealDealConfigurator({ activeDeal, onClose }: MealDealConfiguratorProps
                 </div>
               )}
 
-              {/* Pricing & CTA */}
-              <div className="flex items-center justify-between mb-4 mt-2">
-                <span className="text-[10px] font-poppins font-bold uppercase text-white/40 tracking-wider">
-                  Combo Price
-                </span>
-                <span className="font-poppins font-black text-2xl text-white">
-                  Rs {activeDeal.price.toLocaleString()}
-                </span>
-              </div>
+              {/* Desktop Pricing & CTA (Hidden on Mobile) */}
+              <div className="hidden lg:block">
+                <div className="flex items-center justify-between mb-4 mt-2">
+                  <span className="text-[10px] font-poppins font-bold uppercase text-white/40 tracking-wider">
+                    Combo Price
+                  </span>
+                  <span className="font-poppins font-black text-2xl text-white">
+                    Rs {activeDeal.price.toLocaleString()}
+                  </span>
+                </div>
 
-              <button
-                onClick={handleAddToCart}
-                disabled={!isConfigComplete}
-                className={`w-full py-3.5 rounded-xl font-poppins font-extrabold text-xs uppercase tracking-widest text-center flex items-center justify-center gap-2 transition-all duration-300 ${
-                  isConfigComplete
-                    ? "bg-brand text-[#0a0a0a] shadow-[0_4px_15px_rgba(245,196,0,0.3)] hover:shadow-[0_4px_25px_rgba(245,196,0,0.5)] hover:scale-102 cursor-pointer"
-                    : "bg-white/[0.04] border border-white/[0.08] text-white/20 cursor-not-allowed"
-                }`}
-              >
-                <span>Add Deal to Cart</span>
-              </button>
+                <button
+                  onClick={handleAddToCart}
+                  disabled={!isConfigComplete}
+                  className={`w-full py-3.5 rounded-xl font-poppins font-extrabold text-xs uppercase tracking-widest text-center flex items-center justify-center gap-2 transition-all duration-300 ${
+                    isConfigComplete
+                      ? "bg-brand text-[#0a0a0a] shadow-[0_4px_15px_rgba(245,196,0,0.3)] hover:shadow-[0_4px_25px_rgba(245,196,0,0.5)] hover:scale-102 cursor-pointer"
+                      : "bg-white/[0.04] border border-white/[0.08] text-white/20 cursor-not-allowed"
+                  }`}
+                >
+                  <span>Add Deal to Cart</span>
+                </button>
+              </div>
             </div>
+          </div>
+        </div>
+
+        {/* Mobile Sticky Bottom Bar (Visible on mobile, hidden on desktop) */}
+        <div className="lg:hidden sticky bottom-0 left-0 right-0 bg-[#0c0c0c]/95 border-t border-white/[0.06] backdrop-blur-md p-4 flex flex-col gap-2 z-30">
+          {validationError && (
+            <div className="px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-500 text-[9px] font-poppins font-bold uppercase text-center leading-tight">
+              {validationError}
+            </div>
+          )}
+          <div className="flex items-center justify-between w-full">
+            <div className="text-left">
+              <span className="text-[9px] font-poppins font-bold uppercase text-white/45 tracking-widest block">
+                Combo Price
+              </span>
+              <span className="font-poppins font-black text-lg text-brand leading-none">
+                Rs {activeDeal.price.toLocaleString()}
+              </span>
+            </div>
+
+            <button
+              onClick={handleAddToCart}
+              disabled={!isConfigComplete}
+              className={`px-5 py-3 rounded-xl font-poppins font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 ${
+                isConfigComplete
+                  ? "bg-brand text-[#0a0a0a] shadow-[0_4px_12px_rgba(245,196,0,0.2)] hover:scale-102 active:scale-98 cursor-pointer"
+                  : "bg-white/[0.03] border border-white/[0.08] text-white/25 cursor-not-allowed"
+              }`}
+            >
+              Add Deal to Cart
+            </button>
           </div>
         </div>
       </motion.div>

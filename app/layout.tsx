@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/component/navbar/Navbar";
+import Footer from "@/component/footer/Footer";
+import DealsPopup from "@/component/menu/DealsPopup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,10 +45,14 @@ export default function RootLayout({
           background: "var(--color-dark-primary)",
           color: "var(--color-text-primary)",
           minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         <Navbar />
-        {children}
+        <main style={{ flex: 1 }}>{children}</main>
+        <Footer />
+        <DealsPopup />
       </body>
     </html>
   );

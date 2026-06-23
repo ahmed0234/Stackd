@@ -114,6 +114,10 @@ export default function Hero() {
   const sideTranslateX = useTransform(springX, [-300, 300], [25, -25]);
   const sideTranslateY = useTransform(springY, [-300, 300], [25, -25]);
 
+  // Transforms for the left ambient glow blob (subtle opposite direction shifting)
+  const leftBlobTranslateX = useTransform(springX, [-300, 300], [20, -20]);
+  const leftBlobTranslateY = useTransform(springY, [-300, 300], [20, -20]);
+
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
       if (!containerRef.current) return;
@@ -241,6 +245,23 @@ export default function Hero() {
           STACKD
         </motion.span>
       </div>
+
+      {/* Left Ambient Glow Blob (Behind Text Column) */}
+      <motion.div
+        animate={{
+          background: `radial-gradient(circle, ${activeData.glowStrong} 0%, transparent 65%)`,
+          scale: [1, 1.1, 0.95, 1],
+        }}
+        style={{
+          x: leftBlobTranslateX,
+          y: leftBlobTranslateY,
+        }}
+        transition={{
+          background: { duration: 0.8, ease: "easeInOut" },
+          scale: { duration: 8, repeat: Infinity, ease: "easeInOut" },
+        }}
+        className="absolute w-[350px] h-[350px] md:w-[550px] md:h-[550px] rounded-full blur-[100px] pointer-events-none left-[-15%] top-[10%] md:left-[-10%] md:top-[8%] lg:left-[-5%] lg:top-[5%] z-0 select-none opacity-80 md:opacity-90"
+      />
 
       {/* Dynamic Ambient Glow Blob */}
       <motion.div

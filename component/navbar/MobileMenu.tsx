@@ -1,19 +1,17 @@
 'use client'
 
+import { MouseEvent } from 'react'
 import { motion } from 'motion/react'
 import Link from 'next/link'
-import BuildYourStackCTA from './BuildYourStackCTA'
-import NavActions from './NavActions'
-
-const MOBILE_NAV = [
-  { label: 'Menu', href: '/menu', emoji: '🍔' },
-  { label: 'Deals', href: '/deals', emoji: '🔥' },
-  { label: 'About', href: '/about', emoji: '✨' },
-  { label: 'Stacks', href: '/menu/stacks', emoji: '🥞', sub: true },
-  { label: 'Wraps', href: '/menu/wraps', emoji: '🌯', sub: true },
-  { label: 'Loaded Fries', href: '/menu/fries', emoji: '🍟', sub: true },
-  { label: 'Drinks', href: '/menu/drinks', emoji: '🥤', sub: true },
-]
+import {
+  FaUtensils,
+  FaFire,
+  FaShoppingBag,
+  FaMapMarkerAlt,
+  FaUser,
+  FaBookOpen,
+  FaSlidersH,
+} from 'react-icons/fa'
 
 interface MobileMenuProps {
   cartCount: number
@@ -21,6 +19,24 @@ interface MobileMenuProps {
 }
 
 export default function MobileMenu({ cartCount, onClose }: MobileMenuProps) {
+  // Smooth scroll handler for same-page section anchors
+  const handleItemClick = (
+    e: MouseEvent<HTMLAnchorElement>,
+    href: string,
+    targetId?: string
+  ) => {
+    if (targetId && typeof window !== 'undefined' && window.location.pathname === '/') {
+      e.preventDefault()
+      const el = document.getElementById(targetId)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' })
+      }
+      onClose()
+    } else {
+      onClose()
+    }
+  }
+
   return (
     <motion.div
       key="mobile-menu"
@@ -45,9 +61,9 @@ export default function MobileMenu({ cartCount, onClose }: MobileMenuProps) {
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'rgba(0,0,0,0.8)',
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
+          background: 'rgba(0,0,0,0.85)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
         }}
       />
 
@@ -62,9 +78,9 @@ export default function MobileMenu({ cartCount, onClose }: MobileMenuProps) {
           top: 0,
           right: 0,
           bottom: 0,
-          width: '88%',
-          maxWidth: 400,
-          background: 'rgba(13,13,13,0.98)',
+          width: '92%',
+          maxWidth: 420,
+          background: 'rgba(11,11,11,0.98)',
           backdropFilter: 'blur(40px)',
           WebkitBackdropFilter: 'blur(40px)',
           borderLeft: '1px solid rgba(255,255,255,0.07)',
@@ -82,271 +98,277 @@ export default function MobileMenu({ cartCount, onClose }: MobileMenuProps) {
             right: 0,
             width: 300,
             height: 300,
-            background: 'radial-gradient(ellipse at top right, rgba(245,196,0,0.07) 0%, transparent 65%)',
+            background: 'radial-gradient(ellipse at top right, rgba(245,196,0,0.08) 0%, transparent 65%)',
             pointerEvents: 'none',
           }}
         />
 
         {/* Header */}
-        <div
-          style={{
-            padding: '64px 28px 28px',
-            borderBottom: '1px solid rgba(255,255,255,0.06)',
-          }}
-        >
+        <div className="relative z-10 px-7 pt-16 pb-6 border-b border-white/[0.06]">
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.35 }}
+            transition={{ delay: 0.08, duration: 0.35 }}
           >
-            <p
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 10,
-                fontWeight: 600,
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.3)',
-                margin: '0 0 6px',
-              }}
-            >
+            <p className="font-sans text-[10px] font-black tracking-widest text-white/30 uppercase m-0 mb-1.5">
               Navigation
             </p>
-            <p
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 26,
-                fontWeight: 800,
-                letterSpacing: '-0.03em',
-                color: 'white',
-                margin: 0,
-              }}
-            >
-              STACK<span style={{ color: 'var(--color-brand)' }}>D</span>
+            <p className="font-poppins font-black text-2xl tracking-tighter text-white m-0">
+              STACK<span className="text-brand">D</span>
             </p>
           </motion.div>
         </div>
 
-        {/* Nav Links */}
-        <nav
-          aria-label="Mobile navigation"
-          style={{ flex: 1, overflow: 'auto', padding: '20px 16px' }}
-        >
-          {/* Main links */}
-          <div style={{ marginBottom: 8 }}>
-            <p
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 10,
-                fontWeight: 600,
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.25)',
-                padding: '0 12px 8px',
-                margin: 0,
-              }}
-            >
-              Main
+        {/* Main Content Area (Scrollable) */}
+        <div className="relative z-10 flex-1 overflow-y-auto px-6 py-6 pb-10 flex flex-col gap-6 scrollbar-none">
+          
+          {/* Section: Primary Actions */}
+          <div className="flex flex-col gap-3">
+            <p className="font-sans text-[10px] font-black tracking-widest text-white/25 uppercase m-0 mb-1 pl-0.5">
+              Order & Customise
             </p>
-            {MOBILE_NAV.filter((i) => !i.sub).map((item, i) => (
-              <MobileNavItem key={item.label} item={item} index={i} onClose={onClose} />
-            ))}
+
+            {/* ORDER NOW CARD */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.12, duration: 0.35 }}
+              whileHover={{ scale: 1.015, y: -2 }}
+              whileTap={{ scale: 0.985 }}
+              className="w-full"
+            >
+              <Link
+                href="/#menu"
+                onClick={(e) => handleItemClick(e, '/#menu', 'menu')}
+                className="relative flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-br from-brand to-[#D97706] shadow-[0_8px_30px_rgba(245,196,0,0.15)] overflow-hidden no-underline group"
+              >
+                {/* Shiny gloss line animation */}
+                <motion.div
+                  initial={{ x: '-100%' }}
+                  animate={{ x: '250%' }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 2.2,
+                    ease: 'linear',
+                    repeatDelay: 1.2,
+                  }}
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 pointer-events-none"
+                />
+
+                {/* Icon wrapper */}
+                <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-black/8 text-[#0a0a0a] text-lg">
+                  <FaUtensils />
+                </div>
+
+                {/* Text */}
+                <div className="flex-1">
+                  <h3 className="font-poppins font-black text-lg text-[#0a0a0a] uppercase tracking-tight m-0">
+                    Order Now
+                  </h3>
+                  <p className="font-sans font-semibold text-xs text-black/65 mt-0.5 m-0 leading-tight">
+                    Satisfy your cravings instantly
+                  </p>
+                </div>
+
+                {/* Arrow */}
+                <span className="text-xl font-bold text-[#0a0a0a] group-hover:translate-x-1 transition-transform duration-200">
+                  →
+                </span>
+              </Link>
+            </motion.div>
+
+            {/* BUILD YOUR CUSTOM STACKD CARD */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.16, duration: 0.35 }}
+              whileHover={{ scale: 1.015, y: -2 }}
+              whileTap={{ scale: 0.985 }}
+              className="w-full"
+            >
+              <Link
+                href="/build"
+                onClick={onClose}
+                className="flex items-center gap-4 p-4.5 rounded-2xl bg-white/[0.015] border border-brand/20 hover:border-brand/40 hover:bg-brand/[0.03] transition-all duration-300 shadow-[0_4px_24px_rgba(0,0,0,0.25)] no-underline group"
+              >
+                {/* Icon wrapper */}
+                <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-brand/[0.07] text-brand text-lg">
+                  <FaSlidersH />
+                </div>
+
+                {/* Text */}
+                <div className="flex-1">
+                  <h3 className="font-poppins font-black text-[15px] text-white tracking-tight m-0">
+                    Build Your Custom STACKD
+                  </h3>
+                  <p className="font-sans text-xs text-white/60 mt-0.5 m-0 leading-tight">
+                    Craft a burger masterpiece your way
+                  </p>
+                </div>
+
+                {/* Arrow */}
+                <span className="text-lg text-brand group-hover:translate-x-1 transition-transform duration-200">
+                  →
+                </span>
+              </Link>
+            </motion.div>
+
+            {/* TWO COLUMN GRID FOR DEALS & CART */}
+            <div className="grid grid-cols-2 gap-3">
+              
+              {/* DEALS CARD */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.35 }}
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full"
+              >
+                <Link
+                  href="/#meal-deals"
+                  onClick={(e) => handleItemClick(e, '/#meal-deals', 'meal-deals')}
+                  className="flex flex-col justify-between h-[124px] p-4 rounded-2xl bg-red-500/[0.03] border border-red-500/15 hover:border-red-500/35 hover:bg-red-500/[0.06] transition-all duration-300 no-underline group"
+                >
+                  <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-red-500/[0.07] text-red-500 text-base">
+                    <FaFire />
+                  </div>
+                  <div>
+                    <h4 className="font-poppins font-black text-sm text-white m-0">
+                      Hot Deals
+                    </h4>
+                    <p className="font-sans text-[11px] text-white/45 mt-0.5 m-0 leading-tight">
+                      Save on combos
+                    </p>
+                  </div>
+                </Link>
+              </motion.div>
+
+              {/* CART CARD */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.24, duration: 0.35 }}
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full"
+              >
+                <Link
+                  href="/cart"
+                  onClick={onClose}
+                  className="flex flex-col justify-between h-[124px] p-4 rounded-2xl bg-brand/[0.03] border border-brand/15 hover:border-brand/35 hover:bg-brand/[0.06] transition-all duration-300 no-underline group"
+                >
+                  <div className="flex justify-between items-center w-full">
+                    <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-brand/[0.07] text-brand text-base">
+                      <FaShoppingBag />
+                    </div>
+                    {cartCount > 0 && (
+                      <motion.span
+                        key={cartCount}
+                        initial={{ scale: 0.6, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="bg-brand text-[#0a0a0a] font-poppins font-extrabold text-[10px] px-2 py-0.5 rounded-lg shadow-[0_0_12px_rgba(245,196,0,0.35)]"
+                      >
+                        {cartCount}
+                      </motion.span>
+                    )}
+                  </div>
+                  <div>
+                    <h4 className="font-poppins font-black text-sm text-white m-0">
+                      View Cart
+                    </h4>
+                    <p className="font-sans text-[11px] text-white/45 mt-0.5 m-0 leading-tight">
+                      Check active order
+                    </p>
+                  </div>
+                </Link>
+              </motion.div>
+            </div>
           </div>
 
-          {/* Category links */}
-          <div style={{ marginTop: 16 }}>
-            <p
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 10,
-                fontWeight: 600,
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.25)',
-                padding: '0 12px 8px',
-                margin: 0,
-              }}
-            >
-              Menu
+          {/* Section: Explore & Navigation */}
+          <div className="flex flex-col gap-2.5 mt-2">
+            <p className="font-sans text-[10px] font-black tracking-widest text-white/25 uppercase m-0 mb-1 pl-0.5">
+              Explore STACKD
             </p>
-            {MOBILE_NAV.filter((i) => i.sub).map((item, i) => (
-              <MobileNavItem key={item.label} item={item} index={i + 4} onClose={onClose} />
-            ))}
-          </div>
-        </nav>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            padding: '20px 20px 32px',
-            borderTop: '1px solid rgba(255,255,255,0.06)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 12,
-          }}
-        >
-          {/* Full-width CTA */}
-          <Link
-            href="/build"
-            onClick={onClose}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              padding: '15px 20px',
-              borderRadius: 14,
-              textDecoration: 'none',
-              background: 'var(--color-brand)',
-              fontFamily: 'var(--font-display)',
-              fontWeight: 700,
-              fontSize: 15,
-              letterSpacing: '-0.01em',
-              color: '#0a0a0a',
-              boxShadow: '0 4px 24px rgba(245,196,0,0.28)',
-            }}
-          >
-            <span style={{ fontSize: 17 }} aria-hidden="true">🥞</span>
-            Build Your Stack
-            <span aria-hidden="true">→</span>
-          </Link>
+            {/* MENU LINK */}
+            <motion.div
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.28, duration: 0.3 }}
+              whileHover={{ x: 4 }}
+              className="w-full"
+            >
+              <Link
+                href="/#menu"
+                onClick={(e) => handleItemClick(e, '/#menu', 'menu')}
+                className="flex items-center gap-3.5 px-4.5 py-3.5 rounded-xl text-white/65 hover:text-white bg-white/[0.015] border border-white/[0.03] hover:border-white/[0.07] hover:bg-white/[0.04] transition-all duration-300 no-underline group"
+              >
+                <span className="text-white/40 group-hover:text-brand transition-colors duration-300 flex items-center">
+                  <FaBookOpen />
+                </span>
+                <span className="font-poppins font-extrabold text-sm tracking-wide">
+                  Full Menu
+                </span>
+                <span className="ml-auto text-white/20 group-hover:text-white/50 transition-colors duration-300 text-xs">
+                  →
+                </span>
+              </Link>
+            </motion.div>
 
-          {/* Quick actions row */}
-          <div style={{ display: 'flex', gap: 10 }}>
-            <Link
-              href="/cart"
-              onClick={onClose}
-              style={{
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 8,
-                padding: '12px',
-                borderRadius: 12,
-                textDecoration: 'none',
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                fontFamily: 'var(--font-display)',
-                fontWeight: 600,
-                fontSize: 13,
-                color: 'var(--color-text-secondary)',
-              }}
+            {/* CONTACT US LINK */}
+            <motion.div
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.32, duration: 0.3 }}
+              whileHover={{ x: 4 }}
+              className="w-full"
             >
-              🛍 Cart
-            </Link>
-            <Link
-              href="/account"
-              onClick={onClose}
-              style={{
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 8,
-                padding: '12px',
-                borderRadius: 12,
-                textDecoration: 'none',
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                fontFamily: 'var(--font-display)',
-                fontWeight: 600,
-                fontSize: 13,
-                color: 'var(--color-text-secondary)',
-              }}
+              <Link
+                href="/#footer"
+                onClick={(e) => handleItemClick(e, '/#footer', 'footer')}
+                className="flex items-center gap-3.5 px-4.5 py-3.5 rounded-xl text-white/65 hover:text-white bg-white/[0.015] border border-white/[0.03] hover:border-white/[0.07] hover:bg-white/[0.04] transition-all duration-300 no-underline group"
+              >
+                <span className="text-white/40 group-hover:text-brand transition-colors duration-300 flex items-center">
+                  <FaMapMarkerAlt />
+                </span>
+                <span className="font-poppins font-extrabold text-sm tracking-wide">
+                  Contact Us
+                </span>
+                <span className="ml-auto text-white/20 group-hover:text-white/50 transition-colors duration-300 text-xs">
+                  →
+                </span>
+              </Link>
+            </motion.div>
+
+            {/* MY ACCOUNT LINK */}
+            <motion.div
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.36, duration: 0.3 }}
+              whileHover={{ x: 4 }}
+              className="w-full"
             >
-              👤 Account
-            </Link>
+              <Link
+                href="/account"
+                onClick={onClose}
+                className="flex items-center gap-3.5 px-4.5 py-3.5 rounded-xl text-white/65 hover:text-white bg-white/[0.015] border border-white/[0.03] hover:border-white/[0.07] hover:bg-white/[0.04] transition-all duration-300 no-underline group"
+              >
+                <span className="text-white/40 group-hover:text-brand transition-colors duration-300 flex items-center">
+                  <FaUser />
+                </span>
+                <span className="font-poppins font-extrabold text-sm tracking-wide">
+                  My Account
+                </span>
+                <span className="ml-auto text-white/20 group-hover:text-white/50 transition-colors duration-300 text-xs">
+                  →
+                </span>
+              </Link>
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
       </motion.div>
-    </motion.div>
-  )
-}
-
-interface MobileNavItemData {
-  label: string
-  href: string
-  emoji: string
-  sub?: boolean
-}
-
-function MobileNavItem({
-  item,
-  index,
-  onClose,
-}: {
-  item: MobileNavItemData
-  index: number
-  onClose: () => void
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: 0.1 + index * 0.05, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <Link
-        href={item.href}
-        onClick={onClose}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 14,
-          padding: '13px 12px',
-          borderRadius: 12,
-          textDecoration: 'none',
-          color: 'var(--color-text-secondary)',
-          transition: 'all 0.15s ease',
-        }}
-        onMouseEnter={(e) => {
-          const el = e.currentTarget as HTMLElement
-          el.style.background = 'rgba(245,196,0,0.07)'
-          el.style.color = 'white'
-        }}
-        onMouseLeave={(e) => {
-          const el = e.currentTarget as HTMLElement
-          el.style.background = 'transparent'
-          el.style.color = 'var(--color-text-secondary)'
-        }}
-      >
-        <span
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 10,
-            background: 'rgba(255,255,255,0.05)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: 18,
-            flexShrink: 0,
-          }}
-          aria-hidden="true"
-        >
-          {item.emoji}
-        </span>
-        <span
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 600,
-            fontSize: item.sub ? 14 : 16,
-            letterSpacing: '-0.01em',
-          }}
-        >
-          {item.label}
-        </span>
-        <span
-          style={{ marginLeft: 'auto', color: 'rgba(255,255,255,0.2)', fontSize: 14 }}
-          aria-hidden="true"
-        >
-          →
-        </span>
-      </Link>
     </motion.div>
   )
 }
