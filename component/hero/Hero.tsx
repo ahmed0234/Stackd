@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 
 interface StackData {
-  id: "og" | "fire" | "melt" | "smoke";
+  id: "fire" | "melt" | "og" | "royal" | "smoke";
   name: string;
   sloganPre: string;
   sloganHighlight: string;
@@ -26,21 +26,6 @@ interface StackData {
 }
 
 const STACKS: Record<string, StackData> = {
-  og: {
-    id: "og",
-    name: "OG Stack",
-    sloganPre: "Every Layer Hits ",
-    sloganHighlight: "Different.",
-    sloganPost: "",
-    subtitle:
-      "Our signature masterwork. Dual custom-blend smashed patties, caramelized edges, melted cheddar, and secret Stack Sauce on toasted artisan brioche.",
-    burgerImage: "/Stacks/Og stack.png",
-    sideImage: "/Fries/Classic loaded.png",
-    color: "#F5C400",
-    glowColor: "rgba(245, 196, 0, 0.12)",
-    glowStrong: "rgba(245, 196, 0, 0.35)",
-    shadowGlow: "0 0 50px rgba(245, 196, 0, 0.22)",
-  },
   fire: {
     id: "fire",
     name: "Fire Stack",
@@ -49,8 +34,8 @@ const STACKS: Record<string, StackData> = {
     sloganPost: "",
     subtitle:
       "Crafted for culinary thrill-seekers. Dual custom-blend smashed patties, melted pepper jack, fire-charred jalapeños, and our legendary signature fire nectar.",
-    burgerImage: "/Stacks/Fire stack.png",
-    sideImage: "/Fries/Fire loaded.png",
+    burgerImage: "/Stacks/Fire.png",
+    sideImage: "/Fries/chillicheesefries.png",
     color: "#EF4444",
     glowColor: "rgba(239, 68, 68, 0.12)",
     glowStrong: "rgba(239, 68, 68, 0.35)",
@@ -64,12 +49,42 @@ const STACKS: Record<string, StackData> = {
     sloganPost: "",
     subtitle:
       "A decadent gold standard. Dual hand-pressed patties blanketed in premium hot melted cheddar cheese sauce, sweet caramelized onions, and signature Stack Spread.",
-    burgerImage: "/Stacks/Melt stack.png",
-    sideImage: "/Fries/Full stackd fries.png",
+    burgerImage: "/Stacks/Melt.png",
+    sideImage: "/Fries/Fullstackdfries.png",
     color: "#F97316",
     glowColor: "rgba(249, 115, 22, 0.12)",
     glowStrong: "rgba(249, 115, 22, 0.35)",
     shadowGlow: "0 0 50px rgba(249, 115, 22, 0.22)",
+  },
+  og: {
+    id: "og",
+    name: "OG Stack",
+    sloganPre: "Every Layer Hits ",
+    sloganHighlight: "Different.",
+    sloganPost: "",
+    subtitle:
+      "Our signature masterwork. Dual custom-blend smashed patties, caramelized edges, melted cheddar, and secret Stack Sauce on toasted artisan brioche.",
+    burgerImage: "/Stacks/Og.png",
+    sideImage: "/Fries/plain fries.png",
+    color: "#F5C400",
+    glowColor: "rgba(245, 196, 0, 0.12)",
+    glowStrong: "rgba(245, 196, 0, 0.35)",
+    shadowGlow: "0 0 50px rgba(245, 196, 0, 0.22)",
+  },
+  royal: {
+    id: "royal",
+    name: "Royal Stack",
+    sloganPre: "Dine Like ",
+    sloganHighlight: "Royalty.",
+    sloganPost: "",
+    subtitle:
+      "A majestic feast of triple smashed Angus beef patties, premium golden cheddar cheese, sweet caramelized onions, and our rich signature truffle glaze.",
+    burgerImage: "/Stacks/Royal.png",
+    sideImage: "/Fries/Fullstackdfries.png",
+    color: "#6366F1",
+    glowColor: "rgba(99, 102, 241, 0.12)",
+    glowStrong: "rgba(99, 102, 241, 0.35)",
+    shadowGlow: "0 0 50px rgba(99, 102, 241, 0.22)",
   },
   smoke: {
     id: "smoke",
@@ -79,8 +94,8 @@ const STACKS: Record<string, StackData> = {
     sloganPost: "",
     subtitle:
       "The peak of smoky luxury. Dual flame-seared patties stacked with thick hardwood smoked bacon, crispy golden onion rings, sharp cheddar, and rich sweet hickory BBQ glaze.",
-    burgerImage: "/Stacks/Smoke stack.png",
-    sideImage: "/Fries/Smoke loaded.png",
+    burgerImage: "/Stacks/Smoke.png",
+    sideImage: "/Fries/chillicheesefries.png",
     color: "#D97706",
     glowColor: "rgba(217, 119, 6, 0.12)",
     glowStrong: "rgba(217, 119, 6, 0.35)",
@@ -90,8 +105,8 @@ const STACKS: Record<string, StackData> = {
 
 export default function Hero() {
   const [activeStack, setActiveStack] = useState<
-    "og" | "fire" | "melt" | "smoke"
-  >("og");
+    "fire" | "melt" | "og" | "royal" | "smoke"
+  >("fire");
   const activeData = STACKS[activeStack];
 
   // Mouse tilt tracking (Parallax)
@@ -624,7 +639,7 @@ export default function Hero() {
             >
               <div className="flex items-center gap-1 sm:gap-2">
                 {(
-                  Object.keys(STACKS) as Array<"og" | "fire" | "melt" | "smoke">
+                  Object.keys(STACKS) as Array<"fire" | "melt" | "og" | "royal" | "smoke">
                 ).map((key) => {
                   const item = STACKS[key];
                   const isActive = activeStack === key;

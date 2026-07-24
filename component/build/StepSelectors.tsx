@@ -3,11 +3,12 @@
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import {
-  BUNS,
+  BREADS,
   PROTEINS,
   VEGGIES,
   CHEESES,
   SAUCES,
+  BreadOption,
   BunOption,
   ProteinOption,
   VeggieOption,
@@ -35,26 +36,128 @@ const cardVariants = {
 /* ─────────────────────────────────────────────────────────────────────────────
    Step 1: Bun Selector
    ─────────────────────────────────────────────────────────────────────────── */
-interface BunSelectorProps {
-  selectedBun: BunOption | null;
-  onSelect: (bun: BunOption) => void;
+/* ─────────────────────────────────────────────────────────────────────────────
+   Step 1: Bread Size Selector (NEW)
+   ─────────────────────────────────────────────────────────────────────────── */
+interface BreadSizeSelectorProps {
+  selectedSize: "6 Inches" | "Foot Long" | null;
+  onSelect: (size: "6 Inches" | "Foot Long") => void;
 }
 
-export function BunSelector({ selectedBun, onSelect }: BunSelectorProps) {
+export function BreadSizeSelector({ selectedSize, onSelect }: BreadSizeSelectorProps) {
+  const sizes = [
+    {
+      id: "6 Inches",
+      name: "6 Inches",
+      desc: "Perfect snack size, split in half.",
+      icon: (color: string) => (
+        <svg width="60" height="30" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="5" width="56" height="20" rx="10" fill="none" stroke={color} strokeWidth="2.5" />
+          <line x1="16" y1="5" x2="16" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
+          <line x1="30" y1="5" x2="30" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
+          <line x1="44" y1="5" x2="44" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
+        </svg>
+      ),
+      length: "6\" / ~15cm"
+    },
+    {
+      id: "Foot Long",
+      name: "Foot Long",
+      desc: "For the big hunger. The legendary 12-inch full size.",
+      icon: (color: string) => (
+        <svg width="100" height="30" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="5" width="96" height="20" rx="10" fill="none" stroke={color} strokeWidth="2.5" />
+          <line x1="20" y1="5" x2="20" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
+          <line x1="38" y1="5" x2="38" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
+          <line x1="56" y1="5" x2="56" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
+          <line x1="74" y1="5" x2="74" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
+        </svg>
+      ),
+      length: "12\" / ~30cm"
+    }
+  ];
+
+  return (
+    <div className="flex flex-col items-center w-full max-w-2xl mx-auto py-4 select-none">
+      <h3 className="font-poppins font-black text-2xl sm:text-3xl text-white uppercase text-center mb-2 tracking-wide">
+        Select Your Bread Size
+      </h3>
+      <p className="text-white/50 text-xs sm:text-sm text-center mb-8 font-sans max-w-md leading-relaxed">
+        Choose the perfect length for your appetite.
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full mt-2">
+        {sizes.map((s) => {
+          const isSelected = selectedSize === s.id;
+          const themeColor = isSelected ? "#F5C400" : "rgba(255, 255, 255, 0.4)";
+
+          return (
+            <motion.div
+              key={s.id}
+              variants={cardVariants}
+              initial="initial"
+              animate="animate"
+              whileHover="hover"
+              whileTap="tap"
+              onClick={() => onSelect(s.id as "6 Inches" | "Foot Long")}
+              className={`cursor-pointer p-6 sm:p-8 rounded-3xl border bg-white/[0.01] backdrop-blur-xl flex flex-col items-center text-center transition-all duration-300 relative overflow-hidden group min-h-[220px] justify-center ${
+                isSelected
+                  ? "border-brand shadow-[0_0_32px_rgba(245,196,0,0.2)] bg-brand/[0.03]"
+                  : "border-white/[0.06] hover:border-white/20 hover:bg-white/[0.03]"
+              }`}
+            >
+              {isSelected && (
+                <div className="absolute inset-0 pointer-events-none bg-brand/[0.01] shadow-inner" />
+              )}
+
+              <span className="absolute top-3 right-3 px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest bg-white/5 border border-white/10 text-white/50 group-hover:text-white/80 transition-colors">
+                {s.length}
+              </span>
+
+              <div className="relative h-20 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
+                {s.icon(themeColor)}
+              </div>
+
+              <h4 className="font-poppins font-black text-lg uppercase text-white tracking-wide flex items-center gap-2 mb-2">
+                {s.name}
+                {isSelected && <span className="text-brand text-xs">✓</span>}
+              </h4>
+              <p className="text-xs text-white/50 leading-relaxed font-sans max-w-[220px]">
+                {s.desc}
+              </p>
+            </motion.div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Step 2: Bun Selector
+   ─────────────────────────────────────────────────────────────────────────── */
+interface BunSelectorProps {
+  selectedBreadType: BreadOption | null;
+  selectedBreadSize: "6 Inches" | "Foot Long" | null;
+  onSelect: (bread: BreadOption) => void;
+}
+
+export function BunSelector({ selectedBreadType, selectedBreadSize, onSelect }: BunSelectorProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-      {BUNS.map((bun) => {
-        const isSelected = selectedBun?.id === bun.id;
+      {BREADS.map((bread) => {
+        const isSelected = selectedBreadType?.id === bread.id;
+        const imageUrl = selectedBreadSize === "Foot Long" ? bread.imageFootLong : bread.image6Inch;
 
         return (
           <motion.div
-            key={bun.id}
+            key={bread.id}
             variants={cardVariants}
             initial="initial"
             animate="animate"
             whileHover="hover"
             whileTap="tap"
-            onClick={() => onSelect(bun)}
+            onClick={() => onSelect(bread)}
             className={`cursor-pointer p-4 rounded-2xl border bg-white/[0.01] backdrop-blur-md flex flex-col items-center text-center transition-all duration-300 relative overflow-hidden group select-none ${
               isSelected
                 ? "border-brand shadow-[0_0_24px_rgba(245,196,0,0.15)] bg-brand/[0.02]"
@@ -68,15 +171,15 @@ export function BunSelector({ selectedBun, onSelect }: BunSelectorProps) {
 
             {/* Bun size tag */}
             <span className="absolute top-3 right-3 px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest bg-white/5 border border-white/10 text-white/50 group-hover:text-white/80 transition-colors">
-              {bun.size === "Full" ? "12-Inch" : "6-Inch"}
+              {selectedBreadSize || "Length"}
             </span>
 
             {/* Visual Frame */}
-            <div className="relative w-full h-32 flex items-center justify-center mb-4 select-none">
-              <div className="relative w-[90%] h-[90%] filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)] group-hover:scale-105 transition-transform duration-300">
+            <div className="relative w-full h-40 sm:h-48 flex items-center justify-center mb-4 select-none">
+              <div className="relative w-[95%] h-[95%] filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)] group-hover:scale-105 transition-transform duration-300">
                 <Image
-                  src={bun.image}
-                  alt={bun.name}
+                  src={imageUrl}
+                  alt={bread.name}
                   fill
                   sizes="(max-width: 640px) 100vw, 50vw"
                   style={{ objectFit: "contain" }}
@@ -87,11 +190,11 @@ export function BunSelector({ selectedBun, onSelect }: BunSelectorProps) {
             {/* Typography */}
             <div className="w-full text-left">
               <h3 className="font-poppins font-black text-sm uppercase text-white tracking-wide leading-tight flex items-center gap-2">
-                {bun.name}
+                {bread.name}
                 {isSelected && <span className="text-brand text-xs">✓</span>}
               </h3>
               <p className="text-[11px] text-white/50 leading-relaxed font-sans mt-2 line-clamp-2">
-                {bun.description}
+                {bread.description}
               </p>
             </div>
           </motion.div>
@@ -140,13 +243,13 @@ export function ProteinSelector({ selectedProteins, onToggle }: ProteinSelectorP
             </div>
 
             {/* Visual Container */}
-            <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 flex items-center justify-center bg-white/[0.02] border border-white/[0.05] rounded-xl overflow-hidden shadow-inner group-hover:bg-white/[0.04] transition-colors">
+            <div className="relative w-28 h-28 sm:w-36 sm:h-36 flex-shrink-0 flex items-center justify-center bg-white/[0.02] border border-white/[0.05] rounded-xl overflow-hidden shadow-inner group-hover:bg-white/[0.04] transition-colors">
               <div className="relative w-[92%] h-[92%] filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.25)] group-hover:scale-108 transition-transform duration-300">
                 <Image
                   src={protein.image}
                   alt={protein.name}
                   fill
-                  sizes="(max-width: 640px) 96px, 112px"
+                  sizes="(max-width: 640px) 112px, 144px"
                   style={{ objectFit: "contain" }}
                 />
               </div>
@@ -207,12 +310,12 @@ export function VeggieSelector({ selectedVeggies, onToggle }: VeggieSelectorProp
             </div>
 
             {/* Thumbnail */}
-            <div className="relative w-16 h-16 sm:w-[76px] sm:h-[76px] flex items-center justify-center mb-2 filter drop-shadow-[0_2px_6px_rgba(0,0,0,0.2)]">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center mb-2 filter drop-shadow-[0_2px_6px_rgba(0,0,0,0.2)]">
               <Image
                 src={veg.image}
                 alt={veg.name}
                 fill
-                sizes="(max-width: 640px) 64px, 76px"
+                sizes="(max-width: 640px) 80px, 96px"
                 style={{ objectFit: "contain" }}
               />
             </div>
@@ -362,7 +465,7 @@ export function SauceSelector({ selectedSauces, onToggle }: SauceSelectorProps) 
 
             {/* Thumbnail */}
             <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 flex items-center justify-center bg-white/[0.02] border border-white/[0.05] rounded-xl overflow-hidden shadow-inner">
-              <div className="relative w-[88%] h-[88%] filter drop-shadow-[0_2px_6px_rgba(0,0,0,0.2)] group-hover:scale-106 transition-transform duration-300">
+              <div className="relative w-[98%] h-[98%] filter drop-shadow-[0_2px_6px_rgba(0,0,0,0.2)] group-hover:scale-106 transition-transform duration-300">
                 <Image
                   src={sauce.image}
                   alt={sauce.name}
@@ -395,129 +498,3 @@ export function SauceSelector({ selectedSauces, onToggle }: SauceSelectorProps) 
   );
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Step 6: Toast Preference Selector (NEW)
-   ─────────────────────────────────────────────────────────────────────────── */
-interface ToastSelectorProps {
-  selectedToast: "Toasted" | "Not Toasted" | null;
-  onSelect: (toast: "Toasted" | "Not Toasted") => void;
-}
-
-export function ToastSelector({ selectedToast, onSelect }: ToastSelectorProps) {
-  return (
-    <div className="flex flex-col items-center w-full max-w-2xl mx-auto py-4 select-none">
-      {/* Centered Heading */}
-      <h3 className="font-poppins font-black text-2xl sm:text-3xl text-white uppercase text-center mb-2 tracking-wide">
-        How Would You Like Your Stack?
-      </h3>
-      <p className="text-white/50 text-xs sm:text-sm text-center mb-8 font-sans max-w-md leading-relaxed">
-        Choose your final customization finish. Warm toasted crunch or soft fresh preparation.
-      </p>
-
-      {/* Option Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full mt-2">
-        {/* 1. Toasted Option */}
-        <motion.div
-          variants={cardVariants}
-          initial="initial"
-          animate="animate"
-          whileHover="hover"
-          whileTap="tap"
-          onClick={() => onSelect("Toasted")}
-          className={`cursor-pointer p-6 sm:p-8 rounded-3xl border bg-white/[0.01] backdrop-blur-xl flex flex-col items-center text-center transition-all duration-300 relative overflow-hidden group min-h-[220px] justify-center ${
-            selectedToast === "Toasted"
-              ? "border-brand shadow-[0_0_32px_rgba(245,196,0,0.2)] bg-brand/[0.03]"
-              : "border-white/[0.06] hover:border-white/20 hover:bg-white/[0.03]"
-          }`}
-        >
-          {/* Animated Glow Accent */}
-          {selectedToast === "Toasted" && (
-            <motion.div
-              layoutId="toastGlow"
-              className="absolute inset-0 bg-brand/[0.01] pointer-events-none"
-            />
-          )}
-
-          {/* Icon visual using SVG for premium micro-animation */}
-          <div className="relative w-16 h-16 flex items-center justify-center mb-5 bg-white/[0.02] border border-white/[0.05] rounded-2xl group-hover:scale-105 transition-transform duration-300">
-            {/* Animated Fire Flame SVG */}
-            <motion.svg
-              animate={selectedToast === "Toasted" ? { y: [0, -3, 0], scale: [1, 1.05, 1] } : {}}
-              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-              width="36"
-              height="36"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke={selectedToast === "Toasted" ? "#F5C400" : "rgba(255,255,255,0.4)"}
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="transition-colors duration-300"
-            >
-              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
-            </motion.svg>
-          </div>
-
-          <h4 className="font-poppins font-black text-lg uppercase text-white tracking-wide flex items-center gap-2 mb-2">
-            🔥 Toasted
-            {selectedToast === "Toasted" && <span className="text-brand text-sm">✓</span>}
-          </h4>
-          <p className="text-xs text-white/50 leading-relaxed font-sans max-w-[220px]">
-            Crispy, warm, and lightly toasted for extra texture and flavor.
-          </p>
-        </motion.div>
-
-        {/* 2. Not Toasted Option */}
-        <motion.div
-          variants={cardVariants}
-          initial="initial"
-          animate="animate"
-          whileHover="hover"
-          whileTap="tap"
-          onClick={() => onSelect("Not Toasted")}
-          className={`cursor-pointer p-6 sm:p-8 rounded-3xl border bg-white/[0.01] backdrop-blur-xl flex flex-col items-center text-center transition-all duration-300 relative overflow-hidden group min-h-[220px] justify-center ${
-            selectedToast === "Not Toasted"
-              ? "border-brand shadow-[0_0_32px_rgba(245,196,0,0.2)] bg-brand/[0.03]"
-              : "border-white/[0.06] hover:border-white/20 hover:bg-white/[0.03]"
-          }`}
-        >
-          {/* Animated Glow Accent */}
-          {selectedToast === "Not Toasted" && (
-            <motion.div
-              layoutId="toastGlow"
-              className="absolute inset-0 bg-brand/[0.01] pointer-events-none"
-            />
-          )}
-
-          {/* Icon visual using SVG for premium micro-animation */}
-          <div className="relative w-16 h-16 flex items-center justify-center mb-5 bg-white/[0.02] border border-white/[0.05] rounded-2xl group-hover:scale-105 transition-transform duration-300">
-            {/* Animated Twinkling Sparkles SVG */}
-            <motion.svg
-              animate={selectedToast === "Not Toasted" ? { rotate: [0, 15, 0], scale: [1, 1.08, 1] } : {}}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-              width="36"
-              height="36"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke={selectedToast === "Not Toasted" ? "#F5C400" : "rgba(255,255,255,0.4)"}
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="transition-colors duration-300"
-            >
-              <path d="M12 3v3m0 12v3M3 12h3m12 0h3m-2.22-6.78l-2.12 2.12m-9.9 9.9l-2.12 2.12m14.14 0l-2.12-2.12M6.34 6.34l-2.12-2.12" />
-            </motion.svg>
-          </div>
-
-          <h4 className="font-poppins font-black text-lg uppercase text-white tracking-wide flex items-center gap-2 mb-2">
-            ✨ Not Toasted
-            {selectedToast === "Not Toasted" && <span className="text-brand text-sm">✓</span>}
-          </h4>
-          <p className="text-xs text-white/50 leading-relaxed font-sans max-w-[220px]">
-            Soft, fresh, and served exactly as prepared.
-          </p>
-        </motion.div>
-      </div>
-    </div>
-  );
-}

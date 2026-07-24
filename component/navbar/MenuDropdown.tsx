@@ -21,7 +21,7 @@ const MENU_CATEGORIES = [
     emoji: '🌯',
     href: '/menu/wraps',
     accent: '#FF9F43',
-    items: ['Crispy Chicken', 'Smash Wrap', 'Veggie Deluxe'],
+    items: ['Build Your Own', 'Fire Wrap', 'Melted Wrap', 'OG Wrap', 'Royale Wrap'],
   },
   {
     id: 'fries',
@@ -30,7 +30,7 @@ const MENU_CATEGORIES = [
     emoji: '🍟',
     href: '/menu/fries',
     accent: '#EE5A24',
-    items: ['Cheese Bomb', 'BBQ Pulled', 'Bacon Chilli'],
+    items: ['Full Stackd Fries', 'Chilli Cheese Fries', 'Plain Fries'],
   },
   {
     id: 'drinks',
@@ -39,7 +39,7 @@ const MENU_CATEGORIES = [
     emoji: '🥤',
     href: '/menu/drinks',
     accent: '#48dbfb',
-    items: ['Lemonade', 'Iced Tea', 'Milkshakes', 'Sodas'],
+    items: ['Pepsi', 'Sprite', 'Mineral Water'],
   },
   {
     id: 'toppings',

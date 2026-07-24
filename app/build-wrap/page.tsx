@@ -5,53 +5,32 @@ import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";
 
-// Configurator Components
-import { BreadOption, BunOption, ProteinOption, VeggieOption, CheeseOption, SauceOption } from "@/component/build/ingredients";
+// Configurator Components (Reused from custom builder)
+import { ProteinOption, VeggieOption, CheeseOption, SauceOption } from "@/component/build/ingredients";
 import BuildSummaryCard from "@/component/build/BuildSummaryCard";
-import { BreadSizeSelector, BunSelector, ProteinSelector, VeggieSelector, CheeseSelector, SauceSelector } from "@/component/build/StepSelectors";
+import { ProteinSelector, VeggieSelector, CheeseSelector, SauceSelector } from "@/component/build/StepSelectors";
 import ReviewStep from "@/component/build/ReviewStep";
 import UpsellDrawer from "@/component/build/UpsellDrawer";
 
 const STEPS = [
-  { num: 1, title: "Size", desc: "Choose length" },
-  { num: 2, title: "Bread", desc: "Select base" },
-  { num: 3, title: "Protein", desc: "Choose patty" },
-  { num: 4, title: "Cheese", desc: "Select cheese" },
-  { num: 5, title: "Veggies", desc: "Add crunch" },
-  { num: 6, title: "Sauces", desc: "Flavor kick" },
-  { num: 7, title: "Review", desc: "Review stack" },
+  { num: 1, title: "Protein", desc: "Choose filling" },
+  { num: 2, title: "Cheese", desc: "Select cheese" },
+  { num: 3, title: "Veggies", desc: "Add crunch" },
+  { num: 4, title: "Sauces", desc: "Flavor kick" },
+  { num: 5, title: "Review", desc: "Review wrap" },
 ];
 
-const FIXED_PRICE = 650; // Rs. 650 PKR
+const FIXED_WRAP_PRICE = 550; // Rs. 550 PKR
 
-export default function BuildPage() {
+export default function BuildWrapPage() {
   const [mounted, setMounted] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
 
   // Selected Ingredients State
-  const [selectedBreadSize, setSelectedBreadSize] = useState<"6 Inches" | "Foot Long" | null>(null);
-  const [selectedBreadType, setSelectedBreadType] = useState<BreadOption | null>(null);
   const [selectedProteins, setSelectedProteins] = useState<ProteinOption[]>([]);
   const [selectedVeggies, setSelectedVeggies] = useState<VeggieOption[]>([]);
   const [selectedCheese, setSelectedCheese] = useState<CheeseOption | null>(null);
   const [selectedSauces, setSelectedSauces] = useState<SauceOption[]>([]);
-
-  // Compute selectedBun dynamically to maintain backward compatibility
-  const selectedBun: BunOption | null = (selectedBreadSize && selectedBreadType) ? {
-    id: `${selectedBreadType.id}-${selectedBreadSize === "Foot Long" ? "1foot" : "6inch"}`,
-    name: `${selectedBreadType.name} (${selectedBreadSize})`,
-    size: selectedBreadSize === "Foot Long" ? "Full" : "Half",
-    image: selectedBreadSize === "Foot Long" ? selectedBreadType.imageFootLong : selectedBreadType.image6Inch,
-    description: selectedBreadType.description,
-  } : null;
-
-  const handleSizeSelect = (size: "6 Inches" | "Foot Long") => {
-    setSelectedBreadSize(size);
-    // Smooth transition automatically to step 2 after 200ms
-    setTimeout(() => {
-      setCurrentStep(2);
-    }, 200);
-  };
 
   // Cart & Drawer States
   const addCustomItem = useCartStore((state) => state.addCustomItem);
@@ -75,10 +54,8 @@ export default function BuildPage() {
 
   // Next / Prev Navigation
   const handleNext = () => {
-    // Validation: step 1 requires size, step 2 requires bread, step 3 requires protein
-    if (currentStep === 1 && !selectedBreadSize) return;
-    if (currentStep === 2 && !selectedBreadType) return;
-    if (currentStep === 3 && selectedProteins.length === 0) return;
+    // Validation: step 1 requires protein selection
+    if (currentStep === 1 && selectedProteins.length === 0) return;
 
     if (currentStep < STEPS.length) {
       setCurrentStep((prev) => prev + 1);
@@ -91,6 +68,7 @@ export default function BuildPage() {
     }
   };
 
+  // Ingredient Toggles
   const handleProteinToggle = (protein: ProteinOption) => {
     setSelectedProteins((prev) =>
       prev.some((p) => p.id === protein.id)
@@ -99,7 +77,6 @@ export default function BuildPage() {
     );
   };
 
-  // Ingredient Toggles
   const handleVeggieToggle = (veg: VeggieOption) => {
     setSelectedVeggies((prev) =>
       prev.some((v) => v.id === veg.id)
@@ -116,29 +93,28 @@ export default function BuildPage() {
     );
   };
 
-  // Add Custom Stack to Zustand Cart
-  const handleCompleteStack = () => {
-    if (!selectedBun || selectedProteins.length === 0) return;
+  // Add Custom Wrap to Zustand Cart
+  const handleCompleteWrap = () => {
+    if (selectedProteins.length === 0) return;
 
-    // Calculate unique naming & keys to prevent collisions
-    const customCount = Object.values(cartItems).filter((item) => item.id === "byo-stack").length + 1;
-    const sizeName = `Custom Stack #${customCount}`;
-    const timestampKey = `byo-stack::${Date.now()}`; // Unique timestamp for key separation
+    const customCount =
+      Object.values(cartItems).filter((item) => item.id === "byo-wrap").length + 1;
+    const sizeName = `Custom Wrap #${customCount}`;
+    const timestampKey = `byo-wrap::${Date.now()}`;
 
-    // Formatted protein string: e.g., "Flame Grilled Chicken, Chicken Fajita"
     const proteinName = selectedProteins.map((p) => p.name).join(", ");
 
     const customCartItem = {
-      id: "byo-stack",
+      id: "byo-wrap",
       key: timestampKey,
-      name: "Build Your Own Stack",
-      image: selectedBun.image, // Use the base bun image for thumbnail
-      price: FIXED_PRICE,
+      name: "Build Your Own Wrap",
+      image: "/Wraps/buildyourownwrap.png",
+      price: FIXED_WRAP_PRICE,
       size: sizeName,
       quantity: 1,
-      accentColor: "#A855F7", // config purple theme accent
+      accentColor: "#A855F7",
       customization: {
-        bun: selectedBun.name,
+        bun: "Warm Flour Tortilla",
         protein: proteinName,
         veggies: selectedVeggies.map((v) => v.name),
         cheese: selectedCheese ? selectedCheese.name : null,
@@ -155,9 +131,7 @@ export default function BuildPage() {
 
   // Form step validation
   const isNextDisabled = () => {
-    if (currentStep === 1 && !selectedBreadSize) return true;
-    if (currentStep === 2 && !selectedBreadType) return true;
-    if (currentStep === 3 && selectedProteins.length === 0) return true;
+    if (currentStep === 1 && selectedProteins.length === 0) return true;
     return false;
   };
 
@@ -165,7 +139,8 @@ export default function BuildPage() {
     <div
       className="min-h-screen w-full bg-dark-primary pt-32 pb-52 md:pb-24 relative overflow-hidden"
       style={{
-        background: "linear-gradient(180deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%)",
+        background:
+          "linear-gradient(180deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%)",
       }}
     >
       {/* Background Blobs */}
@@ -181,23 +156,23 @@ export default function BuildPage() {
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 z-10 text-left">
         {/* Navigation back */}
         <Link
-          href="/"
+          href="/#menu"
           className="inline-flex items-center gap-2 text-xs font-poppins font-black uppercase tracking-wider text-brand/80 hover:text-brand hover:translate-x-[-4px] transition-all duration-300 mb-4 cursor-pointer"
         >
-          &larr; Back to Home
+          &larr; Back to Menu
         </Link>
 
         {/* Hero Area */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-12">
           <div className="lg:col-span-8">
             <span className="px-3 py-1 rounded-full bg-brand/[0.08] border border-brand/20 text-brand text-[10px] font-black uppercase tracking-widest font-poppins mb-4 inline-block">
-              Taste Architect
+              Wrap Architect
             </span>
             <h1 className="text-4xl sm:text-5xl font-poppins font-black uppercase text-white tracking-tight leading-none mb-4">
-              Build Your Own <span className="text-brand">STACKD</span>
+              Build Your Own <span className="text-brand">WRAP</span>
             </h1>
             <p className="text-white/60 text-sm sm:text-base font-sans max-w-2xl leading-relaxed">
-              Craft your perfect stack layer by layer. Choose your bread base, premium grilled proteins, fresh crunchy toppings, and signature drizzles to build an experience uniquely yours.
+              Craft your signature wrap layer by layer. Choose your grilled chicken and protein fillings, melty cheese, crunchy fresh veggies, and signature drizzles wrapped tight in a warm toasted tortilla.
             </p>
           </div>
 
@@ -206,14 +181,14 @@ export default function BuildPage() {
             <div className="w-full lg:w-auto p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-md flex items-center justify-between lg:justify-end gap-6 min-w-[240px] shadow-card">
               <div className="text-left">
                 <span className="text-[9px] font-poppins font-black text-white/30 uppercase tracking-widest block">
-                  Fixed Stack Price
+                  Fixed Wrap Price
                 </span>
                 <span className="font-poppins font-black text-white text-2xl">
-                  Rs {FIXED_PRICE} PKR
+                  Rs {FIXED_WRAP_PRICE} PKR
                 </span>
               </div>
               <div className="px-3 py-2 rounded-xl bg-brand/10 text-brand text-[10px] font-poppins font-black uppercase tracking-widest border border-brand/20">
-                Premium Choice
+                Custom Choice
               </div>
             </div>
           </div>
@@ -234,7 +209,7 @@ export default function BuildPage() {
               }}
             />
 
-            <div className="grid grid-cols-6 gap-4 relative z-10">
+            <div className="grid grid-cols-5 gap-4 relative z-10">
               {STEPS.map((step) => {
                 const isActive = currentStep === step.num;
                 const isCompleted = currentStep > step.num;
@@ -243,10 +218,8 @@ export default function BuildPage() {
                   <div
                     key={step.num}
                     onClick={() => {
-                      // Quick validation leap
-                      if (step.num > 1 && !selectedBreadSize) return;
-                      if (step.num > 2 && !selectedBreadType) return;
-                      if (step.num > 3 && selectedProteins.length === 0) return;
+                      // Validation check before jumping
+                      if (step.num > 1 && selectedProteins.length === 0) return;
                       setCurrentStep(step.num);
                     }}
                     className={`flex flex-col items-start text-left cursor-pointer group ${
@@ -266,7 +239,7 @@ export default function BuildPage() {
                       {isCompleted ? "✓" : step.num}
                     </div>
 
-                    {/* Labels (Responsive hidden) */}
+                    {/* Labels */}
                     <div className="mt-2 select-none">
                       <span
                         className={`text-[10px] font-poppins font-black uppercase tracking-wide block transition-colors duration-300 ${
@@ -313,50 +286,39 @@ export default function BuildPage() {
             <div className="p-6 rounded-3xl bg-white/[0.01] border border-white/[0.04] backdrop-blur-xl relative overflow-hidden min-h-[380px] flex flex-col justify-between">
               <div>
                 <span className="text-[10px] font-poppins font-black uppercase tracking-widest text-brand block mb-2">
-                  {currentStep === 7 ? "Step 7 of 7" : `Step ${currentStep} of 6`}
+                  {currentStep === 5 ? "Step 5 of 5" : `Step ${currentStep} of 4`}
                 </span>
                 <h2 className="text-2xl font-poppins font-black uppercase tracking-wide text-white mb-6">
-                  {currentStep === 1 && "Choose Bread Size"}
-                  {currentStep === 2 && "Choose Your Bread"}
-                  {currentStep === 3 && "Choose Your Protein"}
-                  {currentStep === 4 && "Choose Melty Cheese"}
-                  {currentStep === 5 && "Select Fresh Veggies"}
-                  {currentStep === 6 && "Drizzle Signature Sauces"}
-                  {currentStep === 7 && "Review Your Creation"}
+                  {currentStep === 1 && "Choose Your Protein / Filling"}
+                  {currentStep === 2 && "Choose Melty Cheese"}
+                  {currentStep === 3 && "Select Fresh Veggies"}
+                  {currentStep === 4 && "Drizzle Signature Sauces"}
+                  {currentStep === 5 && "Review Your Creation"}
                 </h2>
 
                 {/* Render appropriate step sub-component */}
                 <div className="w-full">
                   {currentStep === 1 && (
-                    <BreadSizeSelector selectedSize={selectedBreadSize} onSelect={handleSizeSelect} />
-                  )}
-                  {currentStep === 2 && (
-                    <BunSelector
-                      selectedBreadType={selectedBreadType}
-                      selectedBreadSize={selectedBreadSize}
-                      onSelect={setSelectedBreadType}
-                    />
-                  )}
-                  {currentStep === 3 && (
                     <ProteinSelector selectedProteins={selectedProteins} onToggle={handleProteinToggle} />
                   )}
-                  {currentStep === 4 && (
+                  {currentStep === 2 && (
                     <CheeseSelector selectedCheese={selectedCheese} onSelect={setSelectedCheese} />
                   )}
-                  {currentStep === 5 && (
+                  {currentStep === 3 && (
                     <VeggieSelector selectedVeggies={selectedVeggies} onToggle={handleVeggieToggle} />
                   )}
-                  {currentStep === 6 && (
+                  {currentStep === 4 && (
                     <SauceSelector selectedSauces={selectedSauces} onToggle={handleSauceToggle} />
                   )}
-                  {currentStep === 7 && (
+                  {currentStep === 5 && (
                     <ReviewStep
-                      bun={selectedBun}
+                      bun={null}
                       selectedProteins={selectedProteins}
                       veggies={selectedVeggies}
                       cheese={selectedCheese}
                       sauces={selectedSauces}
-                      price={FIXED_PRICE}
+                      price={FIXED_WRAP_PRICE}
+                      isWrap={true}
                     />
                   )}
                 </div>
@@ -371,7 +333,7 @@ export default function BuildPage() {
                     currentStep === 1 ? "opacity-30 pointer-events-none" : ""
                   }`}
                 >
-                  ← Back
+                  &larr; Back
                 </button>
 
                 {currentStep < STEPS.length ? (
@@ -384,14 +346,14 @@ export default function BuildPage() {
                         : "bg-brand text-[#0a0a0a] shadow-[0_4px_16px_rgba(245,196,0,0.25)] hover:scale-102"
                     }`}
                   >
-                    Next Step →
+                    Next Step &rarr;
                   </button>
                 ) : (
                   <button
-                    onClick={handleCompleteStack}
+                    onClick={handleCompleteWrap}
                     className="px-8 py-3.5 rounded-xl bg-brand text-[#0a0a0a] font-poppins font-extrabold text-xs uppercase tracking-widest flex items-center gap-2 shadow-[0_4px_20px_rgba(245,196,0,0.25)] hover:shadow-[0_4px_30px_rgba(245,196,0,0.45)] hover:scale-102 transition-all duration-300 cursor-pointer select-none animate-pulse"
                   >
-                    🚀 Complete My Stack
+                    🚀 Complete My Wrap
                   </button>
                 )}
               </div>
@@ -401,15 +363,13 @@ export default function BuildPage() {
           {/* Right / Sticky Sidebar column (visible only on desktop) */}
           <div className="hidden lg:block lg:col-span-5 lg:sticky lg:top-28">
             <BuildSummaryCard
-              selectedBreadSize={selectedBreadSize}
-              selectedBreadType={selectedBreadType}
-              selectedBun={selectedBun}
               selectedProteins={selectedProteins}
               selectedVeggies={selectedVeggies}
               selectedCheese={selectedCheese}
               selectedSauces={selectedSauces}
               currentStep={currentStep}
-              fixedPrice={FIXED_PRICE}
+              fixedPrice={FIXED_WRAP_PRICE}
+              isWrap={true}
             />
           </div>
         </div>
@@ -419,15 +379,13 @@ export default function BuildPage() {
       <div className="fixed bottom-0 left-0 right-0 z-[190] bg-dark-secondary border-t border-white/[0.08] backdrop-blur-2xl lg:hidden flex flex-col shadow-[0_-8px_32px_rgba(0,0,0,0.5)]">
         {/* Collapsible Mobile summary drawer */}
         <BuildSummaryCard
-          selectedBreadSize={selectedBreadSize}
-          selectedBreadType={selectedBreadType}
-          selectedBun={selectedBun}
           selectedProteins={selectedProteins}
           selectedVeggies={selectedVeggies}
           selectedCheese={selectedCheese}
           selectedSauces={selectedSauces}
           currentStep={currentStep}
-          fixedPrice={FIXED_PRICE}
+          fixedPrice={FIXED_WRAP_PRICE}
+          isWrap={true}
         />
 
         {/* Mobile Sticky Navigation Buttons */}
@@ -439,7 +397,7 @@ export default function BuildPage() {
               currentStep === 1 ? "opacity-30 pointer-events-none" : ""
             }`}
           >
-            ← Back
+            &larr; Back
           </button>
 
           {currentStep < STEPS.length ? (
@@ -452,14 +410,14 @@ export default function BuildPage() {
                   : "bg-brand text-[#0a0a0a] shadow-[0_4px_16px_rgba(245,196,0,0.25)]"
               }`}
             >
-              Next Step →
+              Next Step &rarr;
             </button>
           ) : (
             <button
-              onClick={handleCompleteStack}
+              onClick={handleCompleteWrap}
               className="px-8 py-3.5 rounded-xl bg-brand text-[#0a0a0a] font-poppins font-extrabold text-xs uppercase tracking-widest flex-grow text-center flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(245,196,0,0.25)] transition-all duration-300 cursor-pointer select-none"
             >
-              Complete My Stack
+              Complete My Wrap
             </button>
           )}
         </div>
@@ -470,13 +428,13 @@ export default function BuildPage() {
         isOpen={isUpsellOpen}
         onClose={() => setIsUpsellOpen(false)}
         customization={{
-          bun: selectedBun?.name || "",
+          bun: "Warm Flour Tortilla",
           protein: selectedProteins.map((p) => p.name).join(", "),
           veggies: selectedVeggies.map((v) => v.name),
           cheese: selectedCheese ? selectedCheese.name : null,
           sauces: selectedSauces.map((s) => s.name),
         }}
-        price={FIXED_PRICE}
+        price={FIXED_WRAP_PRICE}
       />
     </div>
   );

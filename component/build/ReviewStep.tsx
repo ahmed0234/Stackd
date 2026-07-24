@@ -5,16 +5,16 @@ import Image from "next/image";
 import { BunOption, ProteinOption, VeggieOption, CheeseOption, SauceOption } from "./ingredients";
 
 interface ReviewStepProps {
-  bun: BunOption | null;
+  bun?: BunOption | null;
   selectedProteins: ProteinOption[];
   veggies: VeggieOption[];
   cheese: CheeseOption | null;
   sauces: SauceOption[];
-  selectedToast: "Toasted" | "Not Toasted" | null;
   price: number;
+  isWrap?: boolean;
 }
 
-export default function ReviewStep({ bun, selectedProteins, veggies, cheese, sauces, selectedToast, price }: ReviewStepProps) {
+export default function ReviewStep({ bun, selectedProteins, veggies, cheese, sauces, price, isWrap = false }: ReviewStepProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
@@ -26,14 +26,16 @@ export default function ReviewStep({ bun, selectedProteins, veggies, cheese, sau
       <div className="absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-brand to-transparent" />
 
       <h3 className="font-poppins font-black text-xl uppercase tracking-wider text-white mb-6 border-b border-white/[0.04] pb-4">
-        Your Custom Creation
+        {isWrap ? "Your Custom Wrap Creation" : "Your Custom Creation"}
       </h3>
 
       <div className="space-y-5 text-sm font-sans">
-        {/* Bun Summary */}
+        {/* Base Summary */}
         <div className="flex items-start gap-4 py-2 border-b border-white/[0.02] last:border-0">
           <div className="w-12 h-12 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-center text-white/50 text-base font-black relative overflow-hidden select-none">
-            {bun ? (
+            {isWrap ? (
+              <Image src="/Wraps/buildyourownwrap.png" alt="Wrap Base" fill style={{ objectFit: "contain" }} className="p-1" />
+            ) : bun ? (
               <Image src={bun.image} alt="" fill style={{ objectFit: "contain" }} className="p-1" />
             ) : (
               "🍞"
@@ -41,12 +43,14 @@ export default function ReviewStep({ bun, selectedProteins, veggies, cheese, sau
           </div>
           <div>
             <span className="text-[10px] font-poppins font-bold uppercase text-white/30 tracking-widest block mb-0.5">
-              ARTISAN BASE
+              {isWrap ? "WRAP BASE" : "ARTISAN BASE"}
             </span>
             <span className="font-poppins font-bold text-white uppercase text-xs">
-              {bun?.name || "No Bun Selected"}
+              {isWrap ? "Warm Toasted Flour Tortilla" : (bun?.name || "No Bun Selected")}
             </span>
-            <p className="text-[10px] text-white/45 mt-0.5">{bun?.description}</p>
+            <p className="text-[10px] text-white/45 mt-0.5">
+              {isWrap ? "Soft, warm flour tortilla toasted tight to seal in every layer of flavor." : bun?.description}
+            </p>
           </div>
         </div>
 
@@ -110,25 +114,6 @@ export default function ReviewStep({ bun, selectedProteins, veggies, cheese, sau
           </div>
         </div>
 
-        {/* Toast Summary */}
-        <div className="flex items-start gap-4 py-2 border-b border-white/[0.02] last:border-0">
-          <div className="w-12 h-12 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-center text-white/50 text-base font-black relative overflow-hidden select-none">
-            {selectedToast === "Toasted" ? "🔥" : "✨"}
-          </div>
-          <div>
-            <span className="text-[10px] font-poppins font-bold uppercase text-white/30 tracking-widest block mb-0.5">
-              TOAST PREFERENCE
-            </span>
-            <span className="font-poppins font-bold text-white uppercase text-xs">
-              {selectedToast === "Toasted" ? "🔥 Toasted" : selectedToast === "Not Toasted" ? "✨ Not Toasted" : "Not Selected"}
-            </span>
-            <p className="text-[10px] text-white/45 mt-0.5">
-              {selectedToast === "Toasted"
-                ? "Crispy, warm, and lightly toasted for extra texture."
-                : "Soft, fresh, and served exactly as prepared."}
-            </p>
-          </div>
-        </div>
 
         {/* Veggies Summary */}
         <div className="flex items-start gap-4 py-2 border-b border-white/[0.02] last:border-0">

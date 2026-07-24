@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/component/navbar/Navbar";
 import Footer from "@/component/footer/Footer";
 import DealsPopup from "@/component/menu/DealsPopup";
+// import CinematicLoader from "@/component/loader/CinematicLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,10 +50,11 @@ export default function RootLayout({
           flexDirection: "column",
         }}
       >
+        {/* <CinematicLoader /> */}
         <Navbar />
         <main style={{ flex: 1 }}>{children}</main>
         <Footer />
-        <DealsPopup />
+        {/* <DealsPopup /> */}
       </body>
     </html>
   );

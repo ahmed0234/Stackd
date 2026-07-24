@@ -28,21 +28,10 @@ export interface Product {
 export const PRODUCTS: Product[] = [
   // Category: Stacks
   {
-    id: "og-stack",
-    name: "OG Stack",
-    category: "stacks",
-    image: "/Stacks/Og stack.png",
-    description:
-      "Double smashed Angus beef, cheddar cheese, crispy pickles, secret stack sauce, toasted brioche bun.",
-    price: 449,
-    tags: ["Popular"],
-    accentColor: "#F5C400",
-  },
-  {
     id: "fire-stack",
     name: "Fire Stack",
     category: "stacks",
-    image: "/Stacks/Fire stack.png",
+    image: "/Stacks/Fire.png",
     description:
       "Double smash beef, melted pepper jack, grilled jalapeños, spicy hot house fire sauce.",
     price: 499,
@@ -53,7 +42,7 @@ export const PRODUCTS: Product[] = [
     id: "melt-stack",
     name: "Melt Stack",
     category: "stacks",
-    image: "/Stacks/Melt stack.png",
+    image: "/Stacks/Melt.png",
     description:
       "Double hand-pressed patties smothered in hot cheddar sauce, grilled caramelized onions.",
     price: 549,
@@ -61,10 +50,32 @@ export const PRODUCTS: Product[] = [
     accentColor: "#F97316",
   },
   {
+    id: "og-stack",
+    name: "OG Stack",
+    category: "stacks",
+    image: "/Stacks/Og.png",
+    description:
+      "Double smashed Angus beef, cheddar cheese, crispy pickles, secret stack sauce, toasted brioche bun.",
+    price: 449,
+    tags: ["Popular"],
+    accentColor: "#F5C400",
+  },
+  {
+    id: "royal-stack",
+    name: "Royal Stack",
+    category: "stacks",
+    image: "/Stacks/Royal.png",
+    description:
+      "Triple smashed Angus beef patties, premium golden cheddar cheese, sweet caramelized onions, and our rich signature truffle glaze.",
+    price: 599,
+    tags: ["Signature"],
+    accentColor: "#6366F1",
+  },
+  {
     id: "smoke-stack",
     name: "Smoke Stack",
     category: "stacks",
-    image: "/Stacks/Smoke stack.png",
+    image: "/Stacks/Smoke.png",
     description:
       "Double patties, crispy smoked bacon, golden thick-cut onion rings, hickory BBQ sauce.",
     price: 499,
@@ -75,7 +86,7 @@ export const PRODUCTS: Product[] = [
     id: "byo-stack",
     name: "Build Your Own Stack",
     category: "stacks",
-    image: "/Stacks/Make your own.png",
+    image: "/Stacks/Build your own.png",
     description:
       "Your stack, your rules. Choose number of patties, fresh toppings, cheeses, and custom signature sauces.",
     price: 650,
@@ -85,81 +96,94 @@ export const PRODUCTS: Product[] = [
 
   // Category: Wraps
   {
-    id: "classic-wrap",
-    name: "Classic Stack Wrap",
+    id: "fire-wrap",
+    name: "Fire Wrap",
     category: "wraps",
-    image: "/Wraps/Classic wrap.png",
+    image: "/Wraps/firewrap.png",
     description:
-      "Crispy hand-breaded chicken tenders, shredded crisp lettuce, cheddar, and classic mayo in a toasted flour tortilla.",
-    price: 420,
-    accentColor: "#22C55E",
-  },
-  {
-    id: "loaded-wrap",
-    name: "Loaded Crunch Wrap",
-    category: "wraps",
-    image: "/Wraps/Loaded wrap.png",
-    description:
-      "Double smash beef, crispy loaded fries inside, melted cheddar, ranch sauce in a warm toasted wrap.",
-    price: 520,
-    tags: ["Must Try"],
-    accentColor: "#3B82F6",
-  },
-  {
-    id: "spicy-wrap",
-    name: "Spicy Tender Wrap",
-    category: "wraps",
-    image: "/Wraps/Spicy wraps.png",
-    description:
-      "Spicy chicken tenders, charred jalapeño slices, house fire sauce, pepper jack cheese.",
-    price: 450,
+      "Spicy chicken tenders, melted pepper jack cheese, charred jalapeños, and house fire sauce in a warm tortilla.",
+    price: 499,
     tags: ["Spicy"],
     accentColor: "#EF4444",
+  },
+  {
+    id: "melted-wrap",
+    name: "Melted Wrap",
+    category: "wraps",
+    image: "/Wraps/meltedwrap.png",
+    description:
+      "Double smash beef smothered in hot cheddar cheese sauce, caramelized onions, wrapped to perfection.",
+    price: 520,
+    tags: ["Cheese Bomb"],
+    accentColor: "#F97316",
+  },
+  {
+    id: "og-wrap",
+    name: "OG Wrap",
+    category: "wraps",
+    image: "/Wraps/ogwrap.png",
+    description:
+      "Double smashed Angus beef, cheddar cheese, crispy pickles, and secret stack sauce in a warm toasted wrap.",
+    price: 449,
+    tags: ["Popular"],
+    accentColor: "#F5C400",
+  },
+  {
+    id: "royale-wrap",
+    name: "Royale Wrap",
+    category: "wraps",
+    image: "/Wraps/royalewrap.png",
+    description:
+      "Triple smashed beef patties, premium golden cheddar, sweet caramelized onions, and rich signature truffle glaze.",
+    price: 599,
+    tags: ["Signature"],
+    accentColor: "#6366F1",
+  },
+  {
+    id: "byo-wrap",
+    name: "Build Your Own Wrap",
+    category: "wraps",
+    image: "/Wraps/buildyourownwrap.png",
+    description:
+      "Your wrap, your rules. Choose your tortilla base, fresh crisp veggies, grilled proteins, and signature drizzles.",
+    price: 550,
+    tags: ["Customizable"],
+    accentColor: "#A855F7",
   },
 
   // Category: Fries
   {
-    id: "classic-loaded",
-    name: "Classic Loaded Fries",
-    category: "fries",
-    image: "/Fries/Classic loaded.png",
-    description:
-      "Golden skin-on fries topped with cheese sauce, crispy smoked bacon bits, and signature stack sauce.",
-    price: 299,
-    tags: ["Bestseller"],
-    accentColor: "#F5C400",
-  },
-  {
-    id: "fire-loaded",
-    name: "Fire Loaded Fries",
-    category: "fries",
-    image: "/Fries/Fire loaded.png",
-    description:
-      "Golden fries dusted in hot spices, hot cheese sauce, fresh jalapeños, fire sauce drizzle.",
-    price: 349,
-    tags: ["Spicy"],
-    accentColor: "#EF4444",
-  },
-  {
     id: "full-stackd-fries",
     name: "Full Stackd Fries",
     category: "fries",
-    image: "/Fries/Full stackd fries.png",
+    image: "/Fries/Fullstackdfries.png",
     description:
-      "A loaded meal of crispy fries, chopped smash beef patties, melted cheese, pickles, stack sauce.",
+      "A loaded meal of crispy fries, chopped smash beef patties, melted cheese, pickles, and signature stack sauce.",
     price: 449,
     tags: ["Meal Size"],
     accentColor: "#F97316",
   },
   {
-    id: "smoke-loaded",
-    name: "Smoke Loaded Fries",
+    id: "chilli-cheese-fries",
+    name: "Chilli Cheese Fries",
     category: "fries",
-    image: "/Fries/Smoke loaded.png",
+    image: "/Fries/chillicheesefries.png",
     description:
-      "Crispy fries loaded with slow-cooked pulled pork, smoked bacon, cheddar, BBQ drizzle.",
+      "Golden fries smothered in hot beef chilli, jalapeños, and melted pepper jack cheese.",
     price: 349,
-    accentColor: "#D97706",
+    tags: ["Spicy"],
+    accentColor: "#EF4444",
+  },
+  {
+    id: "plain-fries",
+    name: "Plain Fries",
+    category: "fries",
+    image: "/Fries/plain fries.png",
+    description:
+      "Crispy, hand-cut golden skin-on fries seasoned to perfection with signature stack spice.",
+    price: 199,
+    tags: ["Classic"],
+    accentColor: "#F5C400",
   },
 
   // Category: Drinks
@@ -169,39 +193,11 @@ export const PRODUCTS: Product[] = [
     category: "drinks",
     image: "/Drinks/Pepsi/500ml.png",
     description:
-      "Chilled classic Pepsi, the perfect accompaniment to your heavy stack.",
+      "Chilled classic Pepsi (340ML), the perfect accompaniment to your heavy stack.",
     price: 120,
     accentColor: "#004B87",
     sizes: [
-      { label: "500ml", price: 120, image: "/Drinks/Pepsi/500ml.png" },
-      { label: "1.5L", price: 180, image: "/Drinks/Pepsi/1.5.png" },
-    ],
-  },
-  {
-    id: "7up",
-    name: "7UP",
-    category: "drinks",
-    image: "/Drinks/7up/500.png",
-    description: "Crisp, clean, refreshing lemon-lime carbonated soda.",
-    price: 120,
-    accentColor: "#009639",
-    sizes: [
-      { label: "500ml", price: 120, image: "/Drinks/7up/500.png" },
-      { label: "1.5L", price: 180, image: "/Drinks/7up/1.5.png" },
-    ],
-  },
-  {
-    id: "mountain-dew",
-    name: "Mountain Dew",
-    category: "drinks",
-    image: "/Drinks/Dew/500.png",
-    description:
-      "Energizing citrus blast to keep your stack building sessions alive.",
-    price: 120,
-    accentColor: "#00A859",
-    sizes: [
-      { label: "500ml", price: 120, image: "/Drinks/Dew/500.png" },
-      { label: "1.5L", price: 180, image: "/Drinks/Dew/1.5.png" },
+      { label: "340ML", price: 120, image: "/Drinks/Pepsi/500ml.png" },
     ],
   },
   {
@@ -210,12 +206,11 @@ export const PRODUCTS: Product[] = [
     category: "drinks",
     image: "/Drinks/Sprite/500.png",
     description:
-      "Crisp, clean, refreshing lemon-lime carbonated soda with a splash of bubble.",
+      "Crisp, clean, refreshing lemon-lime carbonated soda (340ML) with a splash of bubble.",
     price: 120,
     accentColor: "#00B2E2",
     sizes: [
-      { label: "500ml", price: 120, image: "/Drinks/Sprite/500.png" },
-      { label: "1.5L", price: 180, image: "/Drinks/Sprite/1.5.png" },
+      { label: "340ML", price: 120, image: "/Drinks/Sprite/500.png" },
     ],
   },
   {
@@ -224,78 +219,77 @@ export const PRODUCTS: Product[] = [
     category: "drinks",
     image: "/Drinks/Water/500.png",
     description:
-      "Pure, clean, refreshing spring water to wash down your stacks.",
+      "Pure, clean, refreshing spring water (340ML) to wash down your stacks.",
     price: 90,
     accentColor: "#00B2E2",
     sizes: [
-      { label: "500ml", price: 90, image: "/Drinks/Water/500.png" },
-      { label: "1.5L", price: 150, image: "/Drinks/Water/1.5.png" },
+      { label: "340ML", price: 90, image: "/Drinks/Water/500.png" },
     ],
   },
   // Category: Deals
   {
-    id: "combo-deal",
-    name: "Combo Deal",
+    id: "solo-meal-deal",
+    name: "Solo Meal Deal",
     category: "deals",
-    image: "/Deals/ComboDeal.jpeg",
+    image: "/Deals/SoloMealDeal.png",
     description:
-      "Our signature OG Stack burger paired with crispy loaded fries and a refreshing 500ml drink.",
+      "Perfect for one! Choice of any signature burger or wrap, paired with crispy fries and a 340ML refreshing drink.",
     price: 699,
-    tags: ["Bestseller", "Save Rs 69"],
+    tags: ["Bestseller", "Save Rs 120"],
     accentColor: "#F5C400",
     includes: [
-      "1x OG Stack (Any Flavour)",
-      "1x Regular Fries",
-      "1x 500ml Drink",
+      "1x Signature Stack or Wrap",
+      "1x Plain Fries",
+      "1x 340ML Drink",
     ],
   },
   {
-    id: "full-stackd-share-box",
-    name: "Full Stackd Share Box",
+    id: "duo-stack-deal",
+    name: "Duo Stack Deal",
     category: "deals",
-    image: "/Deals/FulStackdShareBox.jpeg",
+    image: "/Deals/DuoStackDeal.png",
     description:
-      "Double the fun. Two double smash beef burgers, two portions of loaded fries, and a 1.5L drink.",
-    price: 2399,
-    tags: ["Big Value", "Save Rs 77"],
-    accentColor: "#F97316",
-    includes: [
-      "4x Any Signature Stack",
-      "2x Large Loaded Fries",
-      "4x 500ml Drink",
-      "Extra Sauces",
-    ],
-  },
-  {
-    id: "sharing-box",
-    name: "Duo Sharing Box",
-    category: "deals",
-    image: "/Deals/SharingBox.jpeg",
-    description:
-      "Perfect for two. One classic burger, one loaded wrap, one portion of classic fries, and two drinks.",
-    price: 1499,
-    tags: ["Popular", "Save Rs 141"],
+      "Made for two! Choice of two signature burgers or wraps, a large portion of loaded fries, and two chilled 340ML drinks.",
+    price: 1299,
+    tags: ["Popular", "Save Rs 200"],
     accentColor: "#22C55E",
     includes: [
-      "2x Any Signature Stack",
-      "1x Large Loaded Fries",
-      "2x 500ml Drinks",
+      "2x Signature Stacks or Wraps",
+      "1x Chilli Cheese Fries",
+      "2x 340ML Drinks",
     ],
   },
   {
-    id: "stackd-experience",
-    name: "Stackd Experience",
+    id: "full-stack-meal-deal",
+    name: "Full Stack Meal Deal",
     category: "deals",
-    image: "/Deals/StackdExperience.jpeg",
+    image: "/Deals/FullStackMealDeal.png",
     description:
-      "Get the full experience. A Fire Stack burger, a classic wrap, smoke loaded fries, and two drinks.",
-    price: 849,
-    tags: ["Limited Time", "Save Rs 161"],
+      "The complete STACKD experience! Includes three signature burgers or wraps, two portions of loaded fries, and three 340ML drinks.",
+    price: 1299,
+    tags: ["Best Value", "Save Rs 350"],
     accentColor: "#EF4444",
     includes: [
-      "1x Any Signature Stack",
+      "1x Signature Stacks or Wraps",
+      "1x Chilli Cheese Fries",
+      "1x 340ML Drink",
+    ],
+  },
+  {
+    id: "stackd-share-box",
+    name: "Stackd Share Box",
+    category: "deals",
+    image: "/Deals/StacdShareBox.png",
+    description:
+      "The ultimate party box! Four signature burgers or wraps, two large loaded fries, four chilled 340ML drinks, and extra dipping sauces.",
+    price: 2499,
+    tags: ["Big Value", "Save Rs 500"],
+    accentColor: "#F97316",
+    includes: [
+      "4x Any Signature Stack or Wrap",
       "1x Full Stackd Fries",
-      "1x 500ml Drink",
+      "4x 340ML Drinks",
+      "Extra Signature Sauces",
     ],
   },
 ];
@@ -327,7 +321,20 @@ export default function MenuSection() {
   }, [clearCart]);
 
   const filteredProducts = useMemo(() => {
-    return PRODUCTS.filter((p) => p.category === activeCategory);
+    const list = PRODUCTS.filter((p) => p.category === activeCategory);
+    const regular = list.filter(
+      (p) =>
+        !p.id.startsWith("byo-") &&
+        !p.tags?.includes("Customizable") &&
+        !p.name.toLowerCase().includes("build your own")
+    );
+    const byo = list.filter(
+      (p) =>
+        p.id.startsWith("byo-") ||
+        p.tags?.includes("Customizable") ||
+        p.name.toLowerCase().includes("build your own")
+    );
+    return [...regular, ...byo];
   }, [activeCategory]);
 
   const cartSummary = useMemo(() => {
@@ -791,31 +798,64 @@ function ProductCard({
       ))}
 
       {/* Food Visual Frame */}
-      <div className="relative w-full h-48 mt-4 flex items-center justify-center z-10 overflow-hidden select-none">
-        <motion.div
-          animate={{
-            scale: hovered ? 1.06 : 1,
-            rotate: hovered ? 2 : 0,
-          }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-          className="relative w-[85%] h-[85%]"
+      {product.id === "byo-wrap" || product.id === "byo-stack" ? (
+        <Link
+          href={product.id === "byo-wrap" ? "/build-wrap" : "/build"}
+          className="relative w-full h-48 mt-4 flex items-center justify-center z-10 overflow-hidden select-none cursor-pointer"
         >
-          <Image
-            src={currentImage}
-            alt={product.name}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            style={{ objectFit: "contain" }}
-            priority={product.category === "stacks"}
-          />
-        </motion.div>
-      </div>
+          <motion.div
+            animate={{
+              scale: hovered ? 1.06 : 1,
+              rotate: hovered ? 2 : 0,
+            }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="relative w-[85%] h-[85%]"
+          >
+            <Image
+              src={currentImage}
+              alt={product.name}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              style={{ objectFit: "contain" }}
+              priority={product.category === "stacks"}
+            />
+          </motion.div>
+        </Link>
+      ) : (
+        <div className="relative w-full h-48 mt-4 flex items-center justify-center z-10 overflow-hidden select-none">
+          <motion.div
+            animate={{
+              scale: hovered ? 1.06 : 1,
+              rotate: hovered ? 2 : 0,
+            }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="relative w-[85%] h-[85%]"
+          >
+            <Image
+              src={currentImage}
+              alt={product.name}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              style={{ objectFit: "contain" }}
+              priority={product.category === "stacks"}
+            />
+          </motion.div>
+        </div>
+      )}
 
       {/* Product Content Details */}
       <div className="flex flex-col flex-grow p-5 text-left">
-        <h3 className="font-poppins font-black text-lg text-white leading-tight uppercase tracking-wide">
-          {product.name}
-        </h3>
+        {product.id === "byo-wrap" || product.id === "byo-stack" ? (
+          <Link href={product.id === "byo-wrap" ? "/build-wrap" : "/build"}>
+            <h3 className="font-poppins font-black text-lg text-white leading-tight uppercase tracking-wide hover:text-brand transition-colors cursor-pointer">
+              {product.name}
+            </h3>
+          </Link>
+        ) : (
+          <h3 className="font-poppins font-black text-lg text-white leading-tight uppercase tracking-wide">
+            {product.name}
+          </h3>
+        )}
 
         <p className="text-xs text-white/50 leading-relaxed font-sans mt-2 line-clamp-2 min-h-[32px] flex-grow">
           {product.description}
@@ -861,7 +901,7 @@ function ProductCard({
 
         {/* Pricing & Add Trigger Row */}
         <div className="mt-5 pt-4 border-t border-white/[0.04] flex items-center justify-between">
-          {product.id === "byo-stack" ? (
+          {product.id === "byo-stack" || product.id === "byo-wrap" ? (
             <span className="font-poppins font-bold text-xs text-white/40 uppercase tracking-wider">
               Customizable
             </span>
@@ -872,13 +912,11 @@ function ProductCard({
           )}
 
           <div className="relative flex items-center h-10">
-            {product.id === "byo-stack" ? (
-              <motion.a
+            {product.id === "byo-stack" || product.id === "byo-wrap" ? (
+              <Link
                 key="build-btn"
-                href="/build"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
-                className="px-5 py-2.5 rounded-full flex items-center gap-1.5 text-[10px] font-poppins font-black uppercase text-[#0a0a0a] bg-brand shadow-[0_4px_12px_rgba(245,196,0,0.25)] hover:shadow-[0_4px_20px_rgba(245,196,0,0.4)] transition-all duration-300 cursor-pointer select-none"
+                href={product.id === "byo-wrap" ? "/build-wrap" : "/build"}
+                className="px-5 py-2.5 rounded-full flex items-center gap-1.5 text-[10px] font-poppins font-black uppercase text-[#0a0a0a] bg-brand shadow-[0_4px_12px_rgba(245,196,0,0.25)] hover:shadow-[0_4px_20px_rgba(245,196,0,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer select-none"
               >
                 <span>Build</span>
                 <svg
@@ -893,7 +931,7 @@ function ProductCard({
                 >
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-              </motion.a>
+              </Link>
             ) : (
               <AnimatePresence mode="wait">
                 {quantity === 0 ? (

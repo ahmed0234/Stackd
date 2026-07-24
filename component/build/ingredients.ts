@@ -2,7 +2,6 @@ export interface BunOption {
   id: string;
   name: string;
   size: "Full" | "Half";
-  type: "White" | "Brown";
   image: string;
   description: string;
 }
@@ -37,71 +36,82 @@ export interface SauceOption {
   description: string;
 }
 
-export const BUNS: BunOption[] = [
+export interface BreadOption {
+  id: string;
+  name: string;
+  image6Inch: string;
+  imageFootLong: string;
+  description: string;
+}
+
+export const BREADS: BreadOption[] = [
   {
-    id: "bun-full-white",
-    name: "12 Inch White  Bread",
-    size: "Full",
-    type: "White",
-    image: "/BuildYourStack/Buns/1ft/WHITE.png",
-    description: "Freshly baked classic white wheat loaf, crusty outside, soft inside.",
+    id: "bread-oregano",
+    name: "Oregano Bread",
+    image6Inch: "/BuildYourStack/Buns/6inch/OreganoBread.png",
+    imageFootLong: "/BuildYourStack/Buns/1ft/OreganoBread.png",
+    description:
+      "Freshly baked classic Oregano bread, herb-crusted outside, soft inside.",
   },
   {
-    id: "bun-full-brown",
-    name: "12 Inch Whole Brown Bread",
-    size: "Full",
-    type: "Brown",
-    image: "/BuildYourStack/Buns/1ft/BROWN.png",
-    description: "Rich whole wheat artisan bread, toasted to perfection.",
-  },
-  {
-    id: "bun-half-white",
-    name: "6 Inch White Bread",
-    size: "Half",
-    type: "White",
-    image: "/BuildYourStack/Buns/6inch/wHITE.png",
-    description: "Classic white wheat half-loaf, toasted with garlic butter.",
-  },
-  {
-    id: "bun-half-brown",
-    name: "6 Inch Whole Brown Bread",
-    size: "Half",
-    type: "Brown",
-    image: "/BuildYourStack/Buns/6inch/BROWN.png",
-    description: "Toasted whole wheat half-loaf, wholesome and delicious.",
+    id: "bread-white",
+    name: "White Bread",
+    image6Inch: "/BuildYourStack/Buns/6inch/wHITE.png",
+    imageFootLong: "/BuildYourStack/Buns/1ft/WHITE.png",
+    description:
+      "Freshly baked classic White bread, soft, fluffy, and toasted to perfection.",
   },
 ];
 
 export const PROTEINS: ProteinOption[] = [
   {
-    id: "protein-beef-smash",
-    name: "Smashed Beef Strips",
-    image: "/BuildYourStack/Beef/BeefTrips.png",
-    description: "Tender, seasoned beef strips seared on a screaming hot flat top grill.",
+    id: "protein-chicken-fajita",
+    name: "Chicken Fajita",
+    image: "/BuildYourStack/Chicken/ChickenFajita.png",
+    description:
+      "Sizzling Mexican-style grilled chicken fajita strips with bell peppers and spices.",
+  },
+  {
+    id: "protein-chicken-peri",
+    name: "Chicken Peri Peri",
+    image: "/BuildYourStack/Chicken/ChickenPeriPeri.png",
+    description:
+      "Fiery, tangy peri-peri marinated chicken grilled to smoky perfection.",
+  },
+  {
+    id: "protein-chicken-strips",
+    name: "Chicken Strips",
+    image: "/BuildYourStack/Chicken/ChickenStrips.png",
+    description:
+      "Crispy, golden-fried tender chicken strips for a perfect crunch.",
+  },
+  {
+    id: "protein-chicken-tikka",
+    name: "Chicken Tikka",
+    image: "/BuildYourStack/Chicken/ChickenTikka.png",
+    description:
+      "Traditional clay-oven style marinated spicy tikka chicken chunks.",
+  },
+  {
+    id: "protein-chicken-mughlai",
+    name: "Mughlai Chicken",
+    image: "/BuildYourStack/Chicken/Mughlai.png",
+    description:
+      "Rich, aromatic Mughlai-style marinated chicken, slow-cooked in traditional spices.",
   },
   {
     id: "protein-chicken-grilled",
-    name: "Flame Grilled Chicken",
-    image: "/BuildYourStack/Chicken/gRILLED.png",
-    description: "Succulent, marinated chicken breast chunks grilled over open flames.",
+    name: "Grilled Chicken",
+    image: "/BuildYourStack/Chicken/grillee.png",
+    description:
+      "Juicy, tender flame-grilled chicken breast seared to smoky perfection.",
   },
   {
-    id: "protein-chicken-smoked",
-    name: "Smoked Chicken",
-    image: "/BuildYourStack/Chicken/sMOKED CHICKEN.png",
-    description: "Slow hardwood smoked chicken breast strips with a deep, savory aroma.",
-  },
-  {
-    id: "protein-chicken-spicy",
-    name: "Spicy Crispy Chicken",
-    image: "/BuildYourStack/Chicken/sPICY CHICKEN.png",
-    description: "Golden, hand-breaded chicken tenders tossed in a spicy rub.",
-  },
-  {
-    id: "protein-tuna",
-    name: "Premium Flaked Tuna",
-    image: "/BuildYourStack/Beef/Tuna.png",
-    description: "Gourmet flaky tuna mix prepared fresh with signature light mayo.",
+    id: "protein-pepperoni",
+    name: "Pepperoni",
+    image: "/BuildYourStack/Chicken/pepperoni.png",
+    description:
+      "Spicy and savory cured Pepperoni slices, loaded with rich flavor.",
   },
 ];
 
@@ -185,35 +195,69 @@ export const CHEESES: CheeseOption[] = [
 
 export const SAUCES: SauceOption[] = [
   {
-    id: "sauce-stackd",
-    name: "STACKD Special Sauce",
-    image: "/BuildYourStack/Sauces/StacdSauce.png",
+    id: "sauce-bbq",
+    name: "Barbecue Sauce",
+    image: "/BuildYourStack/Sauces/BBQ.png",
     intensity: "Mild",
-    flavor: "Tangy & Savory Cream",
-    description: "Our signature blend of herbs, spices, and premium cream.",
+    flavor: "Smoky & Sweet",
+    description: "Classic deep-smoked sweet BBQ sauce with molasses notes.",
   },
   {
-    id: "sauce-garlic",
-    name: "Garlic Mayo Sauce",
-    image: "/BuildYourStack/Sauces/GarlicSauce.png",
+    id: "sauce-buffalo",
+    name: "Buffalo Sauce",
+    image: "/BuildYourStack/Sauces/Buffalo.png",
+    intensity: "High",
+    flavor: "Tangy & Fiery",
+    description:
+      "Zesty buffalo pepper sauce with a sharp, buttery heat finish.",
+  },
+  {
+    id: "sauce-chipotle",
+    name: "Chipotle Sauce",
+    image: "/BuildYourStack/Sauces/Chipotle.png",
+    intensity: "Medium",
+    flavor: "Smoked Chili Cream",
+    description: "Creamy, smoky chipotle pepper sauce with a warm kick.",
+  },
+  {
+    id: "sauce-mustard",
+    name: "Mustard",
+    image: "/BuildYourStack/Sauces/Mustard.png",
+    intensity: "Medium",
+    flavor: "Sharp & Zesty",
+    description: "Classic bold yellow mustard for a pungent tang.",
+  },
+  {
+    id: "sauce-garlic-mayo",
+    name: "Garlic Mayo",
+    image: "/BuildYourStack/Sauces/GarlicMayo.png",
     intensity: "Mild",
-    flavor: "Garlic Cream",
+    flavor: "Garlic Herb Cream",
     description: "Creamy whipped mayonnaise infused with rich roasted garlic.",
   },
   {
-    id: "sauce-smokey",
-    name: "Smokey BBQ Mayo",
-    image: "/BuildYourStack/Sauces/SmokeyMayo.png",
-    intensity: "Medium",
-    flavor: "Sweet & Smokey BBQ",
-    description: "A perfect blend of sweet hickory BBQ and smokey mayonnaise.",
+    id: "sauce-honey-mustard",
+    name: "Honey Mustard",
+    image: "/BuildYourStack/Sauces/Honey Mustard.png",
+    intensity: "Mild",
+    flavor: "Sweet & Tangy",
+    description: "Perfect harmony of sweet honey and mild ground mustard.",
   },
   {
-    id: "sauce-dynamite",
-    name: "Dynamite Spicy Sauce",
-    image: "/BuildYourStack/Sauces/Dynamitesauce.png",
-    intensity: "High",
-    flavor: "Fiery Chili Punch",
-    description: "Sweet chili combined with spicy pepper spices for a explosive finish.",
+    id: "sauce-ketchup",
+    name: "Tomato Ketchup",
+    image: "/BuildYourStack/Sauces/Ketchup.png",
+    intensity: "Mild",
+    flavor: "Rich Tomato",
+    description: "Traditional sweet and tangy tomato ketchup.",
+  },
+
+  {
+    id: "sauce-thousand",
+    name: "Thousand Island",
+    image: "/BuildYourStack/Sauces/Thousand.png",
+    intensity: "Mild",
+    flavor: "Creamy Pickle Relish",
+    description: "Sweet, creamy dressing with minced pickles and secret herbs.",
   },
 ];

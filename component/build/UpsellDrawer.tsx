@@ -11,7 +11,7 @@ interface UpsellDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   customization?: {
-    bun: string;
+    bun?: string | null;
     protein: string;
     veggies: string[];
     cheese: string | null;
@@ -317,7 +317,7 @@ function UpsellCard({
   onRemove: (id: string, size?: string) => void;
 }) {
   const isDrink = product.category === "drinks";
-  const [selectedSize, setSelectedSize] = useState<string>("500ml");
+  const [selectedSize, setSelectedSize] = useState<string>("340ML");
 
   // Determine size specific details
   const activeSizeOpt = product.sizes?.find((s) => s.label === selectedSize);

@@ -16,25 +16,85 @@ import "swiper/css/pagination";
 
 // Choices Constants
 const STACKS_CHOICES = [
-  { id: "og-stack", name: "OG Stack", image: "/Stacks/Og stack.png", desc: "Double smash Angus beef, cheddar, secret sauce" },
-  { id: "fire-stack", name: "Fire Stack", image: "/Stacks/Fire stack.png", desc: "Double smash beef, pepper jack, grilled jalapeños, fire sauce" },
-  { id: "melt-stack", name: "Melt Stack", image: "/Stacks/Melt stack.png", desc: "Double patties, hot cheddar sauce, caramelized onions" },
-  { id: "smoke-stack", name: "Smoke Stack", image: "/Stacks/Smoke stack.png", desc: "Double patties, bacon, onion rings, BBQ sauce" },
+  {
+    id: "fire-stack",
+    name: "Fire Stack",
+    image: "/Stacks/Fire.png",
+    desc: "Double smash beef, pepper jack, grilled jalapeños, fire sauce",
+  },
+  {
+    id: "melt-stack",
+    name: "Melt Stack",
+    image: "/Stacks/Melt.png",
+    desc: "Double patties, hot cheddar sauce, caramelized onions",
+  },
+  {
+    id: "og-stack",
+    name: "OG Stack",
+    image: "/Stacks/Og.png",
+    desc: "Double smash Angus beef, cheddar, secret sauce",
+  },
+  {
+    id: "royal-stack",
+    name: "Royal Stack",
+    image: "/Stacks/Royal.png",
+    desc: "Triple patties, premium cheddar, sweet caramelized onions, truffle aioli",
+  },
+  {
+    id: "smoke-stack",
+    name: "Smoke Stack",
+    image: "/Stacks/Smoke.png",
+    desc: "Double patties, bacon, onion rings, BBQ sauce",
+  },
+  {
+    id: "fire-wrap",
+    name: "Fire Wrap",
+    image: "/Wraps/firewrap.png",
+    desc: "Spicy chicken tenders, pepper jack, jalapeños, fire sauce",
+  },
+  {
+    id: "melted-wrap",
+    name: "Melted Wrap",
+    image: "/Wraps/meltedwrap.png",
+    desc: "Double smash beef, hot cheddar sauce, caramelized onions",
+  },
+  {
+    id: "og-wrap",
+    name: "OG Wrap",
+    image: "/Wraps/ogwrap.png",
+    desc: "Double smashed beef, cheddar, pickles, secret sauce",
+  },
+  {
+    id: "royale-wrap",
+    name: "Royale Wrap",
+    image: "/Wraps/royalewrap.png",
+    desc: "Triple smashed beef, golden cheddar, truffle glaze",
+  },
 ];
 
 const DRINKS_CHOICES = [
-  { id: "pepsi", name: "Pepsi", images: { "500ml": "/Drinks/Pepsi/500ml.png", "1.5L": "/Drinks/Pepsi/1.5.png" } },
-  { id: "7up", name: "7UP", images: { "500ml": "/Drinks/7up/500.png", "1.5L": "/Drinks/7up/1.5.png" } },
-  { id: "mountain-dew", name: "Mountain Dew", images: { "500ml": "/Drinks/Dew/500.png", "1.5L": "/Drinks/Dew/1.5.png" } },
-  { id: "sprite", name: "Sprite", images: { "500ml": "/Drinks/Sprite/500.png", "1.5L": "/Drinks/Sprite/1.5.png" } },
-  { id: "water", name: "Mineral Water", images: { "500ml": "/Drinks/Water/500.png", "1.5L": "/Drinks/Water/1.5.png" } },
+  {
+    id: "pepsi",
+    name: "Pepsi",
+    image: "/Drinks/Pepsi/500ml.png",
+  },
+  {
+    id: "sprite",
+    name: "Sprite",
+    image: "/Drinks/Sprite/500.png",
+  },
+  {
+    id: "water",
+    name: "Mineral Water",
+    image: "/Drinks/Water/500.png",
+  },
 ];
 
 const DEAL_REQUIREMENTS: Record<string, { stacks: number; drinks: number }> = {
-  "combo-deal": { stacks: 1, drinks: 1 },
-  "sharing-box": { stacks: 2, drinks: 2 },
-  "full-stackd-share-box": { stacks: 4, drinks: 4 },
-  "stackd-experience": { stacks: 1, drinks: 1 },
+  "solo-meal-deal": { stacks: 1, drinks: 1 },
+  "duo-stack-deal": { stacks: 2, drinks: 2 },
+  "full-stack-meal-deal": { stacks: 3, drinks: 3 },
+  "stackd-share-box": { stacks: 4, drinks: 4 },
 };
 
 export default function MealDeals() {
@@ -58,21 +118,27 @@ export default function MealDeals() {
   return (
     <section
       id="meal-deals"
-      className="relative w-full py-16 pb-1 bg-dark-secondary overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(180deg, var(--color-dark-secondary) 0%, var(--color-dark-primary) 100%)",
-      }}
+      className="relative w-full py-16 lg:py-24 bg-gradient-to-b from-[#0a0a0a] via-[#121212] to-[#0a0a0a] border-t border-white/[0.06] overflow-hidden"
     >
-      {/* Decorative Glow Blobs */}
-      <div
-        className="absolute w-[600px] h-[600px] rounded-full blur-[140px] opacity-10 pointer-events-none -right-[15%] top-[-10%] z-0 animate-pulse"
-        style={{ background: "var(--color-brand)", animationDuration: "12s" }}
-      />
-      <div
-        className="absolute w-[500px] h-[500px] rounded-full blur-[120px] opacity-5 pointer-events-none -left-[10%] bottom-[10%] z-0"
-        style={{ background: "#EF4444" }}
-      />
+      {/* Background Image & Atmospheric Overlays */}
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+        <Image
+          src="/DealsSectionBackground.png"
+          alt="Deals Section Background"
+          fill
+          priority
+          className="object-cover object-[center_35%] sm:object-center scale-110 filter brightness-120 contrast-125 transition-all duration-700"
+          sizes="100vw"
+        />
+
+        {/* Balanced Atmospheric Dark Gradients for Rich Visibility & Text Legibility */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/55 to-[#0a0a0a] z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,196,0,0.12),transparent_75%)] z-10 pointer-events-none" />
+      </div>
+
+      {/* Ambient background glows */}
+      <div className="absolute top-1/4 right-10 w-96 h-96 bg-brand/10 rounded-full blur-[130px] pointer-events-none z-10 animate-pulse" style={{ animationDuration: "10s" }} />
+      <div className="absolute bottom-10 left-10 w-96 h-96 bg-red-500/10 rounded-full blur-[130px] pointer-events-none z-10" />
 
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 z-10">
         {/* Section Header */}
@@ -399,7 +465,11 @@ export interface MealDealConfiguratorProps {
   onSuccess?: () => void;
 }
 
-export function MealDealConfigurator({ activeDeal, onClose, onSuccess }: MealDealConfiguratorProps) {
+export function MealDealConfigurator({
+  activeDeal,
+  onClose,
+  onSuccess,
+}: MealDealConfiguratorProps) {
   const addCustomItem = useCartStore((state) => state.addCustomItem);
 
   const req = useMemo(() => {
@@ -408,11 +478,11 @@ export function MealDealConfigurator({ activeDeal, onClose, onSuccess }: MealDea
 
   // Selections state
   const [selectedStacks, setSelectedStacks] = useState<string[]>(() =>
-    new Array(req.stacks).fill("")
+    new Array(req.stacks).fill(""),
   );
-  const [selectedDrinks, setSelectedDrinks] = useState<{ name: string; size: "500ml" | "1.5L" }[]>(() =>
-    new Array(req.drinks).fill({ name: "", size: "500ml" })
-  );
+  const [selectedDrinks, setSelectedDrinks] = useState<
+    { name: string; size: string }[]
+  >(() => new Array(req.drinks).fill({ name: "", size: "340ML" }));
 
   const [validationError, setValidationError] = useState<string | null>(null);
 
@@ -436,13 +506,11 @@ export function MealDealConfigurator({ activeDeal, onClose, onSuccess }: MealDea
   const handleSelectDrinkBrand = (index: number, drinkName: string) => {
     setSelectedDrinks((prev) => {
       const next = [...prev];
-      next[index] = { ...next[index], name: drinkName };
+      next[index] = { name: drinkName, size: "340ML" };
       return next;
     });
     setValidationError(null);
   };
-
-
 
   const isConfigComplete = useMemo(() => {
     const stacksSelected = selectedStacks.every((s) => s !== "");
@@ -452,13 +520,17 @@ export function MealDealConfigurator({ activeDeal, onClose, onSuccess }: MealDea
 
   const handleAddToCart = () => {
     if (!isConfigComplete) {
-      setValidationError("Please select all required stacks and drinks choices!");
+      setValidationError(
+        "Please select all required stacks and drinks choices!",
+      );
       return;
     }
 
     // Create unique key based on selections
     const stackKeyStr = selectedStacks.join("-");
-    const drinkKeyStr = selectedDrinks.map((d) => `${d.name}_${d.size}`).join("-");
+    const drinkKeyStr = selectedDrinks
+      .map((d) => `${d.name}_${d.size}`)
+      .join("-");
     const customKey = `${activeDeal.id}::${stackKeyStr}::${drinkKeyStr}`;
 
     const newItem = {
@@ -500,18 +572,19 @@ export function MealDealConfigurator({ activeDeal, onClose, onSuccess }: MealDea
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: "100%", opacity: 0.5 }}
         transition={{ type: "spring", damping: 30, stiffness: 220 }}
-        className="relative w-full max-w-5xl h-full sm:h-[85vh] md:h-[80vh] bg-dark-secondary sm:rounded-3xl border border-white/[0.08] flex flex-col overflow-hidden z-10 shadow-[0_24px_60px_rgba(0,0,0,0.8)]"
+        className="relative w-full max-w-6xl xl:max-w-7xl h-full sm:h-[90vh] lg:h-[86vh] bg-dark-secondary sm:rounded-3xl border border-white/[0.08] flex flex-col overflow-hidden z-10 shadow-[0_24px_70px_rgba(0,0,0,0.9)]"
         style={{
-          background: "linear-gradient(180deg, var(--color-dark-secondary) 0%, var(--color-dark-primary) 100%)",
+          background:
+            "linear-gradient(180deg, var(--color-dark-secondary) 0%, var(--color-dark-primary) 100%)",
         }}
       >
         {/* Header (Sticky top) */}
-        <div className="sticky top-0 z-20 px-6 py-5 bg-dark-secondary/80 backdrop-blur-md border-b border-white/[0.06] flex items-center justify-between">
+        <div className="sticky top-0 z-20 px-6 sm:px-8 py-5 bg-dark-secondary/90 backdrop-blur-md border-b border-white/[0.06] flex items-center justify-between">
           <div className="text-left">
-            <span className="text-[9px] font-poppins font-black uppercase text-brand tracking-widest block mb-1">
+            <span className="text-[10px] font-poppins font-black uppercase text-brand tracking-widest block mb-1">
               Customizing Deal
             </span>
-            <h2 className="text-xl sm:text-2xl font-poppins font-black text-white uppercase tracking-tight">
+            <h2 className="text-xl sm:text-3xl font-poppins font-black text-white uppercase tracking-tight">
               {activeDeal.name}
             </h2>
           </div>
@@ -519,7 +592,16 @@ export function MealDealConfigurator({ activeDeal, onClose, onSuccess }: MealDea
             onClick={onClose}
             className="w-10 h-10 rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-white/60 hover:text-white hover:bg-white/[0.08] hover:scale-105 transition-all cursor-pointer"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
@@ -527,68 +609,82 @@ export function MealDealConfigurator({ activeDeal, onClose, onSuccess }: MealDea
         </div>
 
         {/* Two-Column Form Scroll Area */}
-        <div className="flex-grow overflow-y-auto p-6 flex flex-col lg:flex-row gap-8 scrollbar-none">
+        <div className="flex-grow overflow-y-auto p-6 sm:p-8 flex flex-col lg:flex-row gap-8 lg:gap-10 scrollbar-none">
           {/* Left Column: Interactive Choices Form */}
-          <div className="flex-grow flex flex-col gap-8 lg:max-w-2xl xl:max-w-3xl">
+          <div className="flex-grow flex flex-col gap-8 lg:max-w-3xl xl:max-w-4xl">
             {/* Signature Stacks Options */}
             {req.stacks > 0 && (
               <div className="flex flex-col gap-6">
                 <div>
-                  <h3 className="text-base sm:text-lg font-poppins font-black text-white uppercase tracking-wider text-left flex items-center gap-2">
-                    <span>🍔</span> Select Signature Stacks
+                  <h3 className="text-base sm:text-xl font-poppins font-black text-white uppercase tracking-wider text-left flex items-center gap-2">
+                    <span>🍔</span> Select Stacks or Wraps
                   </h3>
-                  <p className="text-xs text-white/50 text-left mt-1">
-                    Choose which stack you want for each burger slot. Combinations and duplicates are welcome!
+                  <p className="text-xs sm:text-sm text-white/50 text-left mt-1 font-sans">
+                    Choose which stack or wrap you want for each slot. Mix and
+                    match as you like!
                   </p>
                 </div>
 
                 <div className="flex flex-col gap-8">
                   {selectedStacks.map((selectedStack, index) => (
-                    <div key={index} className="flex flex-col gap-3 text-left">
+                    <div
+                      key={index}
+                      className="flex flex-col gap-3.5 text-left"
+                    >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-poppins font-bold uppercase tracking-wider text-brand">
-                          Stack Choice #{index + 1}
+                        <span className="text-xs sm:text-sm font-poppins font-bold uppercase tracking-wider text-brand">
+                          Stack / Wrap Choice #{index + 1}
                         </span>
                         {selectedStack ? (
-                          <span className="text-[10px] font-sans font-bold text-green-400 flex items-center gap-1">
+                          <span className="text-xs font-sans font-bold text-green-400 flex items-center gap-1">
                             ✓ Selected: {selectedStack}
                           </span>
                         ) : (
-                          <span className="text-[10px] font-sans font-bold text-white/30 animate-pulse">
-                            ⚠️ Required selection
+                          <span className="text-xs font-sans font-bold text-white/30 animate-pulse">
+                            ⚠️ Selection required
                           </span>
                         )}
                       </div>
 
-                      {/* Stack selector Grid */}
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {/* Stack selector Grid - Spacious on desktop */}
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
                         {STACKS_CHOICES.map((stack) => {
                           const isSelected = selectedStack === stack.name;
                           return (
                             <div
                               key={stack.id}
-                              onClick={() => handleSelectStack(index, stack.name)}
-                              className={`relative p-3 rounded-2xl cursor-pointer transition-all duration-300 flex flex-col items-center border select-none group h-full ${
+                              onClick={() =>
+                                handleSelectStack(index, stack.name)
+                              }
+                              className={`relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-300 flex flex-col items-center border select-none group h-full justify-between ${
                                 isSelected
-                                  ? "border-brand bg-brand/[0.04] shadow-[0_0_15px_rgba(245,196,0,0.15)]"
-                                  : "border-white/[0.06] bg-white/[0.01] hover:border-white/20 hover:bg-white/[0.02]"
+                                  ? "border-brand bg-brand/[0.06] shadow-[0_0_25px_rgba(245,196,0,0.2)] scale-[1.02]"
+                                  : "border-white/[0.07] bg-white/[0.015] hover:border-white/25 hover:bg-white/[0.03] hover:scale-[1.01]"
                               }`}
                             >
-                              <div className="relative w-16 h-16 mb-2 group-hover:scale-108 transition-transform duration-300">
+                              {/* Selected Checkmark Badge */}
+                              {isSelected && (
+                                <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 w-6 h-6 rounded-full bg-brand text-[#0a0a0a] flex items-center justify-center font-black text-xs shadow-md z-10">
+                                  ✓
+                                </div>
+                              )}
+                              <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 mb-3 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
                                 <Image
                                   src={stack.image}
                                   alt={stack.name}
                                   fill
-                                  sizes="64px"
+                                  sizes="(max-width: 640px) 120px, (max-width: 1024px) 150px, 180px"
                                   style={{ objectFit: "contain" }}
                                 />
                               </div>
-                              <span className="text-xs font-poppins font-bold text-white uppercase tracking-wide text-center leading-tight">
-                                {stack.name}
-                              </span>
-                              <span className="text-[9px] text-white/40 text-center leading-none mt-1 line-clamp-2">
-                                {stack.desc}
-                              </span>
+                              <div className="flex flex-col items-center text-center">
+                                <span className="text-xs sm:text-sm lg:text-base font-poppins font-black text-white uppercase tracking-wide leading-snug">
+                                  {stack.name}
+                                </span>
+                                <span className="text-[10px] sm:text-xs text-white/45 leading-relaxed mt-1.5 line-clamp-2 font-sans">
+                                  {stack.desc}
+                                </span>
+                              </div>
                             </div>
                           );
                         })}
@@ -608,11 +704,11 @@ export function MealDealConfigurator({ activeDeal, onClose, onSuccess }: MealDea
             {req.drinks > 0 && (
               <div className="flex flex-col gap-6">
                 <div>
-                  <h3 className="text-base sm:text-lg font-poppins font-black text-white uppercase tracking-wider text-left flex items-center gap-2">
+                  <h3 className="text-base sm:text-xl font-poppins font-black text-white uppercase tracking-wider text-left flex items-center gap-2">
                     <span>🥤</span> Select Chilled Drinks
                   </h3>
-                  <p className="text-xs text-white/50 text-left mt-1">
-                    Select your carbonated or spring beverage choice (served as 500ml).
+                  <p className="text-xs sm:text-sm text-white/50 text-left mt-1 font-sans">
+                    Select your beverage choice (served as 340ML).
                   </p>
                 </div>
 
@@ -620,47 +716,53 @@ export function MealDealConfigurator({ activeDeal, onClose, onSuccess }: MealDea
                   {selectedDrinks.map((selectedDrink, index) => (
                     <div key={index} className="flex flex-col gap-4 text-left">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-poppins font-bold uppercase tracking-wider text-brand">
+                        <span className="text-xs sm:text-sm font-poppins font-bold uppercase tracking-wider text-brand">
                           Drink Choice #{index + 1}
                         </span>
                         {selectedDrink.name ? (
-                          <span className="text-[10px] font-sans font-bold text-green-400 flex items-center gap-1">
-                            ✓ Selected: {selectedDrink.name} ({selectedDrink.size})
+                          <span className="text-xs font-sans font-bold text-green-400 flex items-center gap-1">
+                            ✓ Selected: {selectedDrink.name} (340ML)
                           </span>
                         ) : (
-                          <span className="text-[10px] font-sans font-bold text-white/30 animate-pulse">
-                            ⚠️ Required selection
+                          <span className="text-xs font-sans font-bold text-white/30 animate-pulse">
+                            ⚠️ Selection required
                           </span>
                         )}
                       </div>
 
                       {/* Drink grid selector */}
-                      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                         {DRINKS_CHOICES.map((drink) => {
                           const isSelected = selectedDrink.name === drink.name;
-                          const drinkImg = drink.images["500ml"];
 
                           return (
                             <div
                               key={drink.id}
-                              onClick={() => handleSelectDrinkBrand(index, drink.name)}
-                              className={`relative p-4 rounded-2xl cursor-pointer transition-all duration-300 flex flex-col items-center border select-none group min-h-[110px] justify-center ${
+                              onClick={() =>
+                                handleSelectDrinkBrand(index, drink.name)
+                              }
+                              className={`relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-300 flex flex-col items-center border select-none group min-h-[130px] justify-center ${
                                 isSelected
-                                  ? "border-brand bg-brand/[0.04] shadow-[0_0_15px_rgba(245,196,0,0.15)]"
-                                  : "border-white/[0.06] bg-white/[0.01] hover:border-white/20 hover:bg-white/[0.02]"
+                                  ? "border-brand bg-brand/[0.06] shadow-[0_0_25px_rgba(245,196,0,0.2)] scale-[1.02]"
+                                  : "border-white/[0.07] bg-white/[0.015] hover:border-white/25 hover:bg-white/[0.03] hover:scale-[1.01]"
                               }`}
                             >
-                              <div className="relative w-12 h-14 mb-2 group-hover:scale-108 transition-transform duration-300">
+                              {isSelected && (
+                                <div className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full bg-brand text-[#0a0a0a] flex items-center justify-center font-black text-[10px] shadow-md z-10">
+                                  ✓
+                                </div>
+                              )}
+                              <div className="relative w-14 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 lg:w-20 lg:h-24 mb-2.5 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
                                 <Image
-                                  src={drinkImg}
+                                  src={drink.image}
                                   alt={drink.name}
                                   fill
-                                  sizes="48px"
+                                  sizes="96px"
                                   style={{ objectFit: "contain" }}
                                 />
                               </div>
-                              <span className="text-xs font-poppins font-bold text-white uppercase tracking-wide text-center leading-tight">
-                                {drink.name}
+                              <span className="text-xs sm:text-sm font-poppins font-black text-white uppercase tracking-wide text-center leading-tight">
+                                {drink.name} (340ML)
                               </span>
                             </div>
                           );
@@ -674,7 +776,7 @@ export function MealDealConfigurator({ activeDeal, onClose, onSuccess }: MealDea
           </div>
 
           {/* Right Column: Sticky Summary Panel */}
-          <div className="w-full lg:w-80 lg:flex-shrink-0">
+          <div className="w-full lg:w-80 xl:w-96 lg:flex-shrink-0">
             <div className="sticky top-0 p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex flex-col text-left">
               <h3 className="font-poppins font-black text-sm text-white uppercase tracking-wider mb-4 pb-2 border-b border-white/[0.04]">
                 Combo Builder
@@ -709,9 +811,18 @@ export function MealDealConfigurator({ activeDeal, onClose, onSuccess }: MealDea
                   </span>
                   <ul className="space-y-1">
                     {selectedStacks.map((stack, idx) => (
-                      <li key={idx} className="font-sans font-medium text-white/80 flex items-center gap-1.5">
+                      <li
+                        key={idx}
+                        className="font-sans font-medium text-white/80 flex items-center gap-1.5"
+                      >
                         <span className="text-brand">🍔</span>
-                        <span>{stack || <span className="text-white/20 italic">Slot #{idx + 1} empty</span>}</span>
+                        <span>
+                          {stack || (
+                            <span className="text-white/20 italic">
+                              Slot #{idx + 1} empty
+                            </span>
+                          )}
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -725,10 +836,19 @@ export function MealDealConfigurator({ activeDeal, onClose, onSuccess }: MealDea
                   </span>
                   <ul className="space-y-1">
                     {selectedDrinks.map((drink, idx) => (
-                      <li key={idx} className="font-sans font-medium text-white/80 flex items-center gap-1.5">
+                      <li
+                        key={idx}
+                        className="font-sans font-medium text-white/80 flex items-center gap-1.5"
+                      >
                         <span className="text-brand">🥤</span>
                         <span>
-                          {drink.name ? `${drink.name} (${drink.size})` : <span className="text-white/20 italic">Slot #{idx + 1} empty</span>}
+                          {drink.name ? (
+                            `${drink.name} (${drink.size})`
+                          ) : (
+                            <span className="text-white/20 italic">
+                              Slot #{idx + 1} empty
+                            </span>
+                          )}
                         </span>
                       </li>
                     ))}
