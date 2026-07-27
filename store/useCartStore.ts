@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { useState, useEffect } from "react";
 import { PRODUCTS } from "@/component/menu/MenuSection";
+import { resolveCartItemPrice } from "@/component/stacks/stackPricing";
 
 export interface CartItem {
   id: string;
@@ -56,15 +57,12 @@ export const useCartStore = create<CartState>()(
           const product = PRODUCTS.find((p) => p.id === id);
           if (!product) return state;
 
-          let price = product.price;
+          let price = resolveCartItemPrice(product, size);
           let image = product.image;
           if (size && product.sizes) {
             const sizeOpt = product.sizes.find((s) => s.label === size);
-            if (sizeOpt) {
-              price = sizeOpt.price;
-              if (sizeOpt.image) {
-                image = sizeOpt.image;
-              }
+            if (sizeOpt?.image) {
+              image = sizeOpt.image;
             }
           }
 

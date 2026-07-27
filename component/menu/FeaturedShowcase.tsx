@@ -8,8 +8,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import type { Swiper as SwiperClass } from "swiper";
 
-import { useCartStore } from "@/store/useCartStore";
 import { PRODUCTS, Product } from "@/component/menu/MenuSection";
+import { usePremadeStackAddToCart } from "@/hooks/usePremadeStackAddToCart";
+import { getProductListPrice } from "@/component/stacks/stackPricing";
 
 // Swiper styles
 import "swiper/css";
@@ -23,14 +24,18 @@ export default function FeaturedShowcase() {
   const [isEnd, setIsEnd] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const addItem = useCartStore((state) => state.addItem);
+  const { requestAddToCart, sizeModal } = usePremadeStackAddToCart(
+    (product, size) => {
+      const suffix = size ? ` (${size})` : "";
+      setToastMessage(`✓ Added ${product.name}${suffix} to cart!`);
+      setTimeout(() => {
+        setToastMessage(null);
+      }, 2500);
+    },
+  );
 
   const handleAddToCart = (product: Product) => {
-    addItem(product.id);
-    setToastMessage(`✓ Added ${product.name} to cart!`);
-    setTimeout(() => {
-      setToastMessage(null);
-    }, 2500);
+    requestAddToCart(product);
   };
 
   // Curated balanced list of favorites: 3 Wraps, 2 Stacks, 2 Fries, 2 Beverages
@@ -281,7 +286,13 @@ export default function FeaturedShowcase() {
                           {isBYO ? "Custom" : "Price"}
                         </span>
                         <span className="font-poppins font-black text-lg text-white">
-                          Rs {product.price}
+                          {(() => {
+                            const { amount, showFromPrefix } =
+                              getProductListPrice(product);
+                            return showFromPrefix
+                              ? `From Rs ${amount.toLocaleString()}`
+                              : `Rs ${amount.toLocaleString()}`;
+                          })()}
                         </span>
                       </div>
 
@@ -325,6 +336,8 @@ export default function FeaturedShowcase() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {sizeModal}
     </section>
   );
 }

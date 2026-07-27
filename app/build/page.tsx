@@ -4,6 +4,13 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";
+import {
+  formatByoPrice,
+  formatByoStackPriceFrom,
+  getByoStackPrice,
+  getByoStackStartingPrice,
+} from "@/component/build/buildYourOwnPricing";
+import type { StackBreadSize } from "@/component/stacks/stackSizes";
 
 // Configurator Components
 import { BreadOption, BunOption, ProteinOption, VeggieOption, CheeseOption, SauceOption } from "@/component/build/ingredients";
@@ -22,14 +29,12 @@ const STEPS = [
   { num: 7, title: "Review", desc: "Review stack" },
 ];
 
-const FIXED_PRICE = 650; // Rs. 650 PKR
-
 export default function BuildPage() {
   const [mounted, setMounted] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
 
   // Selected Ingredients State
-  const [selectedBreadSize, setSelectedBreadSize] = useState<"6 Inches" | "Foot Long" | null>(null);
+  const [selectedBreadSize, setSelectedBreadSize] = useState<StackBreadSize | null>(null);
   const [selectedBreadType, setSelectedBreadType] = useState<BreadOption | null>(null);
   const [selectedProteins, setSelectedProteins] = useState<ProteinOption[]>([]);
   const [selectedVeggies, setSelectedVeggies] = useState<VeggieOption[]>([]);
@@ -45,7 +50,7 @@ export default function BuildPage() {
     description: selectedBreadType.description,
   } : null;
 
-  const handleSizeSelect = (size: "6 Inches" | "Foot Long") => {
+  const handleSizeSelect = (size: StackBreadSize) => {
     setSelectedBreadSize(size);
     // Smooth transition automatically to step 2 after 200ms
     setTimeout(() => {
@@ -116,9 +121,14 @@ export default function BuildPage() {
     );
   };
 
+  const stackPrice = selectedBreadSize
+    ? getByoStackPrice(selectedBreadSize)
+    : null;
+  const summaryPrice = stackPrice ?? getByoStackStartingPrice();
+
   // Add Custom Stack to Zustand Cart
   const handleCompleteStack = () => {
-    if (!selectedBun || selectedProteins.length === 0) return;
+    if (!selectedBun || selectedProteins.length === 0 || !selectedBreadSize) return;
 
     // Calculate unique naming & keys to prevent collisions
     const customCount = Object.values(cartItems).filter((item) => item.id === "byo-stack").length + 1;
@@ -133,7 +143,7 @@ export default function BuildPage() {
       key: timestampKey,
       name: "Build Your Own Stack",
       image: selectedBun.image, // Use the base bun image for thumbnail
-      price: FIXED_PRICE,
+      price: getByoStackPrice(selectedBreadSize),
       size: sizeName,
       quantity: 1,
       accentColor: "#A855F7", // config purple theme accent
@@ -206,11 +216,18 @@ export default function BuildPage() {
             <div className="w-full lg:w-auto p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-md flex items-center justify-between lg:justify-end gap-6 min-w-[240px] shadow-card">
               <div className="text-left">
                 <span className="text-[9px] font-poppins font-black text-white/30 uppercase tracking-widest block">
-                  Fixed Stack Price
+                  {stackPrice ? "Stack Price" : "Stack Pricing"}
                 </span>
                 <span className="font-poppins font-black text-white text-2xl">
-                  Rs {FIXED_PRICE} PKR
+                  {stackPrice
+                    ? `${formatByoPrice(stackPrice)} PKR`
+                    : `${formatByoStackPriceFrom()} PKR`}
                 </span>
+                {selectedBreadSize && (
+                  <span className="text-[10px] text-white/40 font-sans mt-1 block">
+                    {selectedBreadSize}
+                  </span>
+                )}
               </div>
               <div className="px-3 py-2 rounded-xl bg-brand/10 text-brand text-[10px] font-poppins font-black uppercase tracking-widest border border-brand/20">
                 Premium Choice
@@ -356,7 +373,7 @@ export default function BuildPage() {
                       veggies={selectedVeggies}
                       cheese={selectedCheese}
                       sauces={selectedSauces}
-                      price={FIXED_PRICE}
+                      price={summaryPrice}
                     />
                   )}
                 </div>
@@ -409,7 +426,7 @@ export default function BuildPage() {
               selectedCheese={selectedCheese}
               selectedSauces={selectedSauces}
               currentStep={currentStep}
-              fixedPrice={FIXED_PRICE}
+              fixedPrice={summaryPrice}
             />
           </div>
         </div>
@@ -427,7 +444,7 @@ export default function BuildPage() {
           selectedCheese={selectedCheese}
           selectedSauces={selectedSauces}
           currentStep={currentStep}
-          fixedPrice={FIXED_PRICE}
+          fixedPrice={summaryPrice}
         />
 
         {/* Mobile Sticky Navigation Buttons */}
@@ -476,7 +493,7 @@ export default function BuildPage() {
           cheese: selectedCheese ? selectedCheese.name : null,
           sauces: selectedSauces.map((s) => s.name),
         }}
-        price={FIXED_PRICE}
+        price={summaryPrice}
       />
     </div>
   );

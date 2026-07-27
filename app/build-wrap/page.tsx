@@ -11,6 +11,10 @@ import BuildSummaryCard from "@/component/build/BuildSummaryCard";
 import { ProteinSelector, VeggieSelector, CheeseSelector, SauceSelector } from "@/component/build/StepSelectors";
 import ReviewStep from "@/component/build/ReviewStep";
 import UpsellDrawer from "@/component/build/UpsellDrawer";
+import {
+  formatByoPrice,
+  getByoWrapPrice,
+} from "@/component/build/buildYourOwnPricing";
 
 const STEPS = [
   { num: 1, title: "Protein", desc: "Choose filling" },
@@ -19,8 +23,6 @@ const STEPS = [
   { num: 4, title: "Sauces", desc: "Flavor kick" },
   { num: 5, title: "Review", desc: "Review wrap" },
 ];
-
-const FIXED_WRAP_PRICE = 550; // Rs. 550 PKR
 
 export default function BuildWrapPage() {
   const [mounted, setMounted] = useState(false);
@@ -109,7 +111,7 @@ export default function BuildWrapPage() {
       key: timestampKey,
       name: "Build Your Own Wrap",
       image: "/Wraps/buildyourownwrap.png",
-      price: FIXED_WRAP_PRICE,
+      price: getByoWrapPrice(),
       size: sizeName,
       quantity: 1,
       accentColor: "#A855F7",
@@ -184,7 +186,7 @@ export default function BuildWrapPage() {
                   Fixed Wrap Price
                 </span>
                 <span className="font-poppins font-black text-white text-2xl">
-                  Rs {FIXED_WRAP_PRICE} PKR
+                  {formatByoPrice(getByoWrapPrice())} PKR
                 </span>
               </div>
               <div className="px-3 py-2 rounded-xl bg-brand/10 text-brand text-[10px] font-poppins font-black uppercase tracking-widest border border-brand/20">
@@ -317,7 +319,7 @@ export default function BuildWrapPage() {
                       veggies={selectedVeggies}
                       cheese={selectedCheese}
                       sauces={selectedSauces}
-                      price={FIXED_WRAP_PRICE}
+                      price={getByoWrapPrice()}
                       isWrap={true}
                     />
                   )}
@@ -368,7 +370,7 @@ export default function BuildWrapPage() {
               selectedCheese={selectedCheese}
               selectedSauces={selectedSauces}
               currentStep={currentStep}
-              fixedPrice={FIXED_WRAP_PRICE}
+              fixedPrice={getByoWrapPrice()}
               isWrap={true}
             />
           </div>
@@ -384,7 +386,7 @@ export default function BuildWrapPage() {
           selectedCheese={selectedCheese}
           selectedSauces={selectedSauces}
           currentStep={currentStep}
-          fixedPrice={FIXED_WRAP_PRICE}
+          fixedPrice={getByoWrapPrice()}
           isWrap={true}
         />
 
@@ -434,7 +436,7 @@ export default function BuildWrapPage() {
           cheese: selectedCheese ? selectedCheese.name : null,
           sauces: selectedSauces.map((s) => s.name),
         }}
-        price={FIXED_WRAP_PRICE}
+        price={getByoWrapPrice()}
       />
     </div>
   );

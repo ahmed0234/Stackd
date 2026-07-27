@@ -5,6 +5,22 @@ import { useCartStore, CartItem } from "@/store/useCartStore";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePremadeStackAddToCart } from "@/hooks/usePremadeStackAddToCart";
+import {
+  getPremadeStackTotalQuantity,
+  isPremadeStackProduct,
+  removeOnePremadeStack,
+} from "@/component/stacks/stackSizes";
+import {
+  getProductListPrice,
+  getStackStartingPrice,
+} from "@/component/stacks/stackPricing";
+import {
+  getByoStackStartingPrice,
+  getByoWrapPrice,
+  getReadyMadeWrapPrice,
+} from "@/component/build/buildYourOwnPricing";
+import { FRIES_PRICES } from "@/component/fries/friesPricing";
 
 export interface SizeOption {
   label: string;
@@ -25,6 +41,8 @@ export interface Product {
   includes?: string[];
 }
 
+const STACK_LIST_PRICE = getStackStartingPrice();
+
 export const PRODUCTS: Product[] = [
   // Category: Stacks
   {
@@ -34,7 +52,7 @@ export const PRODUCTS: Product[] = [
     image: "/Stacks/Fire.png",
     description:
       "Double smash beef, melted pepper jack, grilled jalapeños, spicy hot house fire sauce.",
-    price: 499,
+    price: STACK_LIST_PRICE,
     tags: ["Spicy"],
     accentColor: "#EF4444",
   },
@@ -45,7 +63,7 @@ export const PRODUCTS: Product[] = [
     image: "/Stacks/Melt.png",
     description:
       "Double hand-pressed patties smothered in hot cheddar sauce, grilled caramelized onions.",
-    price: 549,
+    price: STACK_LIST_PRICE,
     tags: ["Cheese Bomb"],
     accentColor: "#F97316",
   },
@@ -56,7 +74,7 @@ export const PRODUCTS: Product[] = [
     image: "/Stacks/Og.png",
     description:
       "Double smashed Angus beef, cheddar cheese, crispy pickles, secret stack sauce, toasted brioche bun.",
-    price: 449,
+    price: STACK_LIST_PRICE,
     tags: ["Popular"],
     accentColor: "#F5C400",
   },
@@ -67,7 +85,7 @@ export const PRODUCTS: Product[] = [
     image: "/Stacks/Royal.png",
     description:
       "Triple smashed Angus beef patties, premium golden cheddar cheese, sweet caramelized onions, and our rich signature truffle glaze.",
-    price: 599,
+    price: STACK_LIST_PRICE,
     tags: ["Signature"],
     accentColor: "#6366F1",
   },
@@ -78,7 +96,7 @@ export const PRODUCTS: Product[] = [
     image: "/Stacks/Smoke.png",
     description:
       "Double patties, crispy smoked bacon, golden thick-cut onion rings, hickory BBQ sauce.",
-    price: 499,
+    price: STACK_LIST_PRICE,
     tags: ["Popular"],
     accentColor: "#D97706",
   },
@@ -89,7 +107,7 @@ export const PRODUCTS: Product[] = [
     image: "/Stacks/Build your own.png",
     description:
       "Your stack, your rules. Choose number of patties, fresh toppings, cheeses, and custom signature sauces.",
-    price: 650,
+    price: getByoStackStartingPrice(),
     tags: ["Customizable"],
     accentColor: "#A855F7",
   },
@@ -102,7 +120,7 @@ export const PRODUCTS: Product[] = [
     image: "/Wraps/firewrap.png",
     description:
       "Spicy chicken tenders, melted pepper jack cheese, charred jalapeños, and house fire sauce in a warm tortilla.",
-    price: 499,
+    price: getReadyMadeWrapPrice(),
     tags: ["Spicy"],
     accentColor: "#EF4444",
   },
@@ -113,7 +131,7 @@ export const PRODUCTS: Product[] = [
     image: "/Wraps/meltedwrap.png",
     description:
       "Double smash beef smothered in hot cheddar cheese sauce, caramelized onions, wrapped to perfection.",
-    price: 520,
+    price: getReadyMadeWrapPrice(),
     tags: ["Cheese Bomb"],
     accentColor: "#F97316",
   },
@@ -124,7 +142,7 @@ export const PRODUCTS: Product[] = [
     image: "/Wraps/ogwrap.png",
     description:
       "Double smashed Angus beef, cheddar cheese, crispy pickles, and secret stack sauce in a warm toasted wrap.",
-    price: 449,
+    price: getReadyMadeWrapPrice(),
     tags: ["Popular"],
     accentColor: "#F5C400",
   },
@@ -135,7 +153,7 @@ export const PRODUCTS: Product[] = [
     image: "/Wraps/royalewrap.png",
     description:
       "Triple smashed beef patties, premium golden cheddar, sweet caramelized onions, and rich signature truffle glaze.",
-    price: 599,
+    price: getReadyMadeWrapPrice(),
     tags: ["Signature"],
     accentColor: "#6366F1",
   },
@@ -146,7 +164,7 @@ export const PRODUCTS: Product[] = [
     image: "/Wraps/buildyourownwrap.png",
     description:
       "Your wrap, your rules. Choose your tortilla base, fresh crisp veggies, grilled proteins, and signature drizzles.",
-    price: 550,
+    price: getByoWrapPrice(),
     tags: ["Customizable"],
     accentColor: "#A855F7",
   },
@@ -159,7 +177,7 @@ export const PRODUCTS: Product[] = [
     image: "/Fries/Fullstackdfries.png",
     description:
       "A loaded meal of crispy fries, chopped smash beef patties, melted cheese, pickles, and signature stack sauce.",
-    price: 449,
+    price: FRIES_PRICES["full-stackd-fries"],
     tags: ["Meal Size"],
     accentColor: "#F97316",
   },
@@ -170,7 +188,7 @@ export const PRODUCTS: Product[] = [
     image: "/Fries/chillicheesefries.png",
     description:
       "Golden fries smothered in hot beef chilli, jalapeños, and melted pepper jack cheese.",
-    price: 349,
+    price: FRIES_PRICES["chilli-cheese-fries"],
     tags: ["Spicy"],
     accentColor: "#EF4444",
   },
@@ -181,7 +199,7 @@ export const PRODUCTS: Product[] = [
     image: "/Fries/plain fries.png",
     description:
       "Crispy, hand-cut golden skin-on fries seasoned to perfection with signature stack spice.",
-    price: 199,
+    price: FRIES_PRICES["plain-fries"],
     tags: ["Classic"],
     accentColor: "#F5C400",
   },
@@ -312,6 +330,8 @@ export default function MenuSection() {
     (state) => state.removeItemCompletely,
   );
   const clearCart = useCartStore((state) => state.clearCart);
+
+  const { requestAddToCart, sizeModal } = usePremadeStackAddToCart();
 
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -502,8 +522,20 @@ export default function MenuSection() {
                 key={product.id}
                 product={product}
                 cart={items}
-                onAdd={(size) => addItem(product.id, size)}
-                onRemove={(size) => removeItem(product.id, size)}
+                onAdd={(size) => {
+                  if (isPremadeStackProduct(product.id, product.category)) {
+                    requestAddToCart(product);
+                  } else {
+                    addItem(product.id, size);
+                  }
+                }}
+                onRemove={(size) => {
+                  if (isPremadeStackProduct(product.id, product.category)) {
+                    removeOnePremadeStack(items, product.id, removeItem);
+                  } else {
+                    removeItem(product.id, size);
+                  }
+                }}
                 variants={cardVariants}
               />
             ))}
@@ -707,6 +739,8 @@ export default function MenuSection() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {sizeModal}
     </section>
   );
 }
@@ -746,13 +780,23 @@ function ProductCard({
   const currentSizeKey = activeSize
     ? `${product.id}::${activeSize}`
     : product.id;
-  const quantity = cart[currentSizeKey]?.quantity || 0;
+
+  const isPremadeStack = isPremadeStackProduct(
+    product.id,
+    product.category,
+  );
+
+  const quantity = isPremadeStack
+    ? getPremadeStackTotalQuantity(cart, product.id)
+    : cart[currentSizeKey]?.quantity || 0;
+
+  const listPrice = getProductListPrice(product);
 
   const currentPrice =
     activeSize && product.sizes
       ? (product.sizes.find((s) => s.label === activeSize)?.price ??
         product.price)
-      : product.price;
+      : listPrice.amount;
 
   const currentImage =
     activeSize && product.sizes
@@ -904,6 +948,10 @@ function ProductCard({
           {product.id === "byo-stack" || product.id === "byo-wrap" ? (
             <span className="font-poppins font-bold text-xs text-white/40 uppercase tracking-wider">
               Customizable
+            </span>
+          ) : listPrice.showFromPrefix ? (
+            <span className="font-poppins font-black text-lg text-white">
+              From Rs {currentPrice.toLocaleString()}
             </span>
           ) : (
             <span className="font-poppins font-black text-lg text-white">

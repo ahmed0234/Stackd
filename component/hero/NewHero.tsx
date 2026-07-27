@@ -8,8 +8,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import type { Swiper as SwiperClass } from "swiper";
 
-import { useCartStore } from "@/store/useCartStore";
 import { PRODUCTS, Product } from "@/component/menu/MenuSection";
+import { usePremadeStackAddToCart } from "@/hooks/usePremadeStackAddToCart";
+import { getProductListPrice } from "@/component/stacks/stackPricing";
+import {
+  formatByoPrice,
+  formatByoStackPriceFrom,
+  getByoWrapPrice,
+} from "@/component/build/buildYourOwnPricing";
 
 // Swiper styles
 import "swiper/css";
@@ -29,14 +35,18 @@ export default function NewHero() {
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const addItem = useCartStore((state) => state.addItem);
+  const { requestAddToCart, sizeModal } = usePremadeStackAddToCart(
+    (product, size) => {
+      const suffix = size ? ` (${size})` : "";
+      setToastMessage(`✓ Added ${product.name}${suffix} to cart!`);
+      setTimeout(() => {
+        setToastMessage(null);
+      }, 2500);
+    },
+  );
 
   const handleAddToCart = (product: Product) => {
-    addItem(product.id);
-    setToastMessage(`✓ Added ${product.name} to cart!`);
-    setTimeout(() => {
-      setToastMessage(null);
-    }, 2500);
+    requestAddToCart(product);
   };
 
   const signatureStacks = PRODUCTS.filter((p) => p.category === "stacks");
@@ -353,7 +363,7 @@ export default function NewHero() {
 
                     <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between">
                       <span className="font-poppins font-black text-sm text-brand">
-                        From Rs 550
+                        {formatByoStackPriceFrom()}
                       </span>
                       <span className="px-3.5 py-1.5 rounded-full bg-brand text-[#0a0a0a] font-poppins font-black text-[10px] uppercase tracking-wider flex items-center gap-1 shadow-md group-hover:scale-105 transition-transform">
                         <span>BUILD NOW</span>
@@ -397,7 +407,7 @@ export default function NewHero() {
 
                     <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between">
                       <span className="font-poppins font-black text-sm text-brand">
-                        From Rs 550
+                        {formatByoPrice(getByoWrapPrice())}
                       </span>
                       <span className="px-3.5 py-1.5 rounded-full bg-brand text-[#0a0a0a] font-poppins font-black text-[10px] uppercase tracking-wider flex items-center gap-1 shadow-md group-hover:scale-105 transition-transform">
                         <span>BUILD NOW</span>
@@ -508,7 +518,13 @@ export default function NewHero() {
                               Price
                             </span>
                             <span className="font-poppins font-black text-base sm:text-lg text-white">
-                              Rs. {product.price}
+                              {(() => {
+                                const { amount, showFromPrefix } =
+                                  getProductListPrice(product);
+                                return showFromPrefix
+                                  ? `From Rs ${amount.toLocaleString()}`
+                                  : `Rs ${amount.toLocaleString()}`;
+                              })()}
                             </span>
                           </div>
                           <button
@@ -542,6 +558,8 @@ export default function NewHero() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {sizeModal}
     </section>
   );
 }

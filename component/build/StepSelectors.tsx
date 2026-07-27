@@ -15,6 +15,7 @@ import {
   CheeseOption,
   SauceOption,
 } from "./ingredients";
+import { BYO_BREAD_SIZE_OPTIONS } from "@/component/stacks/stackBreadSizeOptions";
 
 // Card animation variants
 const cardVariants = {
@@ -45,37 +46,7 @@ interface BreadSizeSelectorProps {
 }
 
 export function BreadSizeSelector({ selectedSize, onSelect }: BreadSizeSelectorProps) {
-  const sizes = [
-    {
-      id: "6 Inches",
-      name: "6 Inches",
-      desc: "Perfect snack size, split in half.",
-      icon: (color: string) => (
-        <svg width="60" height="30" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="5" width="56" height="20" rx="10" fill="none" stroke={color} strokeWidth="2.5" />
-          <line x1="16" y1="5" x2="16" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
-          <line x1="30" y1="5" x2="30" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
-          <line x1="44" y1="5" x2="44" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
-        </svg>
-      ),
-      length: "6\" / ~15cm"
-    },
-    {
-      id: "Foot Long",
-      name: "Foot Long",
-      desc: "For the big hunger. The legendary 12-inch full size.",
-      icon: (color: string) => (
-        <svg width="100" height="30" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="5" width="96" height="20" rx="10" fill="none" stroke={color} strokeWidth="2.5" />
-          <line x1="20" y1="5" x2="20" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
-          <line x1="38" y1="5" x2="38" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
-          <line x1="56" y1="5" x2="56" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
-          <line x1="74" y1="5" x2="74" y2="25" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
-        </svg>
-      ),
-      length: "12\" / ~30cm"
-    }
-  ];
+  const sizes = BYO_BREAD_SIZE_OPTIONS;
 
   return (
     <div className="flex flex-col items-center w-full max-w-2xl mx-auto py-4 select-none">
@@ -122,6 +93,9 @@ export function BreadSizeSelector({ selectedSize, onSelect }: BreadSizeSelectorP
                 {s.name}
                 {isSelected && <span className="text-brand text-xs">✓</span>}
               </h4>
+              <p className="font-poppins font-black text-sm text-brand mb-2">
+                Rs {s.price.toLocaleString()}
+              </p>
               <p className="text-xs text-white/50 leading-relaxed font-sans max-w-[220px]">
                 {s.desc}
               </p>
