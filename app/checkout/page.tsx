@@ -81,11 +81,13 @@ export default function CheckoutPage() {
 
   const formatWhatsAppMessage = (name: string, phone: string, address: string) => {
     const border = "━━━━━━━━━━━━━━";
+    const subtotal = totalPrice;
+
     let msg = `${border}\n🍔 STACKD ORDER\n\nName:\n${name}\n\nPhone:\n${phone}\n\nAddress:\n${address}\n\n${border}\n\nORDER ITEMS\n\n`;
     
     items.forEach((item) => {
       const variantSuffix = item.size ? ` (${item.size})` : "";
-      msg += `${item.quantity}x ${item.name}${variantSuffix}\n`;
+      msg += `${item.quantity}x ${item.name}${variantSuffix} - PKR ${(item.price * item.quantity).toLocaleString()}\n`;
       if (item.customization) {
         msg += `   • Bun: ${item.customization.bun}\n`;
         msg += `   • Protein: ${item.customization.protein}\n`;
@@ -114,7 +116,12 @@ export default function CheckoutPage() {
       }
     });
     
-    msg += `\n${border}\n\nTOTAL\n\n₨ ${totalPrice.toLocaleString()}\n\n${border}\n\nPlease confirm my order.\n${border}`;
+    msg += `\n${border}\n\nTOTAL\n\nPKR ${subtotal.toLocaleString()}\n\n`;
+    msg += `*Delivery Fee: Pending location confirmation\n`;
+    msg += `Reference Rates:\n`;
+    msg += ` - 0 km – 3.5 km: PKR 60\n`;
+    msg += ` - 3.5 km – 5 km: PKR 100\n\n`;
+    msg += `${border}\n\nPlease confirm my order.\n${border}`;
     return msg;
   };
 
@@ -379,7 +386,7 @@ export default function CheckoutPage() {
                           </div>
                         )}
                         <p className="text-[10px] text-brand font-sans mt-1">
-                          Rs {item.price.toLocaleString()}
+                          PKR {item.price.toLocaleString()}
                         </p>
                       </div>
                       <div className="text-right">
@@ -387,7 +394,7 @@ export default function CheckoutPage() {
                           Qty: {item.quantity}
                         </span>
                         <span className="font-poppins font-bold text-xs text-white block">
-                          Rs {(item.price * item.quantity).toLocaleString()}
+                          PKR {(item.price * item.quantity).toLocaleString()}
                         </span>
                       </div>
                     </div>
@@ -395,19 +402,51 @@ export default function CheckoutPage() {
                 })}
               </div>
 
+              {/* Delivery Charges Information Reference */}
+              <div className="mb-6 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] relative overflow-hidden">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-sm">📍</span>
+                  <h4 className="font-poppins font-bold text-xs uppercase tracking-wider text-white">
+                    Delivery Charges Information
+                  </h4>
+                </div>
+                
+                <p className="text-[11px] text-white/60 font-sans mb-3 leading-relaxed">
+                  Delivery fee will be calculated after your delivery location is confirmed. Standard reference rates:
+                </p>
+
+                <div className="grid grid-cols-2 gap-3 mb-3">
+                  <div className="flex flex-col items-center p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04] text-center">
+                    <span className="text-[10px] font-sans text-white/50 mb-0.5">0 km – 3.5 km</span>
+                    <span className="font-poppins font-bold text-xs text-brand">PKR 60</span>
+                  </div>
+                  <div className="flex flex-col items-center p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04] text-center">
+                    <span className="text-[10px] font-sans text-white/50 mb-0.5">3.5 km – 5 km</span>
+                    <span className="font-poppins font-bold text-xs text-brand">PKR 100</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-1.5 text-[10px] text-white/40 font-sans leading-tight">
+                  <span className="text-brand shrink-0">ℹ️</span>
+                  <span>Delivery charges are shown for reference only and are not included in the order total yet.</span>
+                </div>
+              </div>
+
               {/* Total Summary Details */}
-              <div className="flex flex-col gap-3.5 text-xs font-sans mb-6">
-                <div className="flex justify-between text-white/50">
+              <div className="flex flex-col gap-3 text-xs font-sans mb-6">
+                <div className="flex justify-between items-center text-white/60">
                   <span>Subtotal</span>
-                  <span className="font-poppins font-bold text-white">Rs {totalPrice.toLocaleString()}</span>
+                  <span className="font-poppins font-bold text-white">PKR {totalPrice.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between text-white/50">
-                  <span>Delivery Charges</span>
-                  <span className="font-poppins font-bold text-brand uppercase tracking-wider">Free</span>
+
+                <div className="flex justify-between items-center text-white/50 text-[11px] pt-1">
+                  <span>Delivery Fee</span>
+                  <span className="font-sans text-[10px] text-white/40 italic">Calculated after location confirmation</span>
                 </div>
-                <div className="flex justify-between text-base border-t border-white/[0.04] pt-4 font-poppins font-black text-white uppercase">
-                  <span>Grand Total</span>
-                  <span>Rs {totalPrice.toLocaleString()}</span>
+
+                <div className="flex justify-between items-center text-base border-t border-white/[0.08] pt-4 font-poppins font-black text-white uppercase tracking-wide">
+                  <span>Total</span>
+                  <span className="text-brand text-xl font-black">PKR {totalPrice.toLocaleString()}</span>
                 </div>
               </div>
 

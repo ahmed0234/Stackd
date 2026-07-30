@@ -315,9 +315,15 @@ export default function CartPage() {
                       <span className="text-white/50">Total Quantity</span>
                       <span className="font-poppins font-bold text-white">{totalCount}</span>
                     </div>
-                    <div className="flex items-center justify-between py-2 border-b border-white/[0.04]">
-                      <span className="text-white/50">Delivery Charges</span>
-                      <span className="font-poppins font-bold text-brand uppercase tracking-wider">Free Delivery</span>
+                    <div className="flex flex-col gap-1 py-2.5 border-b border-white/[0.04]">
+                      <div className="flex items-center justify-between">
+                        <span className="text-white/50">Delivery Charges</span>
+                        <span className="font-poppins font-bold text-brand uppercase text-[10px] tracking-wider">Calculated at Checkout</span>
+                      </div>
+                      <div className="text-[10px] text-white/40 font-sans flex justify-between">
+                        <span>0 km – 3.5 km: PKR 60</span>
+                        <span>3.5 km – 5 km: PKR 100</span>
+                      </div>
                     </div>
                     <div className="flex flex-col gap-1.5 py-4 border-b border-white/[0.04] bg-white/[0.01] p-3.5 rounded-xl border border-white/[0.03]">
                       <span className="font-poppins font-bold uppercase tracking-wider text-white/30 text-[9px] block">
