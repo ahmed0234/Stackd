@@ -165,12 +165,6 @@ export const VEGGIES: VeggieOption[] = [
     description: "Sweet, juicy golden corn kernels.",
   },
   {
-    id: "veg-cabbage",
-    name: "Crunchy Cabbage",
-    image: "/BuildYourStack/FreshVeggies/Cabbage.png",
-    description: "Shredded fresh crunchy cabbage slaw.",
-  },
-  {
     id: "veg-capsicum",
     name: "Bell Peppers",
     image: "/BuildYourStack/FreshVeggies/Capcigum.png",
