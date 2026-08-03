@@ -253,7 +253,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Perfect for one! Choice of any signature burger or wrap, paired with crispy fries and a 340ML refreshing drink.",
     price: 699,
-    tags: ["Bestseller", "Save Rs 120"],
+    tags: ["Bestseller", "Save Rs 171"],
     accentColor: "#F5C400",
     includes: [
       "1x Signature Stack or Wrap",
@@ -269,7 +269,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Made for two! Choice of two signature burgers or wraps, a large portion of loaded fries, and two chilled 340ML drinks.",
     price: 1299,
-    tags: ["Popular", "Save Rs 200"],
+    tags: ["Popular", "Save Rs 438"],
     accentColor: "#22C55E",
     includes: [
       "2x Signature Stacks or Wraps",
@@ -285,7 +285,7 @@ export const PRODUCTS: Product[] = [
     description:
       "The complete STACKD experience! Includes three signature burgers or wraps, two portions of loaded fries, and three 340ML drinks.",
     price: 1299,
-    tags: ["Best Value", "Save Rs 350"],
+    tags: ["Best Value", "Save Rs 219"],
     accentColor: "#EF4444",
     includes: [
       "1x Signature Stacks or Wraps",
@@ -301,7 +301,7 @@ export const PRODUCTS: Product[] = [
     description:
       "The ultimate party box! Four signature burgers or wraps, two large loaded fries, four chilled 340ML drinks, and extra dipping sauces.",
     price: 2499,
-    tags: ["Big Value", "Save Rs 500"],
+    tags: ["Big Value", "Save Rs 726"],
     accentColor: "#F97316",
     includes: [
       "4x Any Signature Stack or Wrap",

@@ -131,17 +131,23 @@ export default function Footer() {
             <span className="font-sans text-[10px] font-bold tracking-widest text-white/30 uppercase select-none">
               Location
             </span>
-            <div className="flex items-center gap-1.5 text-white/50 hover:text-white/80 transition-colors duration-300 cursor-default">
-              <span className="font-sans text-xs font-semibold tracking-widest uppercase">
+            <a
+              href="https://maps.app.goo.gl/1UhxDKqXiWBMCzsk6"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View business address on Google Maps"
+              className="flex items-center gap-1.5 text-white/50 hover:text-white/90 transition-colors duration-300 group cursor-pointer"
+            >
+              <span className="font-sans text-xs font-semibold tracking-widest uppercase group-hover:underline decoration-[var(--color-brand)] underline-offset-4">
                 Rawalpindi
               </span>
               <span
-                className="text-[var(--color-brand)] flex items-center"
+                className="text-[var(--color-brand)] flex items-center transition-transform duration-300 group-hover:scale-110"
                 aria-hidden="true"
               >
                 <FaMapMarkerAlt size={12} />
               </span>
-            </div>
+            </a>
           </div>
         </div>
 
