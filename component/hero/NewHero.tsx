@@ -242,7 +242,7 @@ export default function NewHero() {
               </motion.div>
             </div>
 
-            {/* Right Side: Featured Royal Stack Hero Product */}
+            {/* Right Side: Featured Melt Stack Hero Product */}
             <div className="lg:col-span-6 xl:col-span-6 relative flex items-center justify-center z-20 py-4 lg:py-0">
               {/* Backlight Ambient Warm Glow */}
               <div className="absolute w-[350px] sm:w-[500px] lg:w-[560px] h-[350px] sm:h-[500px] lg:h-[560px] bg-[radial-gradient(circle,rgba(245,196,0,0.25)_0%,rgba(249,115,22,0.15)_45%,transparent_70%)] rounded-full blur-[70px] pointer-events-none z-0 animate-pulse" style={{ animationDuration: "8s" }} />
@@ -262,7 +262,7 @@ export default function NewHero() {
                 className="absolute top-0 right-12 sm:right-20 z-30 hidden sm:flex items-center gap-2 pointer-events-none"
               >
                 <span className="font-sans font-bold text-white/90 text-sm tracking-wider italic rotate-[-6deg] drop-shadow-md">
-                  Royal Stack
+                  Melt Stack
                 </span>
                 <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#F5C400" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rotate-[45deg]">
                   <path d="M12 19V5" />
@@ -286,7 +286,7 @@ export default function NewHero() {
                 </span>
               </motion.div>
 
-              {/* Royal Stack Burger Image Frame */}
+              {/* Melt Stack Burger Image Frame */}
               <div className="relative w-full max-w-[480px] sm:max-w-[580px] lg:max-w-[650px] aspect-[16/11] flex items-center justify-center z-10 group">
                 <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 w-[85%] h-12 bg-black/95 blur-2xl rounded-[100%] z-0 pointer-events-none" />
 
@@ -297,8 +297,8 @@ export default function NewHero() {
                   className="relative w-full h-full z-10 transition-transform duration-500 hover:scale-105"
                 >
                   <Image
-                    src="/Stacks/Royal.png"
-                    alt="Signature Royal Stack Burger"
+                    src="/Stacks/Melt.png"
+                    alt="Signature Melt Stack Burger"
                     fill
                     priority
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 600px, 750px"
