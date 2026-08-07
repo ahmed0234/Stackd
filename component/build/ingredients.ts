@@ -174,18 +174,19 @@ export const VEGGIES: VeggieOption[] = [
 
 export const CHEESES: CheeseOption[] = [
   {
-    id: "cheese-cheddar",
-    name: "Cheddar Cheese Slices",
+    id: "cheese-slices",
+    name: "Cheese Slices",
     image: "/BuildYourStack/Cheese/CheseSlices.png",
-    description: "Creamy, rich sliced cheddar cheese.",
+    description: "Creamy, rich sliced cheese layer.",
   },
   {
-    id: "cheese-shredded",
-    name: "Shredded Cheddar",
-    image: "/BuildYourStack/Cheese/ShrededCheese.png",
-    description: "Melty combination of shredded cheddar and mozzarella.",
+    id: "cheese-nachos",
+    name: "Nachos Cheese Sauce",
+    image: "/BuildYourStack/Cheese/Nachos cheese sauce.png",
+    description: "Warm, rich, and velvety nachos cheese sauce.",
   },
 ];
+
 
 export const SAUCES: SauceOption[] = [
   {
