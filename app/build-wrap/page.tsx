@@ -110,7 +110,7 @@ export default function BuildWrapPage() {
       id: "byo-wrap",
       key: timestampKey,
       name: "Build Your Own Wrap",
-      image: "/Wraps/buildyourownwrap.png",
+      image: "/Wraps/buildyourownwrap.webp",
       price: getByoWrapPrice(),
       size: sizeName,
       quantity: 1,

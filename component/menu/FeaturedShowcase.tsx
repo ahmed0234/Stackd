@@ -61,7 +61,7 @@ export default function FeaturedShowcase() {
       {/* Background Image & Atmospheric Overlays */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         <Image
-          src="/FeatureShowcaseBackground.png"
+          src="/FeatureShowcaseBackground.webp"
           alt="Feature Showcase Background"
           fill
           priority

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   description:
     "Build your perfect stack. Premium smash burgers, loaded fries, and wraps crafted fresh to order.",
   icons: {
-    icon: "/Logo.jpeg",
+    icon: "/Logo.webp",
   },
 };
 

@@ -59,7 +59,7 @@ export default function NewHero() {
         {/* Full-Bleed Main Hero Background Image with Responsive Mobile Fire Focus */}
         <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
           <Image
-            src="/herobackground.png"
+            src="/herobackground.webp"
             alt="Hero Background"
             fill
             priority
@@ -297,7 +297,7 @@ export default function NewHero() {
                   className="relative w-full h-full z-10 transition-transform duration-500 hover:scale-105"
                 >
                   <Image
-                    src="/Stacks/Melt.png"
+                    src="/Stacks/Melt.webp"
                     alt="Signature Melt Stack Burger"
                     fill
                     priority
@@ -344,7 +344,7 @@ export default function NewHero() {
                   <div className="relative w-full h-36 sm:h-40 my-2 flex items-center justify-center">
                     <div className="absolute w-28 h-28 bg-brand/15 rounded-full blur-2xl pointer-events-none" />
                     <Image
-                      src="/Stacks/Og.png"
+                      src="/Stacks/Og.webp"
                       alt="Build Your Own Stack"
                       fill
                       sizes="220px"
@@ -388,7 +388,7 @@ export default function NewHero() {
                   <div className="relative w-full h-36 sm:h-40 my-2 flex items-center justify-center">
                     <div className="absolute w-28 h-28 bg-brand/15 rounded-full blur-2xl pointer-events-none" />
                     <Image
-                      src="/Wraps/buildyourownwrap.png"
+                      src="/Wraps/buildyourownwrap.webp"
                       alt="Build Your Own Wrap"
                       fill
                       sizes="220px"

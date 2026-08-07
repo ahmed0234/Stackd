@@ -49,7 +49,7 @@ export default function NavLogo() {
           }}
         >
           <Image
-            src="/Logo.jpeg"
+            src="/Logo.webp"
             alt="STACKD logo"
             fill
             sizes="44px"

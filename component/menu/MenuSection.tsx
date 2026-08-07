@@ -49,7 +49,7 @@ export const PRODUCTS: Product[] = [
     id: "fire-stack",
     name: "Fire Stack",
     category: "stacks",
-    image: "/Stacks/Fire.png",
+    image: "/Stacks/Fire.webp",
     description:
       "Double smash beef, melted pepper jack, grilled jalapeños, spicy hot house fire sauce.",
     price: STACK_LIST_PRICE,
@@ -60,7 +60,7 @@ export const PRODUCTS: Product[] = [
     id: "melt-stack",
     name: "Melt Stack",
     category: "stacks",
-    image: "/Stacks/Melt.png",
+    image: "/Stacks/Melt.webp",
     description:
       "Double hand-pressed patties smothered in hot cheddar sauce, grilled caramelized onions.",
     price: STACK_LIST_PRICE,
@@ -71,7 +71,7 @@ export const PRODUCTS: Product[] = [
     id: "og-stack",
     name: "OG Stack",
     category: "stacks",
-    image: "/Stacks/Og.png",
+    image: "/Stacks/Og.webp",
     description:
       "Double smashed Angus beef, cheddar cheese, crispy pickles, secret stack sauce, toasted brioche bun.",
     price: STACK_LIST_PRICE,
@@ -82,7 +82,7 @@ export const PRODUCTS: Product[] = [
     id: "royal-stack",
     name: "Royal Stack",
     category: "stacks",
-    image: "/Stacks/Royal.png",
+    image: "/Stacks/Royal.webp",
     description:
       "Triple smashed Angus beef patties, premium golden cheddar cheese, sweet caramelized onions, and our rich signature truffle glaze.",
     price: STACK_LIST_PRICE,
@@ -93,7 +93,7 @@ export const PRODUCTS: Product[] = [
     id: "smoke-stack",
     name: "Smoke Stack",
     category: "stacks",
-    image: "/Stacks/Smoke.png",
+    image: "/Stacks/Smoke.webp",
     description:
       "Double patties, crispy smoked bacon, golden thick-cut onion rings, hickory BBQ sauce.",
     price: STACK_LIST_PRICE,
@@ -104,7 +104,7 @@ export const PRODUCTS: Product[] = [
     id: "byo-stack",
     name: "Build Your Own Stack",
     category: "stacks",
-    image: "/Stacks/Build your own.png",
+    image: "/Stacks/Build your own.webp",
     description:
       "Your stack, your rules. Choose number of patties, fresh toppings, cheeses, and custom signature sauces.",
     price: getByoStackStartingPrice(),
@@ -117,7 +117,7 @@ export const PRODUCTS: Product[] = [
     id: "fire-wrap",
     name: "Fire Wrap",
     category: "wraps",
-    image: "/Wraps/firewrap.png",
+    image: "/Wraps/firewrap.webp",
     description:
       "Spicy chicken tenders, melted pepper jack cheese, charred jalapeños, and house fire sauce in a warm tortilla.",
     price: getReadyMadeWrapPrice(),
@@ -128,7 +128,7 @@ export const PRODUCTS: Product[] = [
     id: "melted-wrap",
     name: "Melted Wrap",
     category: "wraps",
-    image: "/Wraps/meltedwrap.png",
+    image: "/Wraps/meltedwrap.webp",
     description:
       "Double smash beef smothered in hot cheddar cheese sauce, caramelized onions, wrapped to perfection.",
     price: getReadyMadeWrapPrice(),
@@ -139,7 +139,7 @@ export const PRODUCTS: Product[] = [
     id: "og-wrap",
     name: "OG Wrap",
     category: "wraps",
-    image: "/Wraps/ogwrap.png",
+    image: "/Wraps/ogwrap.webp",
     description:
       "Double smashed Angus beef, cheddar cheese, crispy pickles, and secret stack sauce in a warm toasted wrap.",
     price: getReadyMadeWrapPrice(),
@@ -150,7 +150,7 @@ export const PRODUCTS: Product[] = [
     id: "royale-wrap",
     name: "Royale Wrap",
     category: "wraps",
-    image: "/Wraps/royalewrap.png",
+    image: "/Wraps/royalewrap.webp",
     description:
       "Triple smashed beef patties, premium golden cheddar, sweet caramelized onions, and rich signature truffle glaze.",
     price: getReadyMadeWrapPrice(),
@@ -161,7 +161,7 @@ export const PRODUCTS: Product[] = [
     id: "byo-wrap",
     name: "Build Your Own Wrap",
     category: "wraps",
-    image: "/Wraps/buildyourownwrap.png",
+    image: "/Wraps/buildyourownwrap.webp",
     description:
       "Your wrap, your rules. Choose your tortilla base, fresh crisp veggies, grilled proteins, and signature drizzles.",
     price: getByoWrapPrice(),
@@ -174,7 +174,7 @@ export const PRODUCTS: Product[] = [
     id: "full-stackd-fries",
     name: "Full Stackd Fries",
     category: "fries",
-    image: "/Fries/Fullstackdfries.png",
+    image: "/Fries/Fullstackdfries.webp",
     description:
       "A loaded meal of crispy fries, chopped smash beef patties, melted cheese, pickles, and signature stack sauce.",
     price: FRIES_PRICES["full-stackd-fries"],
@@ -185,7 +185,7 @@ export const PRODUCTS: Product[] = [
     id: "chilli-cheese-fries",
     name: "Chilli Cheese Fries",
     category: "fries",
-    image: "/Fries/chillicheesefries.png",
+    image: "/Fries/chillicheesefries.webp",
     description:
       "Golden fries smothered in hot beef chilli, jalapeños, and melted pepper jack cheese.",
     price: FRIES_PRICES["chilli-cheese-fries"],
@@ -196,7 +196,7 @@ export const PRODUCTS: Product[] = [
     id: "plain-fries",
     name: "Plain Fries",
     category: "fries",
-    image: "/Fries/plain fries.png",
+    image: "/Fries/plain fries.webp",
     description:
       "Crispy, hand-cut golden skin-on fries seasoned to perfection with signature stack spice.",
     price: FRIES_PRICES["plain-fries"],
@@ -209,39 +209,39 @@ export const PRODUCTS: Product[] = [
     id: "pepsi",
     name: "Pepsi",
     category: "drinks",
-    image: "/Drinks/Pepsi/500ml.png",
+    image: "/Drinks/Pepsi/500ml.webp",
     description:
       "Chilled classic Pepsi (340ML), the perfect accompaniment to your heavy stack.",
     price: 120,
     accentColor: "#004B87",
     sizes: [
-      { label: "340ML", price: 120, image: "/Drinks/Pepsi/500ml.png" },
+      { label: "340ML", price: 120, image: "/Drinks/Pepsi/500ml.webp" },
     ],
   },
   {
     id: "sprite",
     name: "Sprite",
     category: "drinks",
-    image: "/Drinks/Sprite/500.png",
+    image: "/Drinks/Sprite/500.webp",
     description:
       "Crisp, clean, refreshing lemon-lime carbonated soda (340ML) with a splash of bubble.",
     price: 120,
     accentColor: "#00B2E2",
     sizes: [
-      { label: "340ML", price: 120, image: "/Drinks/Sprite/500.png" },
+      { label: "340ML", price: 120, image: "/Drinks/Sprite/500.webp" },
     ],
   },
   {
     id: "mineral-water",
     name: "Mineral Water",
     category: "drinks",
-    image: "/Drinks/Water/500.png",
+    image: "/Drinks/Water/500.webp",
     description:
       "Pure, clean, refreshing spring water (340ML) to wash down your stacks.",
     price: 90,
     accentColor: "#00B2E2",
     sizes: [
-      { label: "340ML", price: 90, image: "/Drinks/Water/500.png" },
+      { label: "340ML", price: 90, image: "/Drinks/Water/500.webp" },
     ],
   },
   // Category: Deals
@@ -249,7 +249,7 @@ export const PRODUCTS: Product[] = [
     id: "solo-meal-deal",
     name: "Solo Meal Deal",
     category: "deals",
-    image: "/Deals/SoloMealDeal.png",
+    image: "/Deals/SoloMealDeal.webp",
     description:
       "Perfect for one! Choice of any signature burger or wrap, paired with crispy fries and a 340ML refreshing drink.",
     price: 699,
@@ -265,7 +265,7 @@ export const PRODUCTS: Product[] = [
     id: "duo-stack-deal",
     name: "Duo Stack Deal",
     category: "deals",
-    image: "/Deals/DuoStackDeal.png",
+    image: "/Deals/DuoStackDeal.webp",
     description:
       "Made for two! Choice of two signature burgers or wraps, a large portion of loaded fries, and two chilled 340ML drinks.",
     price: 1299,
@@ -281,7 +281,7 @@ export const PRODUCTS: Product[] = [
     id: "full-stack-meal-deal",
     name: "Full Stack Meal Deal",
     category: "deals",
-    image: "/Deals/FullStackMealDeal.png",
+    image: "/Deals/FullStackMealDeal.webp",
     description:
       "The complete STACKD experience! Includes three signature burgers or wraps, two portions of loaded fries, and three 340ML drinks.",
     price: 1299,
@@ -297,7 +297,7 @@ export const PRODUCTS: Product[] = [
     id: "stackd-share-box",
     name: "Stackd Share Box",
     category: "deals",
-    image: "/Deals/StacdShareBox.png",
+    image: "/Deals/StacdShareBox.webp",
     description:
       "The ultimate party box! Four signature burgers or wraps, two large loaded fries, four chilled 340ML drinks, and extra dipping sauces.",
     price: 2499,

@@ -34,7 +34,7 @@ export default function ReviewStep({ bun, selectedProteins, veggies, cheese, sau
         <div className="flex items-start gap-4 py-2 border-b border-white/[0.02] last:border-0">
           <div className="w-12 h-12 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-center text-white/50 text-base font-black relative overflow-hidden select-none">
             {isWrap ? (
-              <Image src="/Wraps/buildyourownwrap.png" alt="Wrap Base" fill style={{ objectFit: "contain" }} className="p-1" />
+              <Image src="/Wraps/buildyourownwrap.webp" alt="Wrap Base" fill style={{ objectFit: "contain" }} className="p-1" />
             ) : bun ? (
               <Image src={bun.image} alt="" fill style={{ objectFit: "contain" }} className="p-1" />
             ) : (

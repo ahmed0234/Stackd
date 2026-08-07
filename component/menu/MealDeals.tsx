@@ -19,55 +19,55 @@ const STACKS_CHOICES = [
   {
     id: "fire-stack",
     name: "Fire Stack",
-    image: "/Stacks/Fire.png",
+    image: "/Stacks/Fire.webp",
     desc: "Double smash beef, pepper jack, grilled jalapeños, fire sauce",
   },
   {
     id: "melt-stack",
     name: "Melt Stack",
-    image: "/Stacks/Melt.png",
+    image: "/Stacks/Melt.webp",
     desc: "Double patties, hot cheddar sauce, caramelized onions",
   },
   {
     id: "og-stack",
     name: "OG Stack",
-    image: "/Stacks/Og.png",
+    image: "/Stacks/Og.webp",
     desc: "Double smash Angus beef, cheddar, secret sauce",
   },
   {
     id: "royal-stack",
     name: "Royal Stack",
-    image: "/Stacks/Royal.png",
+    image: "/Stacks/Royal.webp",
     desc: "Triple patties, premium cheddar, sweet caramelized onions, truffle aioli",
   },
   {
     id: "smoke-stack",
     name: "Smoke Stack",
-    image: "/Stacks/Smoke.png",
+    image: "/Stacks/Smoke.webp",
     desc: "Double patties, bacon, onion rings, BBQ sauce",
   },
   {
     id: "fire-wrap",
     name: "Fire Wrap",
-    image: "/Wraps/firewrap.png",
+    image: "/Wraps/firewrap.webp",
     desc: "Spicy chicken tenders, pepper jack, jalapeños, fire sauce",
   },
   {
     id: "melted-wrap",
     name: "Melted Wrap",
-    image: "/Wraps/meltedwrap.png",
+    image: "/Wraps/meltedwrap.webp",
     desc: "Double smash beef, hot cheddar sauce, caramelized onions",
   },
   {
     id: "og-wrap",
     name: "OG Wrap",
-    image: "/Wraps/ogwrap.png",
+    image: "/Wraps/ogwrap.webp",
     desc: "Double smashed beef, cheddar, pickles, secret sauce",
   },
   {
     id: "royale-wrap",
     name: "Royale Wrap",
-    image: "/Wraps/royalewrap.png",
+    image: "/Wraps/royalewrap.webp",
     desc: "Triple smashed beef, golden cheddar, truffle glaze",
   },
 ];
@@ -76,17 +76,17 @@ const DRINKS_CHOICES = [
   {
     id: "pepsi",
     name: "Pepsi",
-    image: "/Drinks/Pepsi/500ml.png",
+    image: "/Drinks/Pepsi/500ml.webp",
   },
   {
     id: "sprite",
     name: "Sprite",
-    image: "/Drinks/Sprite/500.png",
+    image: "/Drinks/Sprite/500.webp",
   },
   {
     id: "water",
     name: "Mineral Water",
-    image: "/Drinks/Water/500.png",
+    image: "/Drinks/Water/500.webp",
   },
 ];
 
@@ -123,7 +123,7 @@ export default function MealDeals() {
       {/* Background Image & Atmospheric Overlays */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         <Image
-          src="/DealsSectionBackground.png"
+          src="/DealsSectionBackground.webp"
           alt="Deals Section Background"
           fill
           priority
