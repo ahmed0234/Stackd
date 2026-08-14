@@ -306,7 +306,25 @@ export default function MenuDropdown({ onClose }: MenuDropdownProps) {
                         }}
                         aria-hidden="true"
                       />
-                      {item}
+                      <span>{item}</span>
+                      {['Zinger Stack', 'Zinger Wrap', 'Smoke Wrap', 'Stack Your Chips', 'Zinger Strips'].includes(item) && (
+                        <span
+                          style={{
+                            marginLeft: 'auto',
+                            fontSize: 8,
+                            fontWeight: 800,
+                            letterSpacing: '0.08em',
+                            textTransform: 'uppercase',
+                            background: '#F5C400',
+                            color: '#0a0a0a',
+                            padding: '1px 5px',
+                            borderRadius: 4,
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          NEW
+                        </span>
+                      )}
                     </Link>
                   </motion.div>
                 ))}

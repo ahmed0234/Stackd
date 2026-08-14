@@ -200,6 +200,7 @@ export const PRODUCTS: Product[] = [
     includes: [
       "Stacked fries/chips with Zinger Strips",
     ],
+    isNew: true,
   },
   {
     id: "byo-chips",
@@ -211,6 +212,7 @@ export const PRODUCTS: Product[] = [
     price: getByoChipsPrice(),
     tags: ["Customizable"],
     accentColor: "#F5C400",
+    isNew: true,
   },
 
   // Category: Fries
