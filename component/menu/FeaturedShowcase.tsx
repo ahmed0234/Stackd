@@ -18,7 +18,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 export default function FeaturedShowcase() {
-  const [activeCategory, setActiveCategory] = useState<"all" | "stacks" | "wraps" | "fries" | "drinks">("all");
+  const [activeCategory, setActiveCategory] = useState<"all" | "stacks" | "wraps" | "appetizers" | "fries" | "dips" | "drinks">("all");
   const [swiperRef, setSwiperRef] = useState<SwiperClass | null>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -38,10 +38,11 @@ export default function FeaturedShowcase() {
     requestAddToCart(product);
   };
 
-  // Curated balanced list of favorites: 3 Wraps, 2 Stacks, 2 Fries, 2 Beverages
+  // Curated balanced list of favorites
   const ALL_FAVORITES_IDS = [
     "royal-stack",
     "fire-wrap",
+    "zinger-strips",
     "full-stackd-fries",
     "melted-wrap",
     "fire-stack",
@@ -116,7 +117,7 @@ export default function FeaturedShowcase() {
           <div className="flex flex-col sm:flex-row items-center justify-between sm:justify-end gap-4 w-full sm:w-auto self-center sm:self-auto lg:self-end">
             {/* Filter Tabs Container */}
             <div className="relative w-full sm:w-auto max-w-full flex items-center justify-start sm:justify-center gap-1.5 p-1.5 rounded-2xl sm:rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-md overflow-x-auto scrollbar-none">
-              {(["all", "stacks", "wraps", "fries", "drinks"] as const).map((cat) => (
+              {(["all", "stacks", "wraps", "appetizers", "fries", "dips", "drinks"] as const).map((cat) => (
                 <button
                   key={cat}
                   onClick={() => {
@@ -129,7 +130,7 @@ export default function FeaturedShowcase() {
                       : "text-white/60 hover:text-white hover:bg-white/[0.05]"
                   }`}
                 >
-                  {cat === "all" ? "All Favorites" : cat}
+                  {cat === "all" ? "All Favorites" : cat === "appetizers" ? "Appetizers" : cat === "dips" ? "Dips" : cat}
                 </button>
               ))}
             </div>
@@ -216,8 +217,12 @@ export default function FeaturedShowcase() {
                         ? "🍔 STACK"
                         : product.category === "wraps"
                         ? "🌯 WRAP"
+                        : product.category === "appetizers"
+                        ? "🍗 APPETIZER"
                         : product.category === "fries"
                         ? "🍟 FRIES"
+                        : product.category === "dips"
+                        ? "🥣 DIP"
                         : "🥤 DRINK"}
                     </span>
                   </div>
@@ -242,6 +247,34 @@ export default function FeaturedShowcase() {
                         />
                       </div>
                     </Link>
+                  ) : product.category === "dips" || !product.image ? (
+                    <div className="relative w-full aspect-[16/11] bg-[#0c0c0c] flex items-center justify-center p-4 pt-8 border-b border-white/[0.05] overflow-hidden">
+                      <div
+                        className="absolute w-32 h-32 rounded-full blur-2xl pointer-events-none opacity-25"
+                        style={{ backgroundColor: product.accentColor || "#F5C400" }}
+                      />
+                      <div className="relative flex flex-col items-center justify-center p-3 rounded-2xl bg-white/[0.02] border border-white/[0.06] shadow-inner">
+                        <div
+                          className="w-14 h-14 rounded-full flex items-center justify-center mb-1.5 shadow-md"
+                          style={{
+                            background: `radial-gradient(circle, ${product.accentColor}35 0%, rgba(255,255,255,0.02) 70%)`,
+                            border: `1px solid ${product.accentColor}50`,
+                          }}
+                        >
+                          <span className="text-2xl filter drop-shadow-sm">🥣</span>
+                        </div>
+                        <span
+                          className="text-[8px] font-poppins font-black uppercase tracking-widest px-2 py-0.5 rounded-full"
+                          style={{
+                            color: product.accentColor,
+                            backgroundColor: `${product.accentColor}15`,
+                            border: `1px solid ${product.accentColor}30`,
+                          }}
+                        >
+                          Signature Dip
+                        </span>
+                      </div>
+                    </div>
                   ) : (
                     <div className="relative w-full aspect-[16/11] bg-[#0c0c0c] flex items-center justify-center p-4 pt-8 border-b border-white/[0.05] overflow-hidden">
                       <div

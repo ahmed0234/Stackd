@@ -134,14 +134,20 @@ export default function CartPage() {
 
                         {/* Image Thumbnail */}
                         <div className="relative w-24 h-24 rounded-xl overflow-hidden bg-white/[0.03] flex-shrink-0 flex items-center justify-center border border-white/[0.06] select-none">
-                          <Image
-                            src={item.image}
-                            alt={displayName}
-                            fill
-                            sizes="96px"
-                            style={{ objectFit: "contain" }}
-                            className="p-1 group-hover:scale-106 transition-transform duration-300"
-                          />
+                          {item.image ? (
+                            <Image
+                              src={item.image}
+                              alt={displayName}
+                              fill
+                              sizes="96px"
+                              style={{ objectFit: "contain" }}
+                              className="p-1 group-hover:scale-106 transition-transform duration-300"
+                            />
+                          ) : (
+                            <div className="flex flex-col items-center justify-center">
+                              <span className="text-3xl filter drop-shadow-md">🥣</span>
+                            </div>
+                          )}
                         </div>
 
                         {/* Details */}

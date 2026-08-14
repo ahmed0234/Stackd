@@ -32,7 +32,7 @@ export interface SizeOption {
 export interface Product {
   id: string;
   name: string;
-  category: "stacks" | "wraps" | "fries" | "drinks" | "deals";
+  category: "stacks" | "wraps" | "fries" | "drinks" | "deals" | "appetizers" | "dips";
   image: string;
   description: string;
   price: number;
@@ -181,18 +181,23 @@ export const PRODUCTS: Product[] = [
     accentColor: "#A855F7",
   },
 
-  // Category: Fries
+  // Category: Appetizers
   {
-    id: "byo-chips",
-    name: "Stack Your Chips",
-    category: "fries",
-    image: "/Lays/layspng.webp",
+    id: "zinger-strips",
+    name: "Zinger Strips",
+    category: "appetizers",
+    image: "/appetizer/ZingerStrips.webp",
     description:
-      "Your chips, your rules. Crispy Salted Lays chips loaded with tender grilled proteins, melty cheeses, fresh veggies, and signature drizzles.",
-    price: getByoChipsPrice(),
-    tags: ["Customizable", "Lays Special"],
+      "Crispy golden-fried zinger strips served with stacked crispy fries/chips.",
+    price: 349,
+    tags: ["Meal", "Crispy"],
     accentColor: "#F5C400",
+    includes: [
+      "Stacked fries/chips with Zinger Strips",
+    ],
   },
+
+  // Category: Fries
   {
     id: "full-stackd-fries",
     name: "Full Stackd Fries",
@@ -225,6 +230,85 @@ export const PRODUCTS: Product[] = [
     price: FRIES_PRICES["plain-fries"],
     tags: ["Classic"],
     accentColor: "#F5C400",
+  },
+
+  // Category: Dips
+  {
+    id: "thousand-island-dip",
+    name: "Thousand Island",
+    category: "dips",
+    image: "",
+    description:
+      "Creamy, tangy classic thousand island dip with sweet relish notes.",
+    price: 50,
+    tags: ["Dip"],
+    accentColor: "#FB7185",
+  },
+  {
+    id: "chipotle-dip",
+    name: "Chipotle",
+    category: "dips",
+    image: "",
+    description:
+      "Smoky and mildly spicy chipotle pepper blended in a smooth creamy base.",
+    price: 50,
+    tags: ["Smoky"],
+    accentColor: "#EA580C",
+  },
+  {
+    id: "honey-mustard-dip",
+    name: "Honey Mustard",
+    category: "dips",
+    image: "",
+    description:
+      "The perfect balance of sweet pure honey and zesty mustard seeds.",
+    price: 50,
+    tags: ["Sweet & Tangy"],
+    accentColor: "#EAB308",
+  },
+  {
+    id: "mustard-dip",
+    name: "Mustard",
+    category: "dips",
+    image: "",
+    description:
+      "Classic sharp, tangy yellow mustard dip with bold spice.",
+    price: 50,
+    tags: ["Classic"],
+    accentColor: "#CA8A04",
+  },
+  {
+    id: "nachos-cheese-sauce-dip",
+    name: "Nachos Cheese Sauce",
+    category: "dips",
+    image: "",
+    description:
+      "Rich, velvety melted cheddar cheese sauce crafted for dipping.",
+    price: 50,
+    tags: ["Cheese Bomb"],
+    accentColor: "#F59E0B",
+  },
+  {
+    id: "buffalo-dip",
+    name: "Buffalo",
+    category: "dips",
+    image: "",
+    description:
+      "Fiery, tangy cayenne pepper buffalo sauce with a buttery finish.",
+    price: 50,
+    tags: ["Spicy"],
+    accentColor: "#EF4444",
+  },
+  {
+    id: "bbq-dip",
+    name: "BBQ",
+    category: "dips",
+    image: "",
+    description:
+      "Rich, smoky hickory BBQ dipping sauce with dark caramelized sweetness.",
+    price: 50,
+    tags: ["Smoky"],
+    accentColor: "#9A3412",
   },
 
   // Category: Drinks
@@ -356,13 +440,15 @@ export const PRODUCTS: Product[] = [
 const CATEGORIES = [
   { id: "stacks", label: "Stacks", icon: BurgerIcon },
   { id: "wraps", label: "Wraps", icon: WrapIcon },
+  { id: "appetizers", label: "Appetizers", icon: AppetizerIcon },
   { id: "fries", label: "Fries", icon: FriesIcon },
+  { id: "dips", label: "Dips", icon: DipIcon },
   { id: "drinks", label: "Drinks", icon: DrinksIcon },
 ] as const;
 
 export default function MenuSection() {
   const [activeCategory, setActiveCategory] = useState<
-    "stacks" | "wraps" | "fries" | "drinks"
+    "stacks" | "wraps" | "appetizers" | "fries" | "dips" | "drinks"
   >("stacks");
   const items = useCartStore((state) => state.items);
   const addItem = useCartStore((state) => state.addItem);
@@ -640,13 +726,17 @@ export default function MenuSection() {
                           >
                             {/* Thumbnail */}
                             <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-white/[0.03] flex-shrink-0 flex items-center justify-center border border-white/[0.06]">
-                              <Image
-                                src={item.image}
-                                alt=""
-                                fill
-                                sizes="32px"
-                                style={{ objectFit: "contain" }}
-                              />
+                              {item.image ? (
+                                <Image
+                                  src={item.image}
+                                  alt=""
+                                  fill
+                                  sizes="32px"
+                                  style={{ objectFit: "contain" }}
+                                />
+                              ) : (
+                                <span className="text-sm select-none">🥣</span>
+                              )}
                             </div>
 
                             {/* Name & Subtotal */}
@@ -906,6 +996,44 @@ function ProductCard({
             />
           </motion.div>
         </Link>
+      ) : product.category === "dips" || !currentImage ? (
+        <div className="relative w-full h-48 mt-4 flex flex-col items-center justify-center z-10 overflow-hidden select-none px-4">
+          <div
+            className="absolute w-36 h-36 rounded-full blur-3xl pointer-events-none transition-opacity duration-500"
+            style={{
+              backgroundColor: product.accentColor,
+              opacity: hovered ? 0.35 : 0.18,
+            }}
+          />
+          <motion.div
+            animate={{
+              scale: hovered ? 1.08 : 1,
+              y: hovered ? -3 : 0,
+            }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="relative flex flex-col items-center justify-center p-5 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-md shadow-inner group-hover:border-brand/30"
+          >
+            <div
+              className="w-16 h-16 rounded-full flex items-center justify-center mb-2.5 shadow-lg transition-transform duration-300"
+              style={{
+                background: `radial-gradient(circle, ${product.accentColor}35 0%, rgba(255,255,255,0.03) 70%)`,
+                border: `1px solid ${product.accentColor}60`,
+              }}
+            >
+              <span className="text-3xl filter drop-shadow-md">🥣</span>
+            </div>
+            <span
+              className="text-[9px] font-poppins font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full shadow-sm"
+              style={{
+                color: product.accentColor,
+                backgroundColor: `${product.accentColor}18`,
+                border: `1px solid ${product.accentColor}35`,
+              }}
+            >
+              Signature Dip
+            </span>
+          </motion.div>
+        </div>
       ) : (
         <div className="relative w-full h-48 mt-4 flex items-center justify-center z-10 overflow-hidden select-none">
           <motion.div
@@ -1116,6 +1244,28 @@ function WrapIcon() {
   );
 }
 
+function AppetizerIcon() {
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M18 10a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v3a5 5 0 0 0 5 5h4a5 5 0 0 0 5-5v-3z" />
+      <path d="M7 18v3" />
+      <path d="M15 18v3" />
+      <line x1="8" y1="10" x2="8.01" y2="10" />
+      <line x1="12" y1="10" x2="12.01" y2="10" />
+      <line x1="16" y1="10" x2="16.01" y2="10" />
+    </svg>
+  );
+}
+
 function FriesIcon() {
   return (
     <svg
@@ -1133,6 +1283,26 @@ function FriesIcon() {
       <path d="M8 10V3" />
       <path d="M12 10V2" />
       <path d="M16 10V3" />
+    </svg>
+  );
+}
+
+function DipIcon() {
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M4 11a8 8 0 0 0 16 0v-2H4v2z" />
+      <path d="M2 9h20" />
+      <path d="M8 19h8" />
+      <path d="M12 4c.5 1 1 2 1 3a1 1 0 0 1-2 0c0-1 .5-2 1-3z" />
     </svg>
   );
 }

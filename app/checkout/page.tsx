@@ -360,14 +360,18 @@ export default function CheckoutPage() {
                   return (
                     <div key={item.key} className="flex items-center gap-3 py-1.5">
                       <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-white/[0.02] flex-shrink-0 flex items-center justify-center border border-white/[0.06]">
-                        <Image
-                          src={item.image}
-                          alt=""
-                          fill
-                          sizes="40px"
-                          style={{ objectFit: "contain" }}
-                          className="p-0.5"
-                        />
+                        {item.image ? (
+                          <Image
+                            src={item.image}
+                            alt=""
+                            fill
+                            sizes="40px"
+                            style={{ objectFit: "contain" }}
+                            className="p-0.5"
+                          />
+                        ) : (
+                          <span className="text-base select-none">🥣</span>
+                        )}
                       </div>
                       <div className="flex-grow text-left">
                         <h4 className="font-poppins font-bold text-xs text-white leading-tight line-clamp-1">
