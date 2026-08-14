@@ -535,10 +535,17 @@ export default function NewHero() {
                       <div className="p-4 sm:p-5 rounded-[24px] bg-[#121212] border border-white/[0.09] hover:border-brand/50 backdrop-blur-xl flex flex-col justify-between gap-4 transition-all duration-300 hover:scale-[1.02] shadow-2xl group text-left h-full min-h-[240px]">
                         {/* Top Info Header */}
                         <div className="flex items-center justify-between">
-                          <span className="font-poppins font-black text-sm sm:text-base text-white uppercase tracking-wide truncate">
-                            {product.name}
-                          </span>
-                          <span className="text-xs font-sans font-bold text-brand">
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            <span className="font-poppins font-black text-sm sm:text-base text-white uppercase tracking-wide truncate">
+                              {product.name}
+                            </span>
+                            {product.isNew && (
+                              <span className="px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider bg-brand text-[#0a0a0a] flex-shrink-0">
+                                NEW
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-xs font-sans font-bold text-brand flex-shrink-0">
                             ⭐ 4.9
                           </span>
                         </div>

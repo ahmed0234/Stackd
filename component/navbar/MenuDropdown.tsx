@@ -30,7 +30,7 @@ const MENU_CATEGORIES = [
     emoji: '🍗',
     href: '/menu/appetizers',
     accent: '#F5C400',
-    items: ['Zinger Strips'],
+    items: ['Stack Your Chips', 'Zinger Strips'],
   },
   {
     id: 'fries',

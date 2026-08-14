@@ -88,6 +88,9 @@ export default function CheckoutPage() {
     items.forEach((item) => {
       const variantSuffix = item.size ? ` (${item.size})` : "";
       msg += `${item.quantity}x ${item.name}${variantSuffix} - PKR ${(item.price * item.quantity).toLocaleString()}\n`;
+      if (item.selectedDip) {
+        msg += `   • Free Dip: ${item.selectedDip} (Included)\n`;
+      }
       if (item.customization) {
         if (item.id === "byo-chips" || item.customization.chips) {
           msg += `   • Lays Base: ${item.customization.chips || item.customization.bun}\n`;
@@ -377,6 +380,12 @@ export default function CheckoutPage() {
                         <h4 className="font-poppins font-bold text-xs text-white leading-tight line-clamp-1">
                           {displayName}
                         </h4>
+                        {item.selectedDip && (
+                          <div className="text-[9px] text-brand font-sans mt-0.5 font-medium flex items-center gap-1">
+                            <span>🥣</span>
+                            <span>Free Dip: {item.selectedDip} (Included)</span>
+                          </div>
+                        )}
                         {item.customization && (
                           <div className="text-[9px] text-white/45 font-sans mt-1 space-y-0.5">
                             <div>

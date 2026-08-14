@@ -13,6 +13,7 @@ export interface CartItem {
   size?: string;
   quantity: number;
   accentColor: string;
+  selectedDip?: string;
   customization?: {
     bun: string;
     chips?: string | null;

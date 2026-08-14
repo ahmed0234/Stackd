@@ -9,8 +9,10 @@ import { Navigation, Pagination } from "swiper/modules";
 import type { Swiper as SwiperClass } from "swiper";
 
 import { PRODUCTS, Product } from "@/component/menu/MenuSection";
+import { useCartStore, CartItem } from "@/store/useCartStore";
 import { usePremadeStackAddToCart } from "@/hooks/usePremadeStackAddToCart";
 import { getProductListPrice } from "@/component/stacks/stackPricing";
+import ZingerDipModal from "@/component/menu/ZingerDipModal";
 
 // Swiper styles
 import "swiper/css";
@@ -23,6 +25,7 @@ export default function FeaturedShowcase() {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isZingerDipModalOpen, setIsZingerDipModalOpen] = useState(false);
 
   const { requestAddToCart, sizeModal } = usePremadeStackAddToCart(
     (product, size) => {
@@ -34,7 +37,31 @@ export default function FeaturedShowcase() {
     },
   );
 
+  const handleAddZingerStripsWithDip = (dipName: string) => {
+    const key = `zinger-strips::${dipName.toLowerCase().replace(/\s+/g, "-")}`;
+    const zingerProduct = PRODUCTS.find((p) => p.id === "zinger-strips");
+    const cartItem: CartItem = {
+      id: "zinger-strips",
+      key,
+      name: "Zinger Strips",
+      image: zingerProduct?.image || "/appetizer/ZingerStrips.webp",
+      price: zingerProduct?.price || 349,
+      quantity: 1,
+      accentColor: zingerProduct?.accentColor || "#F5C400",
+      selectedDip: dipName,
+    };
+    useCartStore.getState().addCustomItem(cartItem);
+    setToastMessage(`✓ Added Zinger Strips (Free Dip: ${dipName}) to cart!`);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 2500);
+  };
+
   const handleAddToCart = (product: Product) => {
+    if (product.id === "zinger-strips") {
+      setIsZingerDipModalOpen(true);
+      return;
+    }
     requestAddToCart(product);
   };
 
@@ -227,6 +254,16 @@ export default function FeaturedShowcase() {
                     </span>
                   </div>
 
+                  {/* NEW Badge indicator */}
+                  {product.isNew && (
+                    <div className="absolute top-4 right-4 z-20 pointer-events-none">
+                      <span className="px-2.5 py-1 rounded-lg text-[9px] font-poppins font-black uppercase tracking-wider bg-brand text-[#0a0a0a] shadow-[0_2px_10px_rgba(245,196,0,0.35)] flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#0a0a0a] animate-pulse inline-block" />
+                        NEW
+                      </span>
+                    </div>
+                  )}
+
                   {/* Product Image Display Frame */}
                   {isBYO ? (
                     <Link
@@ -375,6 +412,11 @@ export default function FeaturedShowcase() {
       </AnimatePresence>
 
       {sizeModal}
+      <ZingerDipModal
+        isOpen={isZingerDipModalOpen}
+        onClose={() => setIsZingerDipModalOpen(false)}
+        onConfirm={handleAddZingerStripsWithDip}
+      />
     </section>
   );
 }

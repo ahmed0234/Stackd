@@ -33,6 +33,7 @@ const STACKS_CHOICES = [
     name: "Zinger Stack",
     image: "/Stacks/zingerstack.webp",
     desc: "Crispy zinger fillet, melted cheddar, signature zinger sauce",
+    isNew: true,
   },
   {
     id: "royal-stack",
@@ -63,12 +64,14 @@ const STACKS_CHOICES = [
     name: "Zinger Wrap",
     image: "/Wraps/zingerwrap.webp",
     desc: "Crispy zinger chicken, cheddar cheese, spicy zinger sauce",
+    isNew: true,
   },
   {
     id: "smoke-wrap",
     name: "Smoke Wrap",
     image: "/Wraps/smokewrap.webp",
     desc: "Smoky grilled chicken, crispy bacon, cheddar, BBQ glaze",
+    isNew: true,
   },
   {
     id: "royale-wrap",
@@ -673,6 +676,15 @@ export function MealDealConfigurator({
                               {isSelected && (
                                 <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 w-6 h-6 rounded-full bg-brand text-[#0a0a0a] flex items-center justify-center font-black text-xs shadow-md z-10">
                                   ✓
+                                </div>
+                              )}
+                              {/* NEW Item Badge */}
+                              {stack.isNew && (
+                                <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-10 pointer-events-none">
+                                  <span className="px-2 py-0.5 rounded-md text-[8px] font-black uppercase tracking-wider bg-brand text-[#0a0a0a] shadow-sm flex items-center gap-1">
+                                    <span className="w-1 h-1 rounded-full bg-[#0a0a0a] animate-pulse" />
+                                    NEW
+                                  </span>
                                 </div>
                               )}
                               <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 mb-3 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">

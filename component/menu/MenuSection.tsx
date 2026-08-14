@@ -22,6 +22,7 @@ import {
   getReadyMadeWrapPrice,
 } from "@/component/build/buildYourOwnPricing";
 import { FRIES_PRICES } from "@/component/fries/friesPricing";
+import ZingerDipModal from "@/component/menu/ZingerDipModal";
 
 export interface SizeOption {
   label: string;
@@ -40,6 +41,7 @@ export interface Product {
   accentColor: string;
   sizes?: SizeOption[];
   includes?: string[];
+  isNew?: boolean;
 }
 
 const STACK_LIST_PRICE = getStackStartingPrice();
@@ -78,6 +80,7 @@ export const PRODUCTS: Product[] = [
     price: STACK_LIST_PRICE,
     tags: ["Popular"],
     accentColor: "#F5C400",
+    isNew: true,
   },
   {
     id: "royal-stack",
@@ -146,6 +149,7 @@ export const PRODUCTS: Product[] = [
     price: getReadyMadeWrapPrice(),
     tags: ["Popular"],
     accentColor: "#F5C400",
+    isNew: true,
   },
   {
     id: "smoke-wrap",
@@ -157,6 +161,7 @@ export const PRODUCTS: Product[] = [
     price: getReadyMadeWrapPrice(),
     tags: ["Popular"],
     accentColor: "#D97706",
+    isNew: true,
   },
   {
     id: "royale-wrap",
@@ -195,6 +200,17 @@ export const PRODUCTS: Product[] = [
     includes: [
       "Stacked fries/chips with Zinger Strips",
     ],
+  },
+  {
+    id: "byo-chips",
+    name: "Stack Your Chips",
+    category: "appetizers",
+    image: "/Lays/layspng.webp",
+    description:
+      "Crunchy Lays chips base loaded with grilled chicken, cheese, fresh veggies, and signature drizzles.",
+    price: getByoChipsPrice(),
+    tags: ["Customizable"],
+    accentColor: "#F5C400",
   },
 
   // Category: Fries
@@ -461,6 +477,23 @@ export default function MenuSection() {
   const { requestAddToCart, sizeModal } = usePremadeStackAddToCart();
 
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isZingerDipModalOpen, setIsZingerDipModalOpen] = useState(false);
+
+  const handleAddZingerStripsWithDip = useCallback((dipName: string) => {
+    const key = `zinger-strips::${dipName.toLowerCase().replace(/\s+/g, "-")}`;
+    const zingerProduct = PRODUCTS.find((p) => p.id === "zinger-strips");
+    const cartItem: CartItem = {
+      id: "zinger-strips",
+      key,
+      name: "Zinger Strips",
+      image: zingerProduct?.image || "/appetizer/ZingerStrips.webp",
+      price: zingerProduct?.price || 349,
+      quantity: 1,
+      accentColor: zingerProduct?.accentColor || "#F5C400",
+      selectedDip: dipName,
+    };
+    useCartStore.getState().addCustomItem(cartItem);
+  }, []);
 
   const handleClearCart = useCallback(() => {
     clearCart();
@@ -652,6 +685,8 @@ export default function MenuSection() {
                 onAdd={(size) => {
                   if (isPremadeStackProduct(product.id, product.category)) {
                     requestAddToCart(product);
+                  } else if (product.id === "zinger-strips") {
+                    setIsZingerDipModalOpen(true);
                   } else {
                     addItem(product.id, size);
                   }
@@ -659,6 +694,13 @@ export default function MenuSection() {
                 onRemove={(size) => {
                   if (isPremadeStackProduct(product.id, product.category)) {
                     removeOnePremadeStack(items, product.id, removeItem);
+                  } else if (product.id === "zinger-strips") {
+                    const lastZinger = Object.values(items)
+                      .reverse()
+                      .find((item) => item.id === "zinger-strips");
+                    if (lastZinger) {
+                      removeItem(lastZinger.key);
+                    }
                   } else {
                     removeItem(product.id, size);
                   }
@@ -744,6 +786,11 @@ export default function MenuSection() {
                               <h4 className="font-poppins font-bold text-xs text-white leading-tight line-clamp-1">
                                 {displayName}
                               </h4>
+                              {item.selectedDip && (
+                                <p className="text-[8.5px] text-brand font-sans mt-0.5 line-clamp-1">
+                                  🥣 Free Dip: {item.selectedDip}
+                                </p>
+                              )}
                               {item.customization && (
                                 <p className="text-[8px] text-brand font-sans mt-0.5 line-clamp-1">
                                   {item.customization.bun} |{" "}
@@ -872,6 +919,11 @@ export default function MenuSection() {
       </AnimatePresence>
 
       {sizeModal}
+      <ZingerDipModal
+        isOpen={isZingerDipModalOpen}
+        onClose={() => setIsZingerDipModalOpen(false)}
+        onConfirm={handleAddZingerStripsWithDip}
+      />
     </section>
   );
 }
@@ -917,8 +969,15 @@ function ProductCard({
     product.category,
   );
 
+  const isZingerStrips = product.id === "zinger-strips";
+  const zingerQuantity = Object.values(cart)
+    .filter((item) => item.id === "zinger-strips")
+    .reduce((sum, item) => sum + item.quantity, 0);
+
   const quantity = isPremadeStack
     ? getPremadeStackTotalQuantity(cart, product.id)
+    : isZingerStrips
+    ? zingerQuantity
     : cart[currentSizeKey]?.quantity || 0;
 
   const listPrice = getProductListPrice(product);
@@ -953,24 +1012,32 @@ function ProductCard({
         }}
       />
 
-      {/* Floating Tag (e.g. Popular, Spicy, etc.) */}
-      {product.tags?.map((tag) => (
-        <div
-          key={tag}
-          className="absolute top-4 left-4 px-2.5 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider font-poppins z-20"
-          style={{
-            backgroundColor:
-              tag === "Spicy" ? "#EF4444" : "rgba(255,255,255,0.08)",
-            border:
-              tag === "Spicy"
-                ? "1px solid rgba(239, 68, 68, 0.3)"
-                : "1px solid rgba(255,255,255,0.1)",
-            color: "#FFFFFF",
-          }}
-        >
-          {tag}
-        </div>
-      ))}
+      {/* Floating Tag(s) & NEW Badge */}
+      <div className="absolute top-4 left-4 flex flex-wrap items-center gap-1.5 z-20 pointer-events-none">
+        {product.isNew && (
+          <span className="px-2.5 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider font-poppins bg-brand text-[#0a0a0a] shadow-[0_2px_10px_rgba(245,196,0,0.35)] flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0a0a0a] animate-pulse inline-block" />
+            NEW
+          </span>
+        )}
+        {product.tags?.map((tag) => (
+          <span
+            key={tag}
+            className="px-2.5 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider font-poppins"
+            style={{
+              backgroundColor:
+                tag === "Spicy" ? "#EF4444" : "rgba(255,255,255,0.08)",
+              border:
+                tag === "Spicy"
+                  ? "1px solid rgba(239, 68, 68, 0.3)"
+                  : "1px solid rgba(255,255,255,0.1)",
+              color: "#FFFFFF",
+            }}
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
 
       {/* Food Visual Frame */}
       {product.id === "byo-wrap" || product.id === "byo-stack" || product.id === "byo-chips" ? (

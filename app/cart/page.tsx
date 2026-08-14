@@ -161,6 +161,18 @@ export default function CartPage() {
                             </span>
                           )}
 
+                          {item.selectedDip && (
+                            <div className="mt-2.5 flex items-center justify-center sm:justify-start gap-2">
+                              <span className="text-[9px] font-poppins font-bold uppercase tracking-wider text-white/50">
+                                Free Dip:
+                              </span>
+                              <span className="px-2.5 py-0.5 rounded-md bg-brand/10 border border-brand/30 text-brand font-poppins font-bold text-[10px] uppercase tracking-wide flex items-center gap-1.5 shadow-sm">
+                                <span>🥣</span>
+                                <span>{item.selectedDip} (Included)</span>
+                              </span>
+                            </div>
+                          )}
+
                           {/* Custom Stack Ingredients Details */}
                           {item.customization && (
                             <div className="mt-3 bg-white/[0.01] border border-white/[0.03] p-3 rounded-xl flex flex-col gap-2.5 text-[11px] text-white/50 font-sans text-left">
