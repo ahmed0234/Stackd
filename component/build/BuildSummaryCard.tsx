@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { BreadOption, BunOption, ProteinOption, VeggieOption, CheeseOption, SauceOption } from "./ingredients";
+import { BreadOption, BunOption, ChipsOption, ProteinOption, VeggieOption, CheeseOption, SauceOption } from "./ingredients";
 
 interface BuildSummaryCardProps {
   selectedBreadSize?: "6 Inches" | "Foot Long" | null;
   selectedBreadType?: BreadOption | null;
   selectedBun?: BunOption | null;
+  selectedChips?: ChipsOption | null;
   selectedProteins: ProteinOption[];
   selectedVeggies: VeggieOption[];
   selectedCheese: CheeseOption | null;
@@ -15,12 +16,14 @@ interface BuildSummaryCardProps {
   currentStep: number;
   fixedPrice: number;
   isWrap?: boolean;
+  isChips?: boolean;
 }
 
 export default function BuildSummaryCard({
   selectedBreadSize,
   selectedBreadType,
   selectedBun,
+  selectedChips,
   selectedProteins,
   selectedVeggies,
   selectedCheese,
@@ -28,6 +31,7 @@ export default function BuildSummaryCard({
   currentStep,
   fixedPrice,
   isWrap = false,
+  isChips = false,
 }: BuildSummaryCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -39,6 +43,15 @@ export default function BuildSummaryCard({
       if (currentStep > 2 || selectedCheese !== null) progress += 25;
       if (currentStep > 3 || selectedVeggies.length > 0) progress += 25;
       if (currentStep > 4 || selectedSauces.length > 0) progress += 25;
+      return Math.min(progress, 100);
+    }
+    if (isChips) {
+      let progress = 0;
+      if (selectedChips) progress += 20;
+      if (selectedProteins.length > 0) progress += 20;
+      if (currentStep > 3 || selectedCheese !== null) progress += 20;
+      if (currentStep > 4 || selectedVeggies.length > 0) progress += 20;
+      if (currentStep > 5 || selectedSauces.length > 0) progress += 20;
       return Math.min(progress, 100);
     }
     let progress = 0;
@@ -55,7 +68,7 @@ export default function BuildSummaryCard({
 
   // Dynamic Layer count
   const layerCount =
-    (isWrap ? 1 : selectedBun ? 2 : 0) +
+    (isWrap ? 1 : isChips ? (selectedChips ? 1 : 0) : selectedBun ? 2 : 0) +
     selectedProteins.length +
     (selectedCheese ? 1 : 0) +
     selectedVeggies.length +
@@ -80,7 +93,14 @@ export default function BuildSummaryCard({
 
       {/* Checklist items */}
       <div className="grid grid-cols-2 sm:grid-cols-1 gap-2 pt-2">
-        {!isWrap && (
+        {isChips ? (
+          <div className="flex items-center gap-2 text-[11px] font-sans">
+            <span className={selectedChips ? "text-brand" : "text-white/20"}>
+              {selectedChips ? "✓" : "○"}
+            </span>
+            <span className={selectedChips ? "text-white/80" : "text-white/30"}>Lays Base</span>
+          </div>
+        ) : !isWrap ? (
           <>
             <div className="flex items-center gap-2 text-[11px] font-sans">
               <span className={selectedBreadSize ? "text-brand" : "text-white/20"}>
@@ -95,7 +115,7 @@ export default function BuildSummaryCard({
               <span className={selectedBreadType ? "text-white/80" : "text-white/30"}>Bread Type</span>
             </div>
           </>
-        )}
+        ) : null}
         <div className="flex items-center gap-2 text-[11px] font-sans">
           <span className={selectedProteins.length > 0 ? "text-brand" : "text-white/20"}>
             {selectedProteins.length > 0 ? "✓" : "○"}
@@ -103,22 +123,22 @@ export default function BuildSummaryCard({
           <span className={selectedProteins.length > 0 ? "text-white/80" : "text-white/30"}>Protein Filling</span>
         </div>
         <div className="flex items-center gap-2 text-[11px] font-sans">
-          <span className={(isWrap ? currentStep > 2 || selectedCheese !== null : currentStep > 4 || selectedCheese !== null) ? "text-brand" : "text-white/20"}>
-            {(isWrap ? currentStep > 2 || selectedCheese !== null : currentStep > 4 || selectedCheese !== null) ? "✓" : "○"}
+          <span className={(isWrap ? currentStep > 2 || selectedCheese !== null : isChips ? currentStep > 3 || selectedCheese !== null : currentStep > 4 || selectedCheese !== null) ? "text-brand" : "text-white/20"}>
+            {(isWrap ? currentStep > 2 || selectedCheese !== null : isChips ? currentStep > 3 || selectedCheese !== null : currentStep > 4 || selectedCheese !== null) ? "✓" : "○"}
           </span>
-          <span className={(isWrap ? currentStep > 2 || selectedCheese !== null : currentStep > 4 || selectedCheese !== null) ? "text-white/80" : "text-white/30"}>Melty Cheese</span>
+          <span className={(isWrap ? currentStep > 2 || selectedCheese !== null : isChips ? currentStep > 3 || selectedCheese !== null : currentStep > 4 || selectedCheese !== null) ? "text-white/80" : "text-white/30"}>Melty Cheese</span>
         </div>
         <div className="flex items-center gap-2 text-[11px] font-sans">
-          <span className={(isWrap ? currentStep > 3 || selectedVeggies.length > 0 : currentStep > 5 || selectedVeggies.length > 0) ? "text-brand" : "text-white/20"}>
-            {(isWrap ? currentStep > 3 || selectedVeggies.length > 0 : currentStep > 5 || selectedVeggies.length > 0) ? "✓" : "○"}
+          <span className={(isWrap ? currentStep > 3 || selectedVeggies.length > 0 : isChips ? currentStep > 4 || selectedVeggies.length > 0 : currentStep > 5 || selectedVeggies.length > 0) ? "text-brand" : "text-white/20"}>
+            {(isWrap ? currentStep > 3 || selectedVeggies.length > 0 : isChips ? currentStep > 4 || selectedVeggies.length > 0 : currentStep > 5 || selectedVeggies.length > 0) ? "✓" : "○"}
           </span>
-          <span className={(isWrap ? currentStep > 3 || selectedVeggies.length > 0 : currentStep > 5 || selectedVeggies.length > 0) ? "text-white/80" : "text-white/30"}>Fresh Veggies</span>
+          <span className={(isWrap ? currentStep > 3 || selectedVeggies.length > 0 : isChips ? currentStep > 4 || selectedVeggies.length > 0 : currentStep > 5 || selectedVeggies.length > 0) ? "text-white/80" : "text-white/30"}>Fresh Veggies</span>
         </div>
         <div className="flex items-center gap-2 text-[11px] font-sans">
-          <span className={(isWrap ? currentStep > 4 || selectedSauces.length > 0 : currentStep > 6 || selectedSauces.length > 0) ? "text-brand" : "text-white/20"}>
-            {(isWrap ? currentStep > 4 || selectedSauces.length > 0 : currentStep > 6 || selectedSauces.length > 0) ? "✓" : "○"}
+          <span className={(isWrap ? currentStep > 4 || selectedSauces.length > 0 : isChips ? currentStep > 5 || selectedSauces.length > 0 : currentStep > 6 || selectedSauces.length > 0) ? "text-brand" : "text-white/20"}>
+            {(isWrap ? currentStep > 4 || selectedSauces.length > 0 : isChips ? currentStep > 5 || selectedSauces.length > 0 : currentStep > 6 || selectedSauces.length > 0) ? "✓" : "○"}
           </span>
-          <span className={(isWrap ? currentStep > 4 || selectedSauces.length > 0 : currentStep > 6 || selectedSauces.length > 0) ? "text-white/80" : "text-white/30"}>Signature Sauces</span>
+          <span className={(isWrap ? currentStep > 4 || selectedSauces.length > 0 : isChips ? currentStep > 5 || selectedSauces.length > 0 : currentStep > 6 || selectedSauces.length > 0) ? "text-white/80" : "text-white/30"}>Signature Sauces</span>
         </div>
       </div>
     </div>
@@ -130,7 +150,12 @@ export default function BuildSummaryCard({
         Active Ingredients
       </span>
       <div className="max-h-40 overflow-y-auto space-y-1.5 text-xs font-sans pr-1 scrollbar-none">
-        {isWrap ? (
+        {isChips ? (
+          <div className="flex justify-between border-b border-white/[0.02] pb-1.5">
+            <span className="text-white/40">Chips Base</span>
+            <span className="text-white font-medium">{selectedChips ? selectedChips.name : "Not selected"}</span>
+          </div>
+        ) : isWrap ? (
           <div className="flex justify-between border-b border-white/[0.02] pb-1.5">
             <span className="text-white/40">Base</span>
             <span className="text-white font-medium">Warm Flour Tortilla</span>
@@ -183,9 +208,14 @@ export default function BuildSummaryCard({
             </div>
           </div>
         )}
-        {!isWrap && !selectedBreadSize && !selectedBreadType && selectedProteins.length === 0 && (
+        {!isWrap && !isChips && !selectedBreadSize && !selectedBreadType && selectedProteins.length === 0 && (
           <p className="text-white/30 text-[11px] leading-relaxed italic">
             Select layers to begin building your stack summary...
+          </p>
+        )}
+        {isChips && !selectedChips && selectedProteins.length === 0 && (
+          <p className="text-white/30 text-[11px] leading-relaxed italic">
+            Select your Lays base to begin building your summary...
           </p>
         )}
       </div>
@@ -202,7 +232,13 @@ export default function BuildSummaryCard({
       </div>
 
       <div className="flex flex-wrap gap-1.5">
-        {isWrap ? (
+        {isChips ? (
+          selectedChips && (
+            <span className="px-2 py-0.5 rounded-md text-[9px] font-poppins font-black uppercase tracking-wider bg-brand/10 border border-brand/20 text-brand">
+              🥔 {selectedChips.name}
+            </span>
+          )
+        ) : isWrap ? (
           <span className="px-2 py-0.5 rounded-md text-[9px] font-poppins font-black uppercase tracking-wider bg-white/5 border border-white/10 text-white/60">
             🌯 Flour Tortilla
           </span>

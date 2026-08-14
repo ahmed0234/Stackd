@@ -4,12 +4,14 @@ import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import {
   BREADS,
+  CHIPS_OPTIONS,
   PROTEINS,
   VEGGIES,
   CHEESES,
   SAUCES,
   BreadOption,
   BunOption,
+  ChipsOption,
   ProteinOption,
   VeggieOption,
   CheeseOption,
@@ -23,7 +25,7 @@ const cardVariants = {
   animate: { 
     opacity: 1, 
     y: 0, 
-    scale: 1,
+    scale: 1, 
     transition: { type: "spring", stiffness: 140, damping: 16 }
   },
   hover: { 
@@ -35,8 +37,74 @@ const cardVariants = {
 };
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   Step 1: Bun Selector
+   Chips Selector (Lays)
    ─────────────────────────────────────────────────────────────────────────── */
+interface ChipsSelectorProps {
+  selectedChips: ChipsOption | null;
+  onSelect: (chips: ChipsOption) => void;
+}
+
+export function ChipsSelector({ selectedChips, onSelect }: ChipsSelectorProps) {
+  return (
+    <div className="grid grid-cols-1 max-w-md mx-auto gap-4 w-full">
+      {CHIPS_OPTIONS.map((chips) => {
+        const isSelected = selectedChips?.id === chips.id;
+
+        return (
+          <motion.div
+            key={chips.id}
+            variants={cardVariants}
+            initial="initial"
+            animate="animate"
+            whileHover="hover"
+            whileTap="tap"
+            onClick={() => onSelect(chips)}
+            className={`cursor-pointer p-5 sm:p-6 rounded-2xl border bg-white/[0.01] backdrop-blur-md flex flex-col items-center text-center transition-all duration-300 relative overflow-hidden group select-none ${
+              isSelected
+                ? "border-brand shadow-[0_0_24px_rgba(245,196,0,0.15)] bg-brand/[0.02]"
+                : "border-white/[0.06] hover:border-white/20 hover:bg-white/[0.03]"
+            }`}
+          >
+            {/* Selected Indicator Glow */}
+            {isSelected && (
+              <div className="absolute inset-0 pointer-events-none bg-brand/[0.01] shadow-inner" />
+            )}
+
+            {/* Chips tag */}
+            <span className="absolute top-3 right-3 px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest bg-brand/10 border border-brand/20 text-brand group-hover:text-brand/90 transition-colors">
+              Lays Base
+            </span>
+
+            {/* Visual Frame */}
+            <div className="relative w-full h-44 sm:h-52 flex items-center justify-center mb-4 select-none">
+              <div className="relative w-[90%] h-[90%] filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)] group-hover:scale-105 transition-transform duration-300">
+                <Image
+                  src={chips.image}
+                  alt={chips.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 450px"
+                  style={{ objectFit: "contain" }}
+                />
+              </div>
+            </div>
+
+            {/* Typography */}
+            <div className="w-full text-center sm:text-left">
+              <h3 className="font-poppins font-black text-sm uppercase text-white tracking-wide leading-tight flex items-center justify-center sm:justify-start gap-2">
+                {chips.name}
+                {isSelected && <span className="text-brand text-xs">✓</span>}
+              </h3>
+              <p className="text-[11px] text-white/50 leading-relaxed font-sans mt-2">
+                {chips.description}
+              </p>
+            </div>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+}
+
 /* ─────────────────────────────────────────────────────────────────────────────
    Step 1: Bread Size Selector (NEW)
    ─────────────────────────────────────────────────────────────────────────── */

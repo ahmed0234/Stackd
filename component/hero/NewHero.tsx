@@ -15,6 +15,7 @@ import {
   formatByoPrice,
   formatByoStackPriceFrom,
   getByoWrapPrice,
+  getByoChipsPrice,
 } from "@/component/build/buildYourOwnPricing";
 
 // Swiper styles
@@ -95,7 +96,7 @@ export default function NewHero() {
         </div>
 
         {/* Hero Main Content Container */}
-        <div className="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-8 flex flex-col gap-10 lg:gap-14">
+        <div className="relative z-20 w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1480px] mx-auto px-6 lg:px-8 flex flex-col gap-10 lg:gap-14">
           {/* Top Hero Split Grid: Left Text & Right Prominent Hero Burger */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
             {/* Left Side: Headline, Buttons & Moved Feature Badges */}
@@ -319,8 +320,8 @@ export default function NewHero() {
             {/* Top Border Accent Glow */}
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand/40 to-transparent pointer-events-none" />
 
-            {/* ── LEFT COLUMN: 2 LARGE PREMIUM "BUILD YOUR OWN" CARDS ──────── */}
-            <div className="xl:col-span-6 flex flex-col gap-4 border-b xl:border-b-0 xl:border-r border-white/[0.08] pb-6 xl:pb-0 xl:pr-8 relative z-10 min-w-0">
+            {/* ── LEFT COLUMN: 3 PREMIUM "BUILD YOUR OWN" CARDS ──────── */}
+            <div className="xl:col-span-7 flex flex-col gap-4 border-b xl:border-b-0 xl:border-r border-white/[0.08] pb-6 xl:pb-0 xl:pr-6 relative z-10 min-w-0">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-xs">✨</span>
                 <span className="font-poppins font-black text-xs uppercase tracking-widest text-brand">
@@ -328,45 +329,45 @@ export default function NewHero() {
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 h-full">
                 {/* 1. BUILD YOUR OWN STACK CARD */}
                 <Link
                   href="/build"
-                  className="group relative flex flex-col justify-between rounded-[24px] bg-gradient-to-b from-[#1c1a14] via-[#161512] to-[#111111] border-2 border-brand/35 hover:border-brand p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_40px_rgba(245,196,0,0.22)] text-left no-underline overflow-hidden"
+                  className="group relative flex flex-col justify-between rounded-[22px] bg-gradient-to-b from-[#1c1a14] via-[#161512] to-[#111111] border-2 border-brand/35 hover:border-brand p-4 sm:p-4.5 transition-all duration-300 hover:scale-[1.02] shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_40px_rgba(245,196,0,0.22)] text-left no-underline overflow-hidden"
                 >
-                  <div className="absolute top-3 right-3 z-10">
-                    <span className="px-2.5 py-1 rounded-md text-[9px] font-poppins font-black uppercase tracking-wider bg-brand text-[#0a0a0a] shadow-md">
+                  <div className="absolute top-2.5 right-2.5 z-10">
+                    <span className="px-2 py-0.5 rounded-md text-[8.5px] font-poppins font-black uppercase tracking-wider bg-brand text-[#0a0a0a] shadow-md">
                       CUSTOM STACK
                     </span>
                   </div>
 
                   {/* Large Product Image */}
-                  <div className="relative w-full h-36 sm:h-40 my-2 flex items-center justify-center">
-                    <div className="absolute w-28 h-28 bg-brand/15 rounded-full blur-2xl pointer-events-none" />
+                  <div className="relative w-full h-32 sm:h-36 my-1.5 flex items-center justify-center">
+                    <div className="absolute w-24 h-24 bg-brand/15 rounded-full blur-2xl pointer-events-none" />
                     <Image
-                      src="/Stacks/Og.webp"
+                      src="/Stacks/Build your own.webp"
                       alt="Build Your Own Stack"
                       fill
-                      sizes="220px"
+                      sizes="(max-width: 640px) 100vw, 33vw"
                       className="object-contain group-hover:scale-108 transition-transform duration-300"
                     />
                   </div>
 
                   {/* Text Details & CTA */}
-                  <div className="flex flex-col mt-2">
-                    <h3 className="font-poppins font-black text-base sm:text-lg text-white uppercase tracking-wide group-hover:text-brand transition-colors">
+                  <div className="flex flex-col mt-1">
+                    <h3 className="font-poppins font-black text-sm sm:text-base text-white uppercase tracking-wide group-hover:text-brand transition-colors">
                       BUILD YOUR STACK
                     </h3>
-                    <p className="text-xs text-white/50 font-sans line-clamp-2 mt-1 leading-relaxed">
+                    <p className="text-[11px] text-white/50 font-sans line-clamp-2 mt-0.5 leading-relaxed">
                       Custom Angus beef, brioche bun, melty cheeses & drizzles.
                     </p>
 
-                    <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between">
-                      <span className="font-poppins font-black text-sm text-brand">
+                    <div className="mt-3 pt-2.5 border-t border-white/[0.08] flex items-center justify-between">
+                      <span className="font-poppins font-black text-xs text-brand">
                         {formatByoStackPriceFrom()}
                       </span>
-                      <span className="px-3.5 py-1.5 rounded-full bg-brand text-[#0a0a0a] font-poppins font-black text-[10px] uppercase tracking-wider flex items-center gap-1 shadow-md group-hover:scale-105 transition-transform">
-                        <span>BUILD NOW</span>
+                      <span className="px-2.5 py-1 rounded-full bg-brand text-[#0a0a0a] font-poppins font-black text-[9px] uppercase tracking-wider flex items-center gap-1 shadow-md group-hover:scale-105 transition-transform">
+                        <span>BUILD</span>
                         <span>&rarr;</span>
                       </span>
                     </div>
@@ -376,41 +377,85 @@ export default function NewHero() {
                 {/* 2. BUILD YOUR OWN WRAP CARD */}
                 <Link
                   href="/build-wrap"
-                  className="group relative flex flex-col justify-between rounded-[24px] bg-gradient-to-b from-[#1c1a14] via-[#161512] to-[#111111] border-2 border-brand/35 hover:border-brand p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_40px_rgba(245,196,0,0.22)] text-left no-underline overflow-hidden"
+                  className="group relative flex flex-col justify-between rounded-[22px] bg-gradient-to-b from-[#1c1a14] via-[#161512] to-[#111111] border-2 border-brand/35 hover:border-brand p-4 sm:p-4.5 transition-all duration-300 hover:scale-[1.02] shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_40px_rgba(245,196,0,0.22)] text-left no-underline overflow-hidden"
                 >
-                  <div className="absolute top-3 right-3 z-10">
-                    <span className="px-2.5 py-1 rounded-md text-[9px] font-poppins font-black uppercase tracking-wider bg-brand text-[#0a0a0a] shadow-md">
+                  <div className="absolute top-2.5 right-2.5 z-10">
+                    <span className="px-2 py-0.5 rounded-md text-[8.5px] font-poppins font-black uppercase tracking-wider bg-brand text-[#0a0a0a] shadow-md">
                       CUSTOM WRAP
                     </span>
                   </div>
 
                   {/* Large Product Image */}
-                  <div className="relative w-full h-36 sm:h-40 my-2 flex items-center justify-center">
-                    <div className="absolute w-28 h-28 bg-brand/15 rounded-full blur-2xl pointer-events-none" />
+                  <div className="relative w-full h-32 sm:h-36 my-1.5 flex items-center justify-center">
+                    <div className="absolute w-24 h-24 bg-brand/15 rounded-full blur-2xl pointer-events-none" />
                     <Image
                       src="/Wraps/buildyourownwrap.webp"
                       alt="Build Your Own Wrap"
                       fill
-                      sizes="220px"
+                      sizes="(max-width: 640px) 100vw, 33vw"
                       className="object-contain group-hover:scale-108 transition-transform duration-300"
                     />
                   </div>
 
                   {/* Text Details & CTA */}
-                  <div className="flex flex-col mt-2">
-                    <h3 className="font-poppins font-black text-base sm:text-lg text-white uppercase tracking-wide group-hover:text-brand transition-colors">
+                  <div className="flex flex-col mt-1">
+                    <h3 className="font-poppins font-black text-sm sm:text-base text-white uppercase tracking-wide group-hover:text-brand transition-colors">
                       BUILD YOUR WRAP
                     </h3>
-                    <p className="text-xs text-white/50 font-sans line-clamp-2 mt-1 leading-relaxed">
-                      Warm tortilla loaded with tender chicken, cheeses & sauces.
+                    <p className="text-[11px] text-white/50 font-sans line-clamp-2 mt-0.5 leading-relaxed">
+                      Warm tortilla loaded with chicken, cheeses & sauces.
                     </p>
 
-                    <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between">
-                      <span className="font-poppins font-black text-sm text-brand">
+                    <div className="mt-3 pt-2.5 border-t border-white/[0.08] flex items-center justify-between">
+                      <span className="font-poppins font-black text-xs text-brand">
                         {formatByoPrice(getByoWrapPrice())}
                       </span>
-                      <span className="px-3.5 py-1.5 rounded-full bg-brand text-[#0a0a0a] font-poppins font-black text-[10px] uppercase tracking-wider flex items-center gap-1 shadow-md group-hover:scale-105 transition-transform">
-                        <span>BUILD NOW</span>
+                      <span className="px-2.5 py-1 rounded-full bg-brand text-[#0a0a0a] font-poppins font-black text-[9px] uppercase tracking-wider flex items-center gap-1 shadow-md group-hover:scale-105 transition-transform">
+                        <span>BUILD</span>
+                        <span>&rarr;</span>
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+
+                {/* 3. STACK YOUR CHIPS CARD */}
+                <Link
+                  href="/build-chips"
+                  className="group relative flex flex-col justify-between rounded-[22px] bg-gradient-to-b from-[#1c1a14] via-[#161512] to-[#111111] border-2 border-brand/35 hover:border-brand p-4 sm:p-4.5 transition-all duration-300 hover:scale-[1.02] shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_40px_rgba(245,196,0,0.22)] text-left no-underline overflow-hidden"
+                >
+                  <div className="absolute top-2.5 right-2.5 z-10">
+                    <span className="px-2 py-0.5 rounded-md text-[8.5px] font-poppins font-black uppercase tracking-wider bg-brand text-[#0a0a0a] shadow-md">
+                      CUSTOM CHIPS
+                    </span>
+                  </div>
+
+                  {/* Large Product Image */}
+                  <div className="relative w-full h-32 sm:h-36 my-1.5 flex items-center justify-center">
+                    <div className="absolute w-24 h-24 bg-brand/15 rounded-full blur-2xl pointer-events-none" />
+                    <Image
+                      src="/Lays/layspng.webp"
+                      alt="Stack Your Chips"
+                      fill
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                      className="object-contain group-hover:scale-108 transition-transform duration-300"
+                    />
+                  </div>
+
+                  {/* Text Details & CTA */}
+                  <div className="flex flex-col mt-1">
+                    <h3 className="font-poppins font-black text-sm sm:text-base text-white uppercase tracking-wide group-hover:text-brand transition-colors">
+                      STACK YOUR CHIPS
+                    </h3>
+                    <p className="text-[11px] text-white/50 font-sans line-clamp-2 mt-0.5 leading-relaxed">
+                      Crunchy Lays chips base with grilled chicken, cheese & drizzles.
+                    </p>
+
+                    <div className="mt-3 pt-2.5 border-t border-white/[0.08] flex items-center justify-between">
+                      <span className="font-poppins font-black text-xs text-brand">
+                        {formatByoPrice(getByoChipsPrice())}
+                      </span>
+                      <span className="px-2.5 py-1 rounded-full bg-brand text-[#0a0a0a] font-poppins font-black text-[9px] uppercase tracking-wider flex items-center gap-1 shadow-md group-hover:scale-105 transition-transform">
+                        <span>BUILD</span>
                         <span>&rarr;</span>
                       </span>
                     </div>
@@ -420,7 +465,7 @@ export default function NewHero() {
             </div>
 
             {/* ── RIGHT COLUMN: LARGER "TRENDING RIGHT NOW" CAROUSEL ────────── */}
-            <div className="xl:col-span-6 flex flex-col justify-between gap-4 min-w-0">
+            <div className="xl:col-span-5 flex flex-col justify-between gap-4 min-w-0">
               {/* Header Row */}
               <div className="flex items-center justify-between">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand text-[#0a0a0a] font-poppins font-black text-xs uppercase tracking-wider shadow-[0_4px_15px_rgba(245,196,0,0.3)]">
@@ -479,7 +524,9 @@ export default function NewHero() {
                   grabCursor={true}
                   breakpoints={{
                     640: { slidesPerView: 1.8, spaceBetween: 16 },
-                    1024: { slidesPerView: 2.1, spaceBetween: 18 },
+                    1024: { slidesPerView: 1.75, spaceBetween: 16 },
+                    1280: { slidesPerView: 1.6, spaceBetween: 16 },
+                    1536: { slidesPerView: 1.8, spaceBetween: 16 },
                   }}
                   className="w-full"
                 >

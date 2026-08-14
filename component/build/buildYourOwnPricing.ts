@@ -9,6 +9,9 @@ export const BYO_STACK_PRICES: Record<StackBreadSize, number> = {
 /** Single source of truth for Build Your Own Wrap pricing (PKR). */
 export const BYO_WRAP_PRICE = 499;
 
+/** Single source of truth for Stack Your Chips (Build Your Own Lays) pricing (PKR). */
+export const BYO_CHIPS_PRICE = 349;
+
 /** Single source of truth for Ready-Made Wrap pricing (PKR). */
 export const READY_MADE_WRAP_PRICE = 449;
 
@@ -22,6 +25,10 @@ export function getByoStackStartingPrice(): number {
 
 export function getByoWrapPrice(): number {
   return BYO_WRAP_PRICE;
+}
+
+export function getByoChipsPrice(): number {
+  return BYO_CHIPS_PRICE;
 }
 
 export function getReadyMadeWrapPrice(): number {

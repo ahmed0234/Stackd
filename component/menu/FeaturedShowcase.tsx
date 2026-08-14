@@ -46,7 +46,7 @@ export default function FeaturedShowcase() {
     "melted-wrap",
     "fire-stack",
     "chilli-cheese-fries",
-    "og-wrap",
+    "zinger-wrap",
     "pepsi",
     "sprite",
   ];
@@ -195,10 +195,14 @@ export default function FeaturedShowcase() {
               product.id.startsWith("byo-") ||
               product.id === "byo-stack" ||
               product.id === "byo-wrap" ||
-              product.name.toLowerCase().includes("build your own");
+              product.id === "byo-chips" ||
+              product.name.toLowerCase().includes("build your own") ||
+              product.name.toLowerCase().includes("stack your chips");
 
             const targetRoute =
-              product.id === "byo-wrap" || product.name.toLowerCase().includes("wrap")
+              product.id === "byo-chips" || product.name.toLowerCase().includes("chips")
+                ? "/build-chips"
+                : product.id === "byo-wrap" || product.name.toLowerCase().includes("wrap")
                 ? "/build-wrap"
                 : "/build";
 

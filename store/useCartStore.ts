@@ -15,6 +15,7 @@ export interface CartItem {
   accentColor: string;
   customization?: {
     bun: string;
+    chips?: string | null;
     protein: string;
     veggies: string[];
     cheese: string | null;

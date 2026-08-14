@@ -89,7 +89,13 @@ export default function CheckoutPage() {
       const variantSuffix = item.size ? ` (${item.size})` : "";
       msg += `${item.quantity}x ${item.name}${variantSuffix} - PKR ${(item.price * item.quantity).toLocaleString()}\n`;
       if (item.customization) {
-        msg += `   • Bun: ${item.customization.bun}\n`;
+        if (item.id === "byo-chips" || item.customization.chips) {
+          msg += `   • Lays Base: ${item.customization.chips || item.customization.bun}\n`;
+        } else if (item.id === "byo-wrap") {
+          msg += `   • Wrap Base: ${item.customization.bun}\n`;
+        } else {
+          msg += `   • Bun: ${item.customization.bun}\n`;
+        }
         msg += `   • Protein: ${item.customization.protein}\n`;
         if (item.customization.toast) {
           msg += `   • Toast: ${item.customization.toast}\n`;
@@ -369,7 +375,9 @@ export default function CheckoutPage() {
                         </h4>
                         {item.customization && (
                           <div className="text-[9px] text-white/45 font-sans mt-1 space-y-0.5">
-                            <div>Bun: {item.customization.bun} | Protein: {item.customization.protein}{item.customization.toast ? ` | Toast: ${item.customization.toast}` : ""}</div>
+                            <div>
+                              {item.id === "byo-chips" ? "Lays Base" : item.id === "byo-wrap" ? "Wrap Base" : "Bun"}: {item.customization.chips || item.customization.bun} | Protein: {item.customization.protein}{item.customization.toast ? ` | Toast: ${item.customization.toast}` : ""}
+                            </div>
                             {item.customization.cheese && <div>Cheese: {item.customization.cheese}</div>}
                             {item.customization.veggies.length > 0 && <div className="line-clamp-1">Veggies: {item.customization.veggies.join(", ")}</div>}
                             {item.customization.sauces.length > 0 && <div className="line-clamp-1">Sauces: {item.customization.sauces.join(", ")}</div>}

@@ -12,7 +12,7 @@ const MENU_CATEGORIES = [
     emoji: '🥞',
     href: '/menu/stacks',
     accent: '#F5C400',
-    items: ['Classic Stack', 'Double Stack', 'OG Stack', 'Beast Mode'],
+    items: ['Build Your Own', 'Fire Stack', 'Melt Stack', 'Zinger Stack', 'Royal Stack', 'Smoke Stack'],
   },
   {
     id: 'wraps',
@@ -21,16 +21,16 @@ const MENU_CATEGORIES = [
     emoji: '🌯',
     href: '/menu/wraps',
     accent: '#FF9F43',
-    items: ['Build Your Own', 'Fire Wrap', 'Melted Wrap', 'OG Wrap', 'Royale Wrap'],
+    items: ['Build Your Own', 'Fire Wrap', 'Melted Wrap', 'Zinger Wrap', 'Smoke Wrap', 'Royale Wrap'],
   },
   {
     id: 'fries',
-    label: 'Loaded Fries',
+    label: 'Loaded Fries & Chips',
     description: 'Golden, crispy, loaded heavy',
     emoji: '🍟',
     href: '/menu/fries',
     accent: '#EE5A24',
-    items: ['Full Stackd Fries', 'Chilli Cheese Fries', 'Plain Fries'],
+    items: ['Stack Your Chips', 'Full Stackd Fries', 'Chilli Cheese Fries', 'Plain Fries'],
   },
   {
     id: 'drinks',
@@ -53,11 +53,11 @@ const MENU_CATEGORIES = [
 ]
 
 const FEATURED = {
-  title: 'The OG Stack',
+  title: 'The Zinger Stack',
   tag: '🔥 Fan Favourite',
-  description: 'Double smash patty, secret sauce, pickles, caramelised onions on a brioche bun.',
-  price: '£9.95',
-  href: '/menu/stacks/og-stack',
+  description: 'Crispy zinger fillet, melted cheddar, signature zinger sauce on toasted brioche.',
+  price: 'Rs 549',
+  href: '/#menu',
 }
 
 interface MenuDropdownProps {

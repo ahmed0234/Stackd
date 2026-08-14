@@ -18,6 +18,7 @@ import {
 import {
   getByoStackStartingPrice,
   getByoWrapPrice,
+  getByoChipsPrice,
   getReadyMadeWrapPrice,
 } from "@/component/build/buildYourOwnPricing";
 import { FRIES_PRICES } from "@/component/fries/friesPricing";
@@ -68,12 +69,12 @@ export const PRODUCTS: Product[] = [
     accentColor: "#F97316",
   },
   {
-    id: "og-stack",
-    name: "OG Stack",
+    id: "zinger-stack",
+    name: "Zinger Stack",
     category: "stacks",
-    image: "/Stacks/Og.webp",
+    image: "/Stacks/zingerstack.webp",
     description:
-      "Double smashed Angus beef, cheddar cheese, crispy pickles, secret stack sauce, toasted brioche bun.",
+      "Crispy golden-fried zinger fillet, melted cheddar cheese, fresh crunchy lettuce, and signature spicy zinger sauce on a toasted brioche bun.",
     price: STACK_LIST_PRICE,
     tags: ["Popular"],
     accentColor: "#F5C400",
@@ -136,15 +137,26 @@ export const PRODUCTS: Product[] = [
     accentColor: "#F97316",
   },
   {
-    id: "og-wrap",
-    name: "OG Wrap",
+    id: "zinger-wrap",
+    name: "Zinger Wrap",
     category: "wraps",
-    image: "/Wraps/ogwrap.webp",
+    image: "/Wraps/zingerwrap.webp",
     description:
-      "Double smashed Angus beef, cheddar cheese, crispy pickles, and secret stack sauce in a warm toasted wrap.",
+      "Crispy zinger tenders, melted cheddar cheese, crisp lettuce, and signature spicy zinger sauce in a warm toasted wrap.",
     price: getReadyMadeWrapPrice(),
     tags: ["Popular"],
     accentColor: "#F5C400",
+  },
+  {
+    id: "smoke-wrap",
+    name: "Smoke Wrap",
+    category: "wraps",
+    image: "/Wraps/smokewrap.webp",
+    description:
+      "Smoky grilled chicken, crispy beef bacon, melted cheddar cheese, grilled onions, and rich hickory BBQ glaze in a warm toasted wrap.",
+    price: getReadyMadeWrapPrice(),
+    tags: ["Popular"],
+    accentColor: "#D97706",
   },
   {
     id: "royale-wrap",
@@ -170,6 +182,17 @@ export const PRODUCTS: Product[] = [
   },
 
   // Category: Fries
+  {
+    id: "byo-chips",
+    name: "Stack Your Chips",
+    category: "fries",
+    image: "/Lays/layspng.webp",
+    description:
+      "Your chips, your rules. Crispy Salted Lays chips loaded with tender grilled proteins, melty cheeses, fresh veggies, and signature drizzles.",
+    price: getByoChipsPrice(),
+    tags: ["Customizable", "Lays Special"],
+    accentColor: "#F5C400",
+  },
   {
     id: "full-stackd-fries",
     name: "Full Stackd Fries",
@@ -245,6 +268,24 @@ export const PRODUCTS: Product[] = [
     ],
   },
   // Category: Deals
+  {
+    id: "azadi-box",
+    name: "Azadi Box",
+    category: "deals",
+    image: "/Deals/AzadiBox.webp",
+    description:
+      "Celebrate Azadi with the ultimate feast! 2x 6\" Signature Stacks or Wraps, 1x Plain Fries, 1x Chicken Strips (4 Pcs), 1x Signature Dip, and 2x 340ML Chilled Drinks.",
+    price: 1499,
+    tags: ["Limited Time"],
+    accentColor: "#16A34A",
+    includes: [
+      "2x 6\" Signature Stacks or Wraps",
+      "1x Plain Fries",
+      "1x Chicken Strips (4 Pcs)",
+      "1x Signature Dip",
+      "2x 340ML Drinks",
+    ],
+  },
   {
     id: "solo-meal-deal",
     name: "Solo Meal Deal",
@@ -842,9 +883,9 @@ function ProductCard({
       ))}
 
       {/* Food Visual Frame */}
-      {product.id === "byo-wrap" || product.id === "byo-stack" ? (
+      {product.id === "byo-wrap" || product.id === "byo-stack" || product.id === "byo-chips" ? (
         <Link
-          href={product.id === "byo-wrap" ? "/build-wrap" : "/build"}
+          href={product.id === "byo-chips" ? "/build-chips" : product.id === "byo-wrap" ? "/build-wrap" : "/build"}
           className="relative w-full h-48 mt-4 flex items-center justify-center z-10 overflow-hidden select-none cursor-pointer"
         >
           <motion.div
@@ -889,8 +930,8 @@ function ProductCard({
 
       {/* Product Content Details */}
       <div className="flex flex-col flex-grow p-5 text-left">
-        {product.id === "byo-wrap" || product.id === "byo-stack" ? (
-          <Link href={product.id === "byo-wrap" ? "/build-wrap" : "/build"}>
+        {product.id === "byo-wrap" || product.id === "byo-stack" || product.id === "byo-chips" ? (
+          <Link href={product.id === "byo-chips" ? "/build-chips" : product.id === "byo-wrap" ? "/build-wrap" : "/build"}>
             <h3 className="font-poppins font-black text-lg text-white leading-tight uppercase tracking-wide hover:text-brand transition-colors cursor-pointer">
               {product.name}
             </h3>
@@ -945,7 +986,7 @@ function ProductCard({
 
         {/* Pricing & Add Trigger Row */}
         <div className="mt-5 pt-4 border-t border-white/[0.04] flex items-center justify-between">
-          {product.id === "byo-stack" || product.id === "byo-wrap" ? (
+          {product.id === "byo-stack" || product.id === "byo-wrap" || product.id === "byo-chips" ? (
             <span className="font-poppins font-bold text-xs text-white/40 uppercase tracking-wider">
               Customizable
             </span>
@@ -960,10 +1001,10 @@ function ProductCard({
           )}
 
           <div className="relative flex items-center h-10">
-            {product.id === "byo-stack" || product.id === "byo-wrap" ? (
+            {product.id === "byo-stack" || product.id === "byo-wrap" || product.id === "byo-chips" ? (
               <Link
                 key="build-btn"
-                href={product.id === "byo-wrap" ? "/build-wrap" : "/build"}
+                href={product.id === "byo-chips" ? "/build-chips" : product.id === "byo-wrap" ? "/build-wrap" : "/build"}
                 className="px-5 py-2.5 rounded-full flex items-center gap-1.5 text-[10px] font-poppins font-black uppercase text-[#0a0a0a] bg-brand shadow-[0_4px_12px_rgba(245,196,0,0.25)] hover:shadow-[0_4px_20px_rgba(245,196,0,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer select-none"
               >
                 <span>Build</span>

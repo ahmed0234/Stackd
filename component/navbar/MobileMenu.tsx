@@ -213,6 +213,61 @@ export default function MobileMenu({ cartCount, onClose }: MobileMenuProps) {
               </Link>
             </motion.div>
 
+            {/* BUILD YOUR OWN WRAP & STACK YOUR CHIPS 2-COL ROW */}
+            <div className="grid grid-cols-2 gap-3">
+              {/* BUILD WRAP */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.18, duration: 0.35 }}
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full"
+              >
+                <Link
+                  href="/build-wrap"
+                  onClick={onClose}
+                  className="flex flex-col justify-between h-[115px] p-3.5 rounded-2xl bg-white/[0.015] border border-white/[0.08] hover:border-brand/35 hover:bg-brand/[0.03] transition-all duration-300 no-underline group"
+                >
+                  <span className="text-2xl">🌯</span>
+                  <div>
+                    <h4 className="font-poppins font-black text-xs text-white m-0 uppercase group-hover:text-brand transition-colors">
+                      Build Wrap
+                    </h4>
+                    <p className="font-sans text-[10px] text-white/45 mt-0.5 m-0 leading-tight">
+                      Custom toasted wrap
+                    </p>
+                  </div>
+                </Link>
+              </motion.div>
+
+              {/* STACK CHIPS */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.19, duration: 0.35 }}
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full"
+              >
+                <Link
+                  href="/build-chips"
+                  onClick={onClose}
+                  className="flex flex-col justify-between h-[115px] p-3.5 rounded-2xl bg-white/[0.015] border border-white/[0.08] hover:border-brand/35 hover:bg-brand/[0.03] transition-all duration-300 no-underline group"
+                >
+                  <span className="text-2xl">🥔</span>
+                  <div>
+                    <h4 className="font-poppins font-black text-xs text-white m-0 uppercase group-hover:text-brand transition-colors">
+                      Stack Chips
+                    </h4>
+                    <p className="font-sans text-[10px] text-white/45 mt-0.5 m-0 leading-tight">
+                      Custom Lays chips
+                    </p>
+                  </div>
+                </Link>
+              </motion.div>
+            </div>
+
             {/* TWO COLUMN GRID FOR DEALS & CART */}
             <div className="grid grid-cols-2 gap-3">
               

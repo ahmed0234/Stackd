@@ -160,9 +160,9 @@ export default function CartPage() {
                             <div className="mt-3 bg-white/[0.01] border border-white/[0.03] p-3 rounded-xl flex flex-col gap-2.5 text-[11px] text-white/50 font-sans text-left">
                               <div>
                                 <strong className="text-white/70 font-poppins text-[9px] uppercase tracking-wider block mb-0.5">
-                                  {item.id === "byo-wrap" ? "Wrap Base" : "Artisan Bun"}
+                                  {item.id === "byo-chips" ? "Lays Chips Base" : item.id === "byo-wrap" ? "Wrap Base" : "Artisan Bun"}
                                 </strong>
-                                <span>{item.customization.bun}</span>
+                                <span>{item.customization.chips || item.customization.bun}</span>
                               </div>
                               <div>
                                 <strong className="text-white/70 font-poppins text-[9px] uppercase tracking-wider block mb-0.5">Protein Filling</strong>

@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 
 interface StackData {
-  id: "fire" | "melt" | "og" | "royal" | "smoke";
+  id: "fire" | "melt" | "zinger" | "royal" | "smoke";
   name: string;
   sloganPre: string;
   sloganHighlight: string;
@@ -56,15 +56,15 @@ const STACKS: Record<string, StackData> = {
     glowStrong: "rgba(249, 115, 22, 0.35)",
     shadowGlow: "0 0 50px rgba(249, 115, 22, 0.22)",
   },
-  og: {
-    id: "og",
-    name: "OG Stack",
-    sloganPre: "Every Layer Hits ",
-    sloganHighlight: "Different.",
+  zinger: {
+    id: "zinger",
+    name: "Zinger Stack",
+    sloganPre: "Crunch Meets ",
+    sloganHighlight: "Fire.",
     sloganPost: "",
     subtitle:
-      "Our signature masterwork. Dual custom-blend smashed patties, caramelized edges, melted cheddar, and secret Stack Sauce on toasted artisan brioche.",
-    burgerImage: "/Stacks/Og.webp",
+      "Crispy golden-fried zinger fillet, melted cheddar cheese, fresh crunchy lettuce, and signature spicy zinger sauce on toasted artisan brioche.",
+    burgerImage: "/Stacks/zingerstack.webp",
     sideImage: "/Fries/plain fries.webp",
     color: "#F5C400",
     glowColor: "rgba(245, 196, 0, 0.12)",
@@ -105,7 +105,7 @@ const STACKS: Record<string, StackData> = {
 
 export default function Hero() {
   const [activeStack, setActiveStack] = useState<
-    "fire" | "melt" | "og" | "royal" | "smoke"
+    "fire" | "melt" | "zinger" | "royal" | "smoke"
   >("fire");
   const activeData = STACKS[activeStack];
 
@@ -639,7 +639,7 @@ export default function Hero() {
             >
               <div className="flex items-center gap-1 sm:gap-2">
                 {(
-                  Object.keys(STACKS) as Array<"fire" | "melt" | "og" | "royal" | "smoke">
+                  Object.keys(STACKS) as Array<"fire" | "melt" | "zinger" | "royal" | "smoke">
                 ).map((key) => {
                   const item = STACKS[key];
                   const isActive = activeStack === key;

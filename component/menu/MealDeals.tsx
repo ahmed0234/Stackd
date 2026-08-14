@@ -29,10 +29,10 @@ const STACKS_CHOICES = [
     desc: "Double patties, hot cheddar sauce, caramelized onions",
   },
   {
-    id: "og-stack",
-    name: "OG Stack",
-    image: "/Stacks/Og.webp",
-    desc: "Double smash Angus beef, cheddar, secret sauce",
+    id: "zinger-stack",
+    name: "Zinger Stack",
+    image: "/Stacks/zingerstack.webp",
+    desc: "Crispy zinger fillet, melted cheddar, signature zinger sauce",
   },
   {
     id: "royal-stack",
@@ -59,10 +59,16 @@ const STACKS_CHOICES = [
     desc: "Double smash beef, hot cheddar sauce, caramelized onions",
   },
   {
-    id: "og-wrap",
-    name: "OG Wrap",
-    image: "/Wraps/ogwrap.webp",
-    desc: "Double smashed beef, cheddar, pickles, secret sauce",
+    id: "zinger-wrap",
+    name: "Zinger Wrap",
+    image: "/Wraps/zingerwrap.webp",
+    desc: "Crispy zinger chicken, cheddar cheese, spicy zinger sauce",
+  },
+  {
+    id: "smoke-wrap",
+    name: "Smoke Wrap",
+    image: "/Wraps/smokewrap.webp",
+    desc: "Smoky grilled chicken, crispy bacon, cheddar, BBQ glaze",
   },
   {
     id: "royale-wrap",
@@ -93,6 +99,7 @@ const DRINKS_CHOICES = [
 const DEAL_REQUIREMENTS: Record<string, { stacks: number; drinks: number }> = {
   "solo-meal-deal": { stacks: 1, drinks: 1 },
   "duo-stack-deal": { stacks: 2, drinks: 2 },
+  "azadi-box": { stacks: 2, drinks: 2 },
   "full-stack-meal-deal": { stacks: 3, drinks: 3 },
   "stackd-share-box": { stacks: 4, drinks: 4 },
 };

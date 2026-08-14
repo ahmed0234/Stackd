@@ -44,6 +44,22 @@ export interface BreadOption {
   description: string;
 }
 
+export interface ChipsOption {
+  id: string;
+  name: string;
+  image: string;
+  description: string;
+}
+
+export const CHIPS_OPTIONS: ChipsOption[] = [
+  {
+    id: "chips-salted",
+    name: "Salted Lays Chips",
+    image: "/Lays/layspng.webp",
+    description: "Crispy, golden-sliced Salted Lays potato chips base.",
+  },
+];
+
 export const BREADS: BreadOption[] = [
   {
     id: "bread-oregano",
@@ -79,11 +95,11 @@ export const PROTEINS: ProteinOption[] = [
       "Fiery, tangy peri-peri marinated chicken grilled to smoky perfection.",
   },
   {
-    id: "protein-chicken-strips",
-    name: "Chicken Strips",
-    image: "/BuildYourStack/Chicken/ChickenStrips.webp",
+    id: "protein-zinger-strips",
+    name: "Zinger Strips",
+    image: "/BuildYourStack/Chicken/zingerstrips.webp",
     description:
-      "Crispy, golden-fried tender chicken strips for a perfect crunch.",
+      "Crispy, golden-fried spicy zinger tenders for a perfect crunch.",
   },
   {
     id: "protein-chicken-tikka",

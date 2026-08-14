@@ -12,6 +12,7 @@ interface UpsellDrawerProps {
   onClose: () => void;
   customization?: {
     bun?: string | null;
+    chips?: string | null;
     protein: string;
     veggies: string[];
     cheese: string | null;
@@ -162,8 +163,10 @@ export default function UpsellDrawer({ isOpen, onClose, customization, price }: 
                         </span>
                         <div className="text-[11px] sm:text-xs text-white/70 font-sans leading-relaxed space-y-1">
                           <p>
-                            <span className="text-white/30 font-bold uppercase text-[9px] w-20 inline-block">Bun base:</span>
-                            <span className="text-white font-semibold">{customization.bun}</span>
+                            <span className="text-white/30 font-bold uppercase text-[9px] w-20 inline-block">
+                              {customization.chips ? "Chips base:" : "Bun base:"}
+                            </span>
+                            <span className="text-white font-semibold">{customization.chips || customization.bun}</span>
                           </p>
                           <p>
                             <span className="text-white/30 font-bold uppercase text-[9px] w-20 inline-block">Protein:</span>
