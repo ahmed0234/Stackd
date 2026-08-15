@@ -196,7 +196,7 @@ export default function ZingerDipModal({
                       id="zinger-dip-title"
                       className="font-poppins font-black text-lg sm:text-xl text-white uppercase tracking-wide truncate"
                     >
-                      Zinger Strips
+                      Chicken Strips
                     </h2>
                     <p className="text-xs text-white/50 font-sans">
                       Rs 349 • Served with stacked crispy fries/chips

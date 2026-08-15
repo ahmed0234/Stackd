@@ -43,7 +43,7 @@ export default function FeaturedShowcase() {
     const cartItem: CartItem = {
       id: "zinger-strips",
       key,
-      name: "Zinger Strips",
+      name: "Chicken Strips",
       image: zingerProduct?.image || "/appetizer/ZingerStrips.webp",
       price: zingerProduct?.price || 349,
       quantity: 1,
@@ -51,7 +51,7 @@ export default function FeaturedShowcase() {
       selectedDip: dipName,
     };
     useCartStore.getState().addCustomItem(cartItem);
-    setToastMessage(`✓ Added Zinger Strips (Free Dip: ${dipName}) to cart!`);
+    setToastMessage(`✓ Added Chicken Strips (Free Dip: ${dipName}) to cart!`);
     setTimeout(() => {
       setToastMessage(null);
     }, 2500);

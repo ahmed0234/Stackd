@@ -189,16 +189,16 @@ export const PRODUCTS: Product[] = [
   // Category: Appetizers
   {
     id: "zinger-strips",
-    name: "Zinger Strips",
+    name: "Chicken Strips",
     category: "appetizers",
     image: "/appetizer/ZingerStrips.webp",
     description:
-      "Crispy golden-fried zinger strips served with stacked crispy fries/chips.",
+      "Crispy golden-fried Chicken strips served with stacked crispy fries/chips.",
     price: 349,
     tags: ["Meal", "Crispy"],
     accentColor: "#F5C400",
     includes: [
-      "Stacked fries/chips with Zinger Strips",
+      "Stacked fries/chips with Chicken Strips",
     ],
     isNew: true,
   },
@@ -487,7 +487,7 @@ export default function MenuSection() {
     const cartItem: CartItem = {
       id: "zinger-strips",
       key,
-      name: "Zinger Strips",
+      name: "Chicken Strips",
       image: zingerProduct?.image || "/appetizer/ZingerStrips.webp",
       price: zingerProduct?.price || 349,
       quantity: 1,

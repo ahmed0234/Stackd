@@ -30,7 +30,7 @@ const MENU_CATEGORIES = [
     emoji: '🍗',
     href: '/menu/appetizers',
     accent: '#F5C400',
-    items: ['Stack Your Chips', 'Zinger Strips'],
+    items: ['Stack Your Chips', 'Chicken Strips'],
   },
   {
     id: 'fries',
@@ -307,7 +307,7 @@ export default function MenuDropdown({ onClose }: MenuDropdownProps) {
                         aria-hidden="true"
                       />
                       <span>{item}</span>
-                      {['Zinger Stack', 'Zinger Wrap', 'Smoke Wrap', 'Stack Your Chips', 'Zinger Strips'].includes(item) && (
+                      {['Zinger Stack', 'Zinger Wrap', 'Smoke Wrap', 'Stack Your Chips', 'Chicken Strips'].includes(item) && (
                         <span
                           style={{
                             marginLeft: 'auto',

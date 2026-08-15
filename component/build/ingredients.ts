@@ -96,7 +96,7 @@ export const PROTEINS: ProteinOption[] = [
   },
   {
     id: "protein-zinger-strips",
-    name: "Zinger Strips",
+    name: "Chicken Strips",
     image: "/BuildYourStack/Chicken/zingerstrips.webp",
     description:
       "Crispy, golden-fried spicy zinger tenders for a perfect crunch.",
