@@ -11,7 +11,6 @@ interface NavActionsProps {
 
 export default function NavActions({ cartCount, compact }: NavActionsProps) {
   const [cartHovered, setCartHovered] = useState(false)
-  const [accountHovered, setAccountHovered] = useState(false)
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
@@ -85,64 +84,6 @@ export default function NavActions({ cartCount, compact }: NavActionsProps) {
           )}
         </Link>
       </motion.div>
-
-      {/* Account — hide in compact mode */}
-      {!compact && (
-        <motion.div
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.33, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <Link
-            href="/account"
-            aria-label="Account"
-            onMouseEnter={() => setAccountHovered(true)}
-            onMouseLeave={() => setAccountHovered(false)}
-            style={{
-              position: 'relative',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 44,
-              height: 44,
-              borderRadius: 12,
-              background: accountHovered
-                ? 'rgba(255,255,255,0.07)'
-                : 'rgba(255,255,255,0.04)',
-              border: accountHovered
-                ? '1px solid rgba(255,255,255,0.14)'
-                : '1px solid rgba(255,255,255,0.07)',
-              textDecoration: 'none',
-              color: accountHovered
-                ? 'var(--color-text-primary)'
-                : 'var(--color-text-secondary)',
-              transition: 'all 0.2s ease',
-              overflow: 'hidden',
-            }}
-          >
-            {/* Shimmer on hover */}
-            <motion.div
-              aria-hidden="true"
-              initial={{ x: '-100%', opacity: 0 }}
-              animate={accountHovered ? { x: '100%', opacity: 0.4 } : { x: '-100%', opacity: 0 }}
-              transition={{ duration: 0.5, ease: 'easeIn' }}
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)',
-                pointerEvents: 'none',
-              }}
-            />
-            <motion.div
-              animate={accountHovered ? { scale: 1.1 } : { scale: 1 }}
-              transition={{ duration: 0.2 }}
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            >
-              <AccountIcon />
-            </motion.div>
-          </Link>
-        </motion.div>
-      )}
     </div>
   )
 }
@@ -159,21 +100,6 @@ function CartIcon() {
       />
       <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
       <path d="M16 10a4 4 0 01-8 0" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function AccountIcon() {
-  return (
-    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }

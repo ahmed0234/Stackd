@@ -545,9 +545,6 @@ export default function NewHero() {
                               </span>
                             )}
                           </div>
-                          <span className="text-xs font-sans font-bold text-brand flex-shrink-0">
-                            ⭐ 4.9
-                          </span>
                         </div>
 
                         {/* Significantly Larger Product Food Image */}

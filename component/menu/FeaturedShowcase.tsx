@@ -345,9 +345,6 @@ export default function FeaturedShowcase() {
                             {product.name}
                           </h3>
                         )}
-                        <span className="text-[10px] font-sans font-bold text-brand">
-                          ⭐ 4.9
-                        </span>
                       </div>
                       <p className="text-xs text-white/50 font-sans line-clamp-2 leading-relaxed mb-4">
                         {product.description}

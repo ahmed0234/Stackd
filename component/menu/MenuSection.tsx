@@ -609,12 +609,12 @@ export default function MenuSection() {
 
         {/* Category Selector Tabs */}
         <div className="flex flex-col items-center w-full mb-16">
-          <div className="relative w-full max-w-xl flex items-center justify-center">
+          <div className="relative w-full max-w-4xl flex items-center justify-center">
             {/* Right edge fade gradient on mobile */}
             <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[var(--color-dark-primary)] via-[var(--color-dark-primary)]/70 to-transparent pointer-events-none z-20 sm:hidden rounded-r-2xl" />
 
             <div className="relative flex items-center p-2 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-xl max-w-full overflow-x-auto scrollbar-none">
-              <div className="flex items-center gap-1.5 sm:gap-2.5 flex-nowrap pr-8 sm:pr-0">
+              <div className="flex items-center gap-1 sm:gap-2 flex-nowrap pr-8 sm:pr-0">
                 {CATEGORIES.map((cat) => {
                   const isActive = activeCategory === cat.id;
                   const IconComponent = cat.icon;
@@ -623,7 +623,7 @@ export default function MenuSection() {
                     <button
                       key={cat.id}
                       onClick={() => setActiveCategory(cat.id)}
-                      className="relative px-5 py-3 rounded-xl flex items-center gap-2 text-xs font-poppins font-extrabold uppercase tracking-widest transition-all duration-300 select-none cursor-pointer flex-shrink-0"
+                      className="relative px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl flex items-center gap-2 text-xs font-poppins font-extrabold uppercase tracking-widest transition-all duration-300 select-none cursor-pointer flex-shrink-0"
                       style={{
                         color: isActive
                           ? "#0a0a0a"
