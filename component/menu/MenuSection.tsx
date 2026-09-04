@@ -222,7 +222,7 @@ export const PRODUCTS: Product[] = [
     category: "fries",
     image: "/Fries/Fullstackdfries.webp",
     description:
-      "A loaded meal of crispy fries, chopped smash beef patties, melted cheese, pickles, and signature stack sauce.",
+      "Crispy fries loaded with melted cheese, pickles, and signature stack sauce.",
     price: FRIES_PRICES["full-stackd-fries"],
     tags: ["Meal Size"],
     accentColor: "#F97316",
@@ -233,7 +233,7 @@ export const PRODUCTS: Product[] = [
     category: "fries",
     image: "/Fries/chillicheesefries.webp",
     description:
-      "Golden fries smothered in hot beef chilli, jalapeños, and melted pepper jack cheese.",
+      "Golden fries smothered in hot chillies, jalapeños, and melted pepper jack cheese.",
     price: FRIES_PRICES["chilli-cheese-fries"],
     tags: ["Spicy"],
     accentColor: "#EF4444",
@@ -244,7 +244,7 @@ export const PRODUCTS: Product[] = [
     category: "fries",
     image: "/Fries/plain fries.webp",
     description:
-      "Crispy, hand-cut golden skin-on fries seasoned to perfection with signature stack spice.",
+      "Crispy golden skin-on fries seasoned with signature stack spice.",
     price: FRIES_PRICES["plain-fries"],
     tags: ["Classic"],
     accentColor: "#F5C400",
@@ -370,24 +370,6 @@ export const PRODUCTS: Product[] = [
     ],
   },
   // Category: Deals
-  {
-    id: "azadi-box",
-    name: "Azadi Box",
-    category: "deals",
-    image: "/Deals/AzadiBox.webp",
-    description:
-      "Celebrate Azadi with the ultimate feast! 2x 6\" Signature Stacks or Wraps, 1x Plain Fries, 1x Chicken Strips (4 Pcs), 1x Signature Dip, and 2x 340ML Chilled Drinks.",
-    price: 1499,
-    tags: ["Limited Time"],
-    accentColor: "#16A34A",
-    includes: [
-      "2x 6\" Signature Stacks or Wraps",
-      "1x Plain Fries",
-      "1x Chicken Strips (4 Pcs)",
-      "1x Signature Dip",
-      "2x 340ML Drinks",
-    ],
-  },
   {
     id: "solo-meal-deal",
     name: "Solo Meal Deal",

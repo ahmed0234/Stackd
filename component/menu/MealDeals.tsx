@@ -102,7 +102,6 @@ const DRINKS_CHOICES = [
 const DEAL_REQUIREMENTS: Record<string, { stacks: number; drinks: number }> = {
   "solo-meal-deal": { stacks: 1, drinks: 1 },
   "duo-stack-deal": { stacks: 2, drinks: 2 },
-  "azadi-box": { stacks: 2, drinks: 2 },
   "full-stack-meal-deal": { stacks: 3, drinks: 3 },
   "stackd-share-box": { stacks: 4, drinks: 4 },
 };
